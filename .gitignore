@@ -1,0 +1,41 @@
+# ===== Training artifacts (excluded — will be regenerated on vast.ai) =====
+training_output/
+training_output_backup/
+training_output_run4/**/*.log
+*.log
+bootstrap.log
+mjkey.txt
+*.mp4
+
+# ===== Old/deprecated training script versions =====
+train_ada_old.py
+train_ada_old2.py
+train_ada_old3.py
+
+# ===== Python =====
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+.pytest_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+
+# ===== Editor / OS =====
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# ===== MuJoCo / rendering scratch =====
+MUJOCO_LOG.TXT
+*.pyc
+
+# MuJoCo license keys and generated videos must stay local.
