@@ -1,74 +1,74 @@
-# Hide-and-Seek with Adaptive Auto-Curriculum
+# PhD — Emergent behaviour in Hide-and-Seek: ADA (PPO) vs Graph-as-Policy (GaP)
 
-This repository reproduces the final Hide-and-Seek experiment: OpenAI's quadrant environment and policy architecture, extended with a self-play opponent pool and an adaptive task curriculum.
+Both methods train **2 hiders vs 2 seekers** in OpenAI's unchanged *quadrant* hide-and-seek environment (MuJoCo 1.50).
 
-## What is included
+| Folder | What it is |
+|---|---|
+| `ada/` | PPO + self-play opponent pool + adaptive task curriculum (neural policy). Finished 43.4M-episode run; milestone checkpoints in `ada/checkpoints/` (Git LFS). |
+| `gap/` | Graph-as-Policy: one computation graph per team, updated **only by an LLM**, scored by parallel MuJoCo rehearsals. Results of past runs in `gap/results/`. |
+| `paper/` | LaTeX paper (`main.tex`, ICLR 2027 style), GaP vs ADA slides, figure script. |
+| `envs/` | HPC setup (`hpc_setup.sh`, `hpc_env.sh`, pinned `requirements-gap38.txt`). |
+| `mujoco-worldgen/`, `multi-agent-emergence-environments/` | Vendored OpenAI code, shared by `ada/` and `gap/`. Do not modify (the environment must stay identical for both methods). |
 
-- `train_ada.py`: final training program used for the 43.4M-episode run.
-- `render_ada.py`: render our policy checkpoint to MP4.
-- `render_quadrant.py`: render the original OpenAI policy supplied in the environment repository.
-- `run_train.sh`: training launcher with restart handling.
-- `setup_vastai.sh`: installs the required Ubuntu, MuJoCo, Python, PyTorch, Gym, TensorFlow, and rendering dependencies.
-- `monitor.sh`: follows training progress.
-- `validate_ramp_fix.py`: environment validation script.
-- `mujoco-worldgen/`: vendored OpenAI worldgen dependency.
-- `multi-agent-emergence-environments/`: vendored OpenAI environment and policy code.
-- `training_output_run4/`: the final policy and all saved training checkpoints.
+**New agent/session: read [AGENT_HANDOFF.md](AGENT_HANDOFF.md) first.** It has the full development history, design decisions and open issues.
 
-The checkpoints are stored with Git LFS. The paper is not included in this repository.
-
-## Reproduce the project
-
-Use Ubuntu 20.04 or 22.04 on a native x86_64 Vast.ai machine. The tested target is an NVIDIA RTX 4090, at least 32 CPU cores, and at least 64 GB RAM. CUDA 11.8 or newer is suitable.
+## Quick start on the UCY HPC (turing2)
 
 ```bash
+ssh ucy-hpc                                   # from the Mac
 git lfs install
-git clone https://github.com/apsaki01/Phd.git
-cd Phd
-git lfs pull
+git clone https://github.com/apsaki01/Phd.git ~/Phd
+cd ~/Phd && git lfs pull
+bash envs/hpc_setup.sh                        # once; re-running is safe
 ```
 
-The legacy MuJoCo 1.50 environment requires a valid MuJoCo key. Obtain your own
-key and place it at `/root/.mujoco/mjkey.txt` (or set
-`MUJOCO_PY_MJKEY_PATH` to its location). The key is intentionally not included
-in this repository and must not be committed.
+`~/.mujoco/mjkey.txt` must exist (it is **never** committed). Upload it from the Mac if missing:
+`scp ~/Downloads/mjkey.txt ucy-hpc:~/.mujoco/mjkey.txt`.
 
-Then install the dependencies:
+Scripts in `ada/` and `gap/` add the two vendored folders to `sys.path` themselves; nothing needs `pip install -e`.
+
+### Render ADA video (Slurm, CPU)
 
 ```bash
-bash setup_vastai.sh
-source ~/.bashrc
+cd ~/Phd && sbatch ada/render_ada_turing.slurm
+# options: ADA_CHECKPOINT=~/Phd/ada/checkpoints/rampuse.npz RENDER_EPISODES=5 sbatch ada/render_ada_turing.slurm
+# output: ~/ada_hide_and_seek_10episodes.mp4, log: ada-render-<jobid>.out
 ```
 
-For a new training run:
+### GaP training (Slurm, 48 CPUs + Bifrost LLM)
 
 ```bash
-bash run_train.sh
+cd ~/Phd
+read -s GAP_LLM_API_KEY && export GAP_LLM_API_KEY    # Bifrost virtual key, never write it to a file
+sbatch --export=ALL gap/run_gap_turing.slurm
+# output: ~/training_output_gap_turing/ (learning_curve.png, history.csv, train.log, best_*_graph.json)
 ```
 
-This starts a fresh run in `training_output/`. In another terminal, monitor it
-with `bash monitor.sh`. Set `OUTPUT_DIR` to use a different output location.
+Local smoke test without an LLM (about 1 min): `source envs/hpc_env.sh && cd gap && SMOKE_TEST=1 $PY train_gap.py`.
 
-To resume from the included run's latest checkpoint, use:
+### Render GaP graphs
 
 ```bash
-OUTPUT_DIR=training_output_run4 bash run_train.sh
+source envs/hpc_env.sh && cd gap
+$PY render_gap.py results/llm_only_2M_fast/best_hider_graph.json results/llm_only_2M_fast/best_seeker_graph.json
 ```
 
-The final experiment used 128 worker environments, an 80-step horizon, 4 PPO epochs, 1 minibatch, a 256-unit LSTM, 128-dimensional entity embeddings, 4 attention heads, an opponent pool of 10 snapshots, and a target of 43,400,000 episodes. A native x86_64 Ubuntu machine with a CUDA-capable GPU, 32 or more CPU cores, and at least 64 GB RAM is recommended.
+### ADA training (GPU machine)
 
-## Render a checkpoint
+`ada/setup_vastai.sh` (Vast.ai, Ubuntu, root) then `bash ada/run_train.sh`. Set `OUTPUT_DIR` for the output folder.
+To continue the finished run, copy `ada/checkpoints/final_policy.npz` to `<OUTPUT_DIR>/checkpoints/resume_latest.npz`.
 
-The renderer uses CPU so it does not require the training GPU:
+### Paper
 
-```bash
-RENDER_EPISODES=5 \
-RENDER_OUTPUT=ada_hide_and_seek.mp4 \
-python3 render_ada.py training_output_run4/final_policy.npz
-```
+`paper/main.tex` (paper), `paper/gap_vs_ada_slides.tex` (Beamer, 4 slides), `python3 paper/make_figures.py` regenerates `paper/images/`.
+The slides also need `paper/mujoco images/` (chasing, door blocking, ramp hide, ramp use PNGs).
 
-Set `RENDER_P_DOOR=1.0` for one-door scenes or `RENDER_P_DOOR=0.0` for two-door scenes. The default is a mixture.
+## Not in git
 
-## License and acknowledgements
+- `mjkey.txt`, any LLM key (`GAP_LLM_API_KEY`).
+- Training outputs (`training_output*/`), MP4 videos, Slurm `*.out` logs.
+- The 82 intermediate ADA checkpoints (only the 5 named milestones are kept).
 
-The environment and worldgen code originate from OpenAI's open-source Multi-Agent Emergence Environments and MuJoCo worldgen projects. The experiment code in this repository builds on those projects and should retain their original license files.
+## License
+
+The environment and worldgen code come from OpenAI's Multi-Agent Emergence Environments and MuJoCo worldgen projects; their license files are kept in the vendored folders.

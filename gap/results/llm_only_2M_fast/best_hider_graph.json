@@ -1,0 +1,71 @@
+{
+ "team": "hider",
+ "assign": "fixed",
+ "params": {
+  "gain": 4.0,
+  "damp": 0.5,
+  "tol": 0.3,
+  "offset": 0.15,
+  "seg_timeout": 30.0
+ },
+ "roles": [
+  {
+   "prep": [
+    {
+     "acquire": "ramp",
+     "deliver": "ramp_inside",
+     "lock": true,
+     "release": true,
+     "face": "target",
+     "route": "direct",
+     "gate": null
+    }
+   ],
+   "play": {
+    "behaviour": "flee",
+    "target": "outside_wall",
+    "route": "direct",
+    "segments": [
+     {
+      "acquire": null,
+      "deliver": "outside_wall",
+      "lock": false,
+      "release": false,
+      "face": "align",
+      "route": "direct",
+      "gate": "doors_sealed"
+     }
+    ]
+   }
+  },
+  {
+   "prep": [
+    {
+     "acquire": "box",
+     "deliver": "door_block",
+     "lock": true,
+     "release": true,
+     "face": "target",
+     "route": "door",
+     "gate": null
+    }
+   ],
+   "play": {
+    "behaviour": "search",
+    "target": "away_from_opponent",
+    "route": "direct",
+    "segments": [
+     {
+      "acquire": null,
+      "deliver": "away_from_opponent",
+      "lock": false,
+      "release": false,
+      "face": "align",
+      "route": "direct",
+      "gate": "doors_sealed"
+     }
+    ]
+   }
+  }
+ ]
+}

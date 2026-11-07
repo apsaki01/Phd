@@ -1,0 +1,2025 @@
+════════════════════════════════════════════════════════════════════════
+  Hide & Seek — Graph-as-Policy two-team self-learning
+════════════════════════════════════════════════════════════════════════
+  workers=14  budget=100,000 episodes  rehearsals/candidate=40  candidates=6
+  belief space: p_door ∈ [1.0, 0.75, 0.5, 0.25, 0.0], random spawns;  omniscient objects: True
+  graph-update agent: LLM (qwen3:8b)
+  output: /workspace/training_output_gap_pilot_neutral
+  graph validation detail: AssertionError: segment lock/release must be booleans; got lock=None (NoneType), release=None (NoneType)
+  LLM returned an invalid hider graph proposal
+  no candidate improved the hider graph
+[it     0 | H |  0.000M eps |   8.4 eps/s |     34s] J_h=0.343 WR_h=0.35   beh={'chase': 0.0, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=0/0
+  graph validation detail: AssertionError: unknown segment deliver 'search'
+  LLM returned an invalid seeker graph proposal
+  no candidate improved the seeker graph
+[it     1 | S |  0.001M eps |   8.1 eps/s |     69s] J_h=0.392 WR_h=0.40   beh={'chase': 0.0, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=0/0
+  graph validation detail: AssertionError: unknown segment gate 'box'
+  LLM returned an invalid hider graph proposal
+  no candidate improved the hider graph
+[it     2 | H |  0.001M eps |   8.2 eps/s |    102s] J_h=0.367 WR_h=0.38   beh={'chase': 0.0, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=0/0
+  graph validation detail: AssertionError: unknown segment acquire 'door_block'
+  LLM returned an invalid seeker graph proposal
+  no candidate improved the seeker graph
+[it     3 | S |  0.001M eps |   8.3 eps/s |    134s] J_h=0.441 WR_h=0.45   beh={'chase': 0.0, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=0/1
+  LLM returned a valid hider graph proposal
+  accepted LLM candidate for hider
+[it     4 | H |  0.001M eps |   8.6 eps/s |    163s] J_h=0.542 WR_h=0.60 + beh={'chase': 0.0, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=0/1
+  new hider graph:
+    assign=fixed params={'gain': 5.0, 'damp': 0.4, 'tol': 0.2, 'offset': 0.4, 'seg_timeout': 40.0}
+      role0 prep: [when doors_sealed] grab ramp to ramp[align,direct] lock | play: search then [when doors_sealed] grab ramp to ramp[align,direct] lock
+      role1 prep: [when doors_sealed] grab box to box[align,direct] lock | play: search then [when doors_sealed] grab box to box[align,direct] lock
+  graph validation detail: AssertionError: unknown segment acquire 'opponent'
+  LLM returned an invalid seeker graph proposal
+  accepted structural search candidate for seeker
+[it     5 | S |  0.002M eps |   9.2 eps/s |    184s] J_h=0.106 WR_h=0.03 + beh={'chase': 0.03, 'door': 0.03, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=0/0
+  new seeker graph:
+    assign=fixed params={'gain': 4.0, 'damp': 0.5, 'tol': 0.3, 'offset': 0.15, 'seg_timeout': 30.0}
+      role0 prep: (none) | play: chase
+      role1 prep: (none) | play: chase
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it     6 | H |  0.002M eps |   9.4 eps/s |    209s] J_h=0.337 WR_h=0.33   beh={'chase': 0.0, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=1/0
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it     7 | S |  0.002M eps |   9.8 eps/s |    230s] J_h=0.142 WR_h=0.10 + beh={'chase': 0.1, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=1/1
+  new seeker graph:
+    assign=fixed params={'gain': 4.0, 'damp': 0.5, 'tol': 0.3, 'offset': 0.15, 'seg_timeout': 30.0}
+      role0 prep: (none) | play: chase
+      role1 prep: (none) | play: chase
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it     8 | H |  0.003M eps |   9.7 eps/s |    260s] J_h=0.246 WR_h=0.10   beh={'chase': 0.03, 'door': 0.03, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=2/1
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it     9 | S |  0.003M eps |   9.7 eps/s |    287s] J_h=0.155 WR_h=0.10 + beh={'chase': 0.03, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=2/2
+  new seeker graph:
+    assign=fixed params={'gain': 4.0, 'damp': 0.5, 'tol': 0.3, 'offset': 0.15, 'seg_timeout': 30.0}
+      role0 prep: (none) | play: chase
+      role1 prep: (none) | play: chase then grab ramp to quadrant_corner[target,direct]
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it    10 | H |  0.003M eps |   9.6 eps/s |    321s] J_h=0.278 WR_h=0.23 + beh={'chase': 0.03, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=3/2
+  new hider graph:
+    assign=nearest_object params={'gain': 5.0, 'damp': 0.4, 'tol': 0.2, 'offset': 0.4, 'seg_timeout': 40.0}
+      role0 prep: [when doors_sealed] grab ramp to ramp[align,direct] lock | play: search then [when doors_sealed] grab ramp to ramp[align,direct] lock
+      role1 prep: [when doors_sealed] grab box to box[align,direct] lock | play: search then [when doors_sealed] grab box to box[align,direct] lock
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it    11 | S |  0.003M eps |   9.8 eps/s |    344s] J_h=0.201 WR_h=0.07 + beh={'chase': 0.07, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=3/3
+  new seeker graph:
+    assign=fixed params={'gain': 4.9, 'damp': 0.5, 'tol': 0.3, 'offset': 0.15, 'seg_timeout': 30.0}
+      role0 prep: (none) | play: chase then grab ramp to quadrant_corner[target,direct]
+      role1 prep: (none) | play: chase
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it    12 | H |  0.004M eps |   9.9 eps/s |    368s] J_h=0.276 WR_h=0.17 + beh={'chase': 0.05, 'door': 0.03, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=4/3
+  new hider graph:
+    assign=nearest_object params={'gain': 6.0, 'damp': 0.4, 'tol': 0.2, 'offset': 0.4, 'seg_timeout': 40.0}
+      role0 prep: [when doors_sealed] grab box to box[align,direct] lock | play: search then [when doors_sealed] grab box to box[align,direct] lock
+      role1 prep: [when doors_sealed] grab box to box[align,direct] lock | play: search then [when doors_sealed] grab box to box[align,direct] lock
+  graph validation detail: AssertionError: unknown segment acquire 'door'
+  LLM returned an invalid seeker graph proposal
+  accepted structural search candidate for seeker
+[it    13 | S |  0.004M eps |  10.0 eps/s |    392s] J_h=0.163 WR_h=0.05 + beh={'chase': 0.05, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=4/4
+  new seeker graph:
+    assign=fixed params={'gain': 4.9, 'damp': 0.5, 'tol': 0.3, 'offset': 0.15, 'seg_timeout': 30.0}
+      role0 prep: (none) | play: flee then grab ramp to quadrant_corner[target,direct]
+      role1 prep: (none) | play: chase
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it    14 | H |  0.004M eps |  10.1 eps/s |    418s] J_h=0.234 WR_h=0.15 + beh={'chase': 0.05, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=5/4
+  new hider graph:
+    assign=nearest_object params={'gain': 6.0, 'damp': 0.4, 'tol': 0.2, 'offset': 0.4, 'seg_timeout': 40.0}
+      role0 prep: [when doors_sealed] grab box to box[align,direct] lock | play: search then [when doors_sealed] grab box to box[align,direct] lock
+      role1 prep: [when doors_sealed] grab box to box[align,direct] lock | play: search then grab box to door_block[yaw3,door] lock release -> [when doors_sealed] grab box to box[align,direct] lock
+  LLM returned a valid seeker graph proposal
+  no candidate improved the seeker graph
+[it    15 | S |  0.004M eps |  10.3 eps/s |    437s] J_h=0.154 WR_h=0.00   beh={'chase': 0.07, 'door': 0.03, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=5/5
+  graph validation detail: AssertionError: unknown segment acquire 'door'
+  LLM returned an invalid hider graph proposal
+  no candidate improved the hider graph
+[it    16 | H |  0.005M eps |  10.2 eps/s |    465s] J_h=0.187 WR_h=0.07   beh={'chase': 0.1, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=6/5
+  LLM returned a valid seeker graph proposal
+  no candidate improved the seeker graph
+[it    17 | S |  0.005M eps |  10.3 eps/s |    489s] J_h=0.166 WR_h=0.07   beh={'chase': 0.07, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=6/6
+  graph validation detail: AssertionError: unknown segment gate 'ramp'
+  LLM returned an invalid hider graph proposal
+  no candidate improved the hider graph
+[it    18 | H |  0.005M eps |  10.4 eps/s |    511s] J_h=0.245 WR_h=0.12   beh={'chase': 0.05, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=7/6
+  graph validation detail: AssertionError: unknown segment acquire 'door'
+  LLM returned an invalid seeker graph proposal
+  no candidate improved the seeker graph
+[it    19 | S |  0.006M eps |  10.6 eps/s |    531s] J_h=0.170 WR_h=0.10   beh={'chase': 0.2, 'door': 0.03, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=7/7
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it    20 | H |  0.006M eps |  10.6 eps/s |    554s] J_h=0.268 WR_h=0.25 + beh={'chase': 0.1, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=8/7
+  new hider graph:
+    assign=nearest_object params={'gain': 6.0, 'damp': 0.4, 'tol': 0.32, 'offset': 0.4, 'seg_timeout': 40.0}
+      role0 prep: [when doors_sealed] grab box to box[align,direct] lock | play: search
+      role1 prep: [when doors_sealed] grab box to box[align,direct] lock | play: search then grab box to door_block[yaw3,door] lock release
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it    21 | S |  0.006M eps |  10.6 eps/s |    580s] J_h=0.162 WR_h=0.07 + beh={'chase': 0.05, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=8/8
+  new seeker graph:
+    assign=fixed params={'gain': 4.9, 'damp': 0.5, 'tol': 0.27, 'offset': 0.15, 'seg_timeout': 30.0}
+      role0 prep: (none) | play: flee then [when door] to opponent[yaw2,door] -> grab ramp to quadrant_corner[target,direct]
+      role1 prep: (none) | play: chase
+  graph validation detail: AssertionError: unknown segment acquire 'door'
+  LLM returned an invalid hider graph proposal
+  accepted structural search candidate for hider
+[it    22 | H |  0.006M eps |  10.6 eps/s |    605s] J_h=0.216 WR_h=0.10 + beh={'chase': 0.0, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=9/8
+  new hider graph:
+    assign=nearest_object params={'gain': 6.0, 'damp': 0.4, 'tol': 0.32, 'offset': 0.4, 'seg_timeout': 36.09}
+      role0 prep: [when doors_sealed] grab box to box[align,direct] lock | play: search
+      role1 prep: [when doors_sealed] grab box to box[align,direct] lock | play: search then grab box to door_block[yaw3,door] lock release
+  LLM returned a valid seeker graph proposal
+  no candidate improved the seeker graph
+[it    23 | S |  0.007M eps |  10.7 eps/s |    630s] J_h=0.158 WR_h=0.05   beh={'chase': 0.03, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=9/9
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it    24 | H |  0.007M eps |  10.7 eps/s |    657s] J_h=0.317 WR_h=0.30 + beh={'chase': 0.05, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=10/9
+  new hider graph:
+    assign=nearest_object params={'gain': 6.0, 'damp': 0.4, 'tol': 0.32, 'offset': 0.4, 'seg_timeout': 36.09}
+      role0 prep: [when doors_sealed] grab box to box[align,direct] lock | play: search
+      role1 prep: [when doors_sealed] grab box to box[align,direct] lock | play: search then grab box to door_block[yaw3,door] lock release
+  graph validation detail: AssertionError: unknown segment deliver 'door'
+  LLM returned an invalid seeker graph proposal
+  no candidate improved the seeker graph
+[it    25 | S |  0.007M eps |  10.7 eps/s |    678s] J_h=0.162 WR_h=0.03   beh={'chase': 0.1, 'door': 0.03, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=10/10
+  graph validation detail: AssertionError: unknown segment acquire 'ramp_inside'
+  LLM returned an invalid hider graph proposal
+  accepted structural search candidate for hider
+[it    26 | H |  0.008M eps |  10.8 eps/s |    703s] J_h=0.285 WR_h=0.20 + beh={'chase': 0.03, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=11/10
+  new hider graph:
+    assign=nearest_object params={'gain': 6.0, 'damp': 0.4, 'tol': 0.32, 'offset': 0.4, 'seg_timeout': 36.09}
+      role0 prep: [when doors_sealed] grab box to box[align,direct] lock | play: search then grab box to door_inside[target,direct] release
+      role1 prep: [when doors_sealed] grab box to box[align,direct] lock | play: search then grab box to door_block[yaw3,door] lock release
+  graph validation detail: AssertionError: unknown segment acquire 'door'
+  LLM returned an invalid seeker graph proposal
+  no candidate improved the seeker graph
+[it    27 | S |  0.008M eps |  10.8 eps/s |    726s] J_h=0.159 WR_h=0.00   beh={'chase': 0.03, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=11/11
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it    28 | H |  0.008M eps |  10.8 eps/s |    750s] J_h=0.253 WR_h=0.17 + beh={'chase': 0.05, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.2} stale(h/s)=12/11
+  new hider graph:
+    assign=nearest_object params={'gain': 6.0, 'damp': 0.4, 'tol': 0.32, 'offset': 0.4, 'seg_timeout': 36.09}
+      role0 prep: [when doors_sealed] grab box to box[align,direct] lock | play: search
+      role1 prep: grab ramp to ramp_inside[yaw3,direct] release -> [when doors_sealed] grab box to box[align,direct] lock | play: search then grab box to door_block[yaw3,door] lock release -> [when teammate_inside] grab box to teammate[align,direct]
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it    29 | S |  0.008M eps |  10.8 eps/s |    774s] J_h=0.192 WR_h=0.07 + beh={'chase': 0.07, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.16} stale(h/s)=12/12
+  new seeker graph:
+    assign=fixed params={'gain': 4.9, 'damp': 0.5, 'tol': 0.27, 'offset': 0.15, 'seg_timeout': 30.26}
+      role0 prep: (none) | play: flee then [when door] to opponent[yaw2,door] -> grab ramp to quadrant_corner[target,direct] -> [when opponent_visible] to outside_wall[yaw0,direct] release
+      role1 prep: (none) | play: chase
+  graph validation detail: AssertionError: unknown segment acquire 'door_block'
+  LLM returned an invalid hider graph proposal
+  accepted structural search candidate for hider
+[it    30 | H |  0.009M eps |  10.9 eps/s |    798s] J_h=0.226 WR_h=0.10 + beh={'chase': 0.07, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.2} stale(h/s)=13/12
+  new hider graph:
+    assign=fixed params={'gain': 6.0, 'damp': 0.4, 'tol': 0.32, 'offset': 0.4, 'seg_timeout': 36.09}
+      role0 prep: [when teammate_inside] grab box to box[align,direct] lock | play: search
+      role1 prep: grab ramp to ramp_inside[yaw3,direct] release -> [when doors_sealed] grab box to box[align,direct] lock | play: search then grab box to door_block[yaw3,door] lock release -> [when teammate_inside] grab box to teammate[align,direct]
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it    31 | S |  0.009M eps |  10.9 eps/s |    823s] J_h=0.154 WR_h=0.07 + beh={'chase': 0.1, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.17} stale(h/s)=13/13
+  new seeker graph:
+    assign=fixed params={'gain': 4.9, 'damp': 0.5, 'tol': 0.27, 'offset': 0.15, 'seg_timeout': 30.26}
+      role0 prep: (none) | play: flee then [when door] to opponent[yaw2,door] -> grab box to ramp[target,door] lock release -> grab ramp to quadrant_corner[target,direct] -> [when opponent_visible] to outside_wall[yaw0,direct] release
+      role1 prep: (none) | play: chase
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it    32 | H |  0.009M eps |  10.9 eps/s |    851s] J_h=0.289 WR_h=0.30   beh={'chase': 0.03, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.14} stale(h/s)=14/13
+  LLM returned a valid seeker graph proposal
+  no candidate improved the seeker graph
+[it    33 | S |  0.010M eps |  10.9 eps/s |    874s] J_h=0.171 WR_h=0.03   beh={'chase': 0.07, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.14} stale(h/s)=14/14
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it    34 | H |  0.010M eps |  10.9 eps/s |    900s] J_h=0.214 WR_h=0.07 + beh={'chase': 0.07, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.26} stale(h/s)=15/14
+  new hider graph:
+    assign=fixed params={'gain': 6.0, 'damp': 0.47, 'tol': 0.32, 'offset': 0.4, 'seg_timeout': 36.09}
+      role0 prep: [when teammate_inside] grab box to box[align,direct] lock | play: search
+      role1 prep: grab ramp to ramp_inside[yaw3,direct] release -> [when doors_sealed] grab box to box[align,direct] lock | play: search then grab box to door_block[yaw3,door] lock release -> [when teammate_inside] grab box to teammate[align,direct]
+  graph validation detail: AssertionError: unknown segment deliver 'ramp_defense'
+  LLM returned an invalid seeker graph proposal
+  no candidate improved the seeker graph
+[it    35 | S |  0.010M eps |  10.9 eps/s |    925s] J_h=0.221 WR_h=0.15   beh={'chase': 0.05, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.07} stale(h/s)=15/15
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it    36 | H |  0.010M eps |  10.9 eps/s |    954s] J_h=0.221 WR_h=0.15 + beh={'chase': 0.05, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.24} stale(h/s)=16/15
+  new hider graph:
+    assign=fixed params={'gain': 6.0, 'damp': 0.47, 'tol': 0.32, 'offset': 0.4, 'seg_timeout': 36.09}
+      role0 prep: [when teammate_inside] grab box to climb[align,door] lock | play: search
+      role1 prep: grab ramp to ramp_inside[yaw3,direct] release -> [when doors_sealed] grab box to box[align,direct] lock | play: search then grab box to door_block[yaw3,door] lock release -> [when teammate_inside] grab box to teammate[align,direct]
+  graph validation detail: AssertionError: unknown segment deliver 'target'
+  LLM returned an invalid seeker graph proposal
+  no candidate improved the seeker graph
+[it    37 | S |  0.011M eps |  10.9 eps/s |    977s] J_h=0.199 WR_h=0.10   beh={'chase': 0.05, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.15} stale(h/s)=16/16
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it    38 | H |  0.011M eps |  10.9 eps/s |   1002s] J_h=0.247 WR_h=0.20 + beh={'chase': 0.03, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.23} stale(h/s)=17/16
+  new hider graph:
+    assign=fixed params={'gain': 6.0, 'damp': 0.47, 'tol': 0.32, 'offset': 0.4, 'seg_timeout': 36.09}
+      role0 prep: [when teammate_inside] grab box to climb[align,door] lock | play: go(teammate,door)
+      role1 prep: grab ramp to ramp_inside[yaw3,direct] release -> [when doors_sealed] grab box to box[align,direct] lock | play: search then grab box to door_block[yaw3,door] lock release -> [when teammate_inside] grab box to teammate[align,direct]
+  graph validation detail: AssertionError: unknown segment acquire 'ramp_inside'
+  LLM returned an invalid seeker graph proposal
+  no candidate improved the seeker graph
+[it    39 | S |  0.011M eps |  10.9 eps/s |   1029s] J_h=0.201 WR_h=0.10   beh={'chase': 0.03, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.19} stale(h/s)=17/17
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it    40 | H |  0.011M eps |  10.9 eps/s |   1056s] J_h=0.249 WR_h=0.17   beh={'chase': 0.03, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.32} stale(h/s)=18/17
+  graph validation detail: AssertionError: unknown segment deliver 'door'
+  LLM returned an invalid seeker graph proposal
+  no candidate improved the seeker graph
+[it    41 | S |  0.012M eps |  10.9 eps/s |   1081s] J_h=0.190 WR_h=0.07   beh={'chase': 0.03, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.12} stale(h/s)=18/18
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it    42 | H |  0.012M eps |  10.8 eps/s |   1111s] J_h=0.316 WR_h=0.28 + beh={'chase': 0.12, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.15} stale(h/s)=19/18
+  new hider graph:
+    assign=fixed params={'gain': 6.0, 'damp': 0.47, 'tol': 0.32, 'offset': 0.16, 'seg_timeout': 36.09}
+      role0 prep: [when teammate_inside] grab box to climb[align,door] lock | play: go(teammate,door)
+      role1 prep: grab ramp to ramp_inside[yaw3,direct] release -> [when doors_sealed] grab box to box[align,direct] lock release | play: segments then grab box to door_block[yaw3,door] lock release -> [when teammate_inside] grab box to teammate[align,direct]
+  LLM returned a valid seeker graph proposal
+  accepted LLM candidate for seeker
+[it    43 | S |  0.012M eps |  10.7 eps/s |   1153s] J_h=0.235 WR_h=0.23 + beh={'chase': 0.03, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.13} stale(h/s)=19/19
+  new seeker graph:
+    assign=fixed params={'gain': 5.0, 'damp': 0.6, 'tol': 0.3, 'offset': 0.2, 'seg_timeout': 20.0}
+      role0 prep: (none) | play: search then [when door] to door_block[yaw0,door] -> [when doors_sealed] grab box to ramp[target,door] lock release -> [when ramp_inside] grab ramp to quadrant_corner[target,direct] -> [when opponent_visible] to outside_wall[yaw0,direct] release
+      role1 prep: (none) | play: chase
+  graph validation detail: AssertionError: roles must contain exactly two agent roles
+  LLM returned an invalid hider graph proposal
+  accepted structural search candidate for hider
+[it    44 | H |  0.013M eps |  10.7 eps/s |   1180s] J_h=0.270 WR_h=0.15 + beh={'chase': 0.05, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.13} stale(h/s)=20/19
+  new hider graph:
+    assign=fixed params={'gain': 6.0, 'damp': 0.47, 'tol': 0.32, 'offset': 0.16, 'seg_timeout': 36.09}
+      role0 prep: [when teammate_inside] grab box to climb[align,door] lock | play: go(teammate,door)
+      role1 prep: grab ramp to ramp_inside[yaw3,direct] release | play: segments then grab box to door_block[yaw3,door] lock release -> [when teammate_inside] grab box to teammate[align,direct]
+  LLM returned a valid seeker graph proposal
+  no candidate improved the seeker graph
+[it    45 | S |  0.013M eps |  10.6 eps/s |   1215s] J_h=0.208 WR_h=0.10   beh={'chase': 0.05, 'door': 0.0, 'r_use': 0.03, 'r_def': 0.12} stale(h/s)=20/20
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it    46 | H |  0.013M eps |  10.6 eps/s |   1239s] J_h=0.311 WR_h=0.25 + beh={'chase': 0.03, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.12} stale(h/s)=21/20
+  new hider graph:
+    assign=fixed params={'gain': 6.0, 'damp': 0.47, 'tol': 0.32, 'offset': 0.16, 'seg_timeout': 36.09}
+      role0 prep: to door_inside[target,direct] release -> [when teammate_inside] grab box to climb[align,door] lock | play: go(teammate,door)
+      role1 prep: grab ramp to ramp_inside[yaw3,direct] release | play: segments then grab box to door_block[yaw3,door] lock release -> [when teammate_inside] grab box to teammate[align,direct]
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it    47 | S |  0.013M eps |  10.6 eps/s |   1273s] J_h=0.133 WR_h=0.05 + beh={'chase': 0.05, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.13} stale(h/s)=21/21
+  new seeker graph:
+    assign=nearest_object params={'gain': 5.0, 'damp': 0.6, 'tol': 0.3, 'offset': 0.2, 'seg_timeout': 20.0}
+      role0 prep: (none) | play: chase then [when door] to door_block[yaw0,door] -> [when doors_sealed] grab box to ramp[target,door] lock release -> [when ramp_inside] grab ramp to quadrant_corner[target,direct] -> [when opponent_visible] to outside_wall[yaw0,direct] release
+      role1 prep: (none) | play: chase
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it    48 | H |  0.014M eps |  10.6 eps/s |   1298s] J_h=0.216 WR_h=0.12 + beh={'chase': 0.07, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.12} stale(h/s)=22/21
+  new hider graph:
+    assign=fixed params={'gain': 6.0, 'damp': 0.47, 'tol': 0.32, 'offset': 0.16, 'seg_timeout': 36.09}
+      role0 prep: to door_inside[target,direct] release -> [when teammate_inside] grab box to climb[align,door] lock | play: search
+      role1 prep: grab ramp to ramp_inside[yaw3,direct] release | play: segments then grab box to door_block[yaw3,door] lock release -> [when teammate_inside] grab box to teammate[align,direct]
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it    49 | S |  0.014M eps |  10.5 eps/s |   1330s] J_h=0.181 WR_h=0.10 + beh={'chase': 0.03, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.22} stale(h/s)=22/22
+  new seeker graph:
+    assign=nearest_object params={'gain': 5.0, 'damp': 0.6, 'tol': 0.3, 'offset': 0.2, 'seg_timeout': 20.0}
+      role0 prep: (none) | play: chase then [when door] to door_block[yaw0,door] -> [when doors_sealed] grab box to ramp[target,door] lock release -> [when ramp_inside] grab ramp to quadrant_corner[target,direct] -> [when opponent_visible] to outside_wall[yaw0,direct] release
+      role1 prep: (none) | play: chase then grab box to opponent[yaw0,direct] lock release
+  graph validation detail: AssertionError: unknown play behaviour 'wander'
+  LLM returned an invalid hider graph proposal
+  accepted structural search candidate for hider
+[it    50 | H |  0.014M eps |  10.5 eps/s |   1356s] J_h=0.187 WR_h=0.07 + beh={'chase': 0.12, 'door': 0.0, 'r_use': 0.03, 'r_def': 0.1} stale(h/s)=23/22
+  new hider graph:
+    assign=fixed params={'gain': 6.0, 'damp': 0.47, 'tol': 0.32, 'offset': 0.16, 'seg_timeout': 36.09}
+      role0 prep: to door_inside[target,direct] release -> [when teammate_inside] grab box to climb[align,door] lock | play: search
+      role1 prep: grab ramp to ramp_inside[yaw3,direct] release | play: segments then grab box to door_block[yaw3,door] lock release -> [when teammate_inside] grab box to teammate[align,direct]
+  LLM returned a valid seeker graph proposal
+  no candidate improved the seeker graph
+[it    51 | S |  0.015M eps |  10.6 eps/s |   1379s] J_h=0.168 WR_h=0.10   beh={'chase': 0.05, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.29} stale(h/s)=23/23
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it    52 | H |  0.015M eps |  10.6 eps/s |   1403s] J_h=0.245 WR_h=0.20 + beh={'chase': 0.07, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.23} stale(h/s)=24/23
+  new hider graph:
+    assign=fixed params={'gain': 6.0, 'damp': 0.47, 'tol': 0.32, 'offset': 0.16, 'seg_timeout': 36.09}
+      role0 prep: grab ramp to ramp_inside[yaw3,direct] release | play: segments then grab box to door_block[yaw3,door] lock release -> [when teammate_inside] grab box to teammate[align,direct]
+      role1 prep: grab ramp to ramp_inside[yaw3,direct] release | play: segments then grab box to door_block[yaw3,door] lock release
+  LLM returned a valid seeker graph proposal
+  no candidate improved the seeker graph
+[it    53 | S |  0.015M eps |  10.5 eps/s |   1444s] J_h=0.186 WR_h=0.15   beh={'chase': 0.05, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.19} stale(h/s)=24/24
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it    54 | H |  0.015M eps |  10.5 eps/s |   1470s] J_h=0.383 WR_h=0.38 + beh={'chase': 0.07, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.29} stale(h/s)=25/24
+  new hider graph:
+    assign=fixed params={'gain': 6.0, 'damp': 0.47, 'tol': 0.32, 'offset': 0.16, 'seg_timeout': 36.09}
+      role0 prep: grab ramp to ramp_inside[align,direct] release | play: segments then grab box to door_block[yaw3,door] lock release -> [when teammate_inside] grab box to teammate[align,direct]
+      role1 prep: grab ramp to ramp_inside[yaw3,direct] release | play: segments then grab box to stay[yaw3,door] lock release
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it    55 | S |  0.016M eps |  10.5 eps/s |   1497s] J_h=0.188 WR_h=0.15 + beh={'chase': 0.07, 'door': 0.0, 'r_use': 0.03, 'r_def': 0.19} stale(h/s)=25/25
+  new seeker graph:
+    assign=nearest_object params={'gain': 5.0, 'damp': 0.6, 'tol': 0.3, 'offset': 0.2, 'seg_timeout': 20.0}
+      role0 prep: (none) | play: chase then [when door] to door_block[yaw0,door] -> [when doors_sealed] grab box to ramp[yaw3,door] lock release -> [when ramp_inside] grab ramp to quadrant_corner[target,direct] -> [when opponent_visible] to outside_wall[yaw0,direct] release
+      role1 prep: (none) | play: chase then [when door] to door_block[yaw0,door] -> [when doors_sealed] grab box to ramp[yaw3,door] lock release -> [when ramp_inside] grab ramp to quadrant_corner[target,direct] -> [when opponent_visible] to outside_wall[yaw0,direct] release
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it    56 | H |  0.016M eps |  10.5 eps/s |   1526s] J_h=0.317 WR_h=0.30 + beh={'chase': 0.07, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.32} stale(h/s)=26/25
+  new hider graph:
+    assign=fixed params={'gain': 6.0, 'damp': 0.47, 'tol': 0.32, 'offset': 0.16, 'seg_timeout': 36.09}
+      role0 prep: grab ramp to ramp_inside[align,direct] release | play: segments then grab box to door_block[yaw3,door] lock release -> [when teammate_inside] grab box to teammate[align,direct]
+      role1 prep: grab ramp to ramp_inside[yaw3,direct] release | play: segments then grab box to stay[yaw3,door] lock release
+  LLM returned a valid seeker graph proposal
+  no candidate improved the seeker graph
+[it    57 | S |  0.016M eps |  10.5 eps/s |   1553s] J_h=0.181 WR_h=0.15   beh={'chase': 0.1, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.2} stale(h/s)=26/26
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it    58 | H |  0.017M eps |  10.4 eps/s |   1588s] J_h=0.302 WR_h=0.23 + beh={'chase': 0.03, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.14} stale(h/s)=27/26
+  new hider graph:
+    assign=fixed params={'gain': 6.0, 'damp': 0.47, 'tol': 0.32, 'offset': 0.16, 'seg_timeout': 36.09}
+      role0 prep: (none) | play: segments then grab box to door_block[yaw3,door] lock release -> [when teammate_inside] grab box to teammate[align,direct]
+      role1 prep: grab ramp to ramp_inside[yaw3,direct] release | play: segments then grab box to stay[yaw3,door] lock release
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it    59 | S |  0.017M eps |  10.4 eps/s |   1617s] J_h=0.185 WR_h=0.10 + beh={'chase': 0.1, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.18} stale(h/s)=27/27
+  new seeker graph:
+    assign=nearest_object params={'gain': 5.0, 'damp': 0.6, 'tol': 0.3, 'offset': 0.2, 'seg_timeout': 20.0}
+      role0 prep: (none) | play: chase then [when door] to door_block[yaw0,door] -> [when doors_sealed] grab box to ramp[yaw3,door] lock release -> [when ramp_inside] grab ramp to quadrant_corner[target,direct] -> [when opponent_visible] to outside_wall[yaw0,direct] release
+      role1 prep: (none) | play: chase then [when doors_sealed] grab box to ramp[yaw3,door] lock release -> [when ramp_inside] grab ramp to quadrant_corner[target,direct] -> [when opponent_visible] to outside_wall[yaw0,direct] release
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it    60 | H |  0.017M eps |  10.4 eps/s |   1642s] J_h=0.299 WR_h=0.30 + beh={'chase': 0.1, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.09} stale(h/s)=28/27
+  new hider graph:
+    assign=fixed params={'gain': 6.0, 'damp': 0.47, 'tol': 0.32, 'offset': 0.16, 'seg_timeout': 36.09}
+      role0 prep: grab ramp to ramp_inside[yaw3,direct] release | play: segments then grab box to stay[yaw3,door] lock
+      role1 prep: grab ramp to ramp_inside[yaw3,direct] release | play: segments then grab box to stay[yaw3,door] lock
+  graph validation detail: AssertionError: roles must contain exactly two agent roles
+  LLM returned an invalid seeker graph proposal
+  accepted structural search candidate for seeker
+[it    61 | S |  0.017M eps |  10.4 eps/s |   1669s] J_h=0.246 WR_h=0.17 + beh={'chase': 0.15, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.26} stale(h/s)=28/28
+  new seeker graph:
+    assign=nearest_object params={'gain': 5.0, 'damp': 0.6, 'tol': 0.3, 'offset': 0.2, 'seg_timeout': 20.0}
+      role0 prep: (none) | play: chase then [when door] to door_block[yaw0,door] -> [when doors_sealed] grab box to ramp[yaw3,door] lock release -> [when ramp_inside] to quadrant_corner[target,direct] -> [when opponent_visible] to outside_wall[yaw0,direct] release
+      role1 prep: (none) | play: chase then [when door] to door_block[yaw0,door] lock -> [when doors_sealed] grab box to ramp[yaw3,door] lock release -> [when ramp_inside] to quadrant_corner[target,direct] -> [when opponent_visible] to outside_wall[yaw0,direct] release
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it    62 | H |  0.018M eps |  10.4 eps/s |   1692s] J_h=0.297 WR_h=0.30   beh={'chase': 0.23, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.15} stale(h/s)=29/28
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it    63 | S |  0.018M eps |  10.4 eps/s |   1729s] J_h=0.252 WR_h=0.23 + beh={'chase': 0.17, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.15} stale(h/s)=29/29
+  new seeker graph:
+    assign=nearest_object params={'gain': 5.0, 'damp': 0.6, 'tol': 0.3, 'offset': 0.2, 'seg_timeout': 20.0}
+      role0 prep: (none) | play: chase then [when door] to door_block[yaw0,door] lock -> [when doors_sealed] grab box to ramp[yaw3,door] lock release -> [when ramp_inside] to quadrant_corner[target,direct] -> [when opponent_visible] to outside_wall[yaw0,direct] release
+      role1 prep: (none) | play: chase then [when door] to door_block[yaw0,door] lock -> [when doors_sealed] grab box to ramp[yaw3,door] lock release -> [when ramp_inside] to quadrant_corner[target,direct] -> [when opponent_visible] to outside_wall[yaw0,direct] release
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it    64 | H |  0.018M eps |  10.3 eps/s |   1762s] J_h=0.357 WR_h=0.35   beh={'chase': 0.2, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=30/29
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it    65 | S |  0.018M eps |  10.3 eps/s |   1792s] J_h=0.246 WR_h=0.20 + beh={'chase': 0.17, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.2} stale(h/s)=30/30
+  new seeker graph:
+    assign=fixed params={'gain': 5.0, 'damp': 0.6, 'tol': 0.3, 'offset': 0.2, 'seg_timeout': 20.0}
+      role0 prep: (none) | play: chase then [when door] to door_block[yaw0,door] lock -> [when doors_sealed] grab box to ramp[yaw3,door] lock release -> [when ramp_inside] to quadrant_corner[target,direct]
+      role1 prep: (none) | play: chase then [when door] to door_block[yaw0,door] lock -> [when doors_sealed] grab box to ramp[yaw3,door] lock release -> [when ramp_inside] to quadrant_corner[target,direct] -> [when opponent_visible] to outside_wall[yaw0,direct] release
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it    66 | H |  0.019M eps |  10.3 eps/s |   1821s] J_h=0.326 WR_h=0.28   beh={'chase': 0.28, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.25} stale(h/s)=31/30
+  graph validation detail: AssertionError: unknown play target 'door'
+  LLM returned an invalid seeker graph proposal
+  accepted structural search candidate for seeker
+[it    67 | S |  0.019M eps |  10.3 eps/s |   1847s] J_h=0.260 WR_h=0.17 + beh={'chase': 0.07, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.13} stale(h/s)=31/31
+  new seeker graph:
+    assign=nearest_object params={'gain': 5.0, 'damp': 0.6, 'tol': 0.3, 'offset': 0.2, 'seg_timeout': 20.0}
+      role0 prep: (none) | play: segments then [when door] to door_block[yaw0,door] lock -> grab box to ramp[yaw2,direct] lock release -> [when doors_sealed] grab box to ramp[yaw3,door] lock release -> [when ramp_inside] to quadrant_corner[target,direct]
+      role1 prep: (none) | play: chase then [when door] to door_block[yaw0,door] lock -> [when doors_sealed] grab box to ramp[yaw3,door] lock release -> [when ramp_inside] to quadrant_corner[target,direct] -> [when opponent_visible] to outside_wall[yaw0,direct] release
+  graph validation detail: AssertionError: unknown segment acquire 'quadrant_interior'
+  LLM returned an invalid hider graph proposal
+  no candidate improved the hider graph
+[it    68 | H |  0.019M eps |  10.3 eps/s |   1883s] J_h=0.354 WR_h=0.30   beh={'chase': 0.15, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.28} stale(h/s)=32/31
+  LLM returned a valid seeker graph proposal
+  no candidate improved the seeker graph
+[it    69 | S |  0.020M eps |  10.2 eps/s |   1915s] J_h=0.232 WR_h=0.20   beh={'chase': 0.2, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=32/32
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it    70 | H |  0.020M eps |  10.2 eps/s |   1943s] J_h=0.405 WR_h=0.45   beh={'chase': 0.12, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.18} stale(h/s)=33/32
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it    71 | S |  0.020M eps |  10.2 eps/s |   1968s] J_h=0.307 WR_h=0.28 + beh={'chase': 0.17, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.22} stale(h/s)=33/33
+  new seeker graph:
+    assign=nearest_object params={'gain': 5.0, 'damp': 0.6, 'tol': 0.33, 'offset': 0.2, 'seg_timeout': 20.0}
+      role0 prep: (none) | play: segments then [when door] to door_block[yaw0,door] lock -> grab box to ramp[yaw2,direct] lock release -> [when doors_sealed] grab box to ramp[yaw3,door] lock release -> [when ramp_inside] to quadrant_corner[target,direct]
+      role1 prep: (none) | play: chase then [when door] to door_block[yaw0,door] lock -> [when doors_sealed] grab box to ramp[yaw3,door] lock release -> [when ramp_inside] to quadrant_corner[target,direct] -> [when opponent_visible] to outside_wall[yaw0,direct] release
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it    72 | H |  0.020M eps |  10.2 eps/s |   1997s] J_h=0.365 WR_h=0.35 + beh={'chase': 0.05, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.23} stale(h/s)=34/33
+  new hider graph:
+    assign=fixed params={'gain': 6.0, 'damp': 0.47, 'tol': 0.32, 'offset': 0.16, 'seg_timeout': 36.09}
+      role0 prep: grab ramp to ramp_inside[yaw3,direct] release -> [when doors_sealed] to opponent[yaw1,door] lock | play: segments then grab box to stay[yaw3,door] lock
+      role1 prep: grab ramp to ramp_inside[yaw3,direct] release | play: segments then grab box to stay[yaw3,door] lock
+  LLM returned a valid seeker graph proposal
+  no candidate improved the seeker graph
+[it    73 | S |  0.021M eps |  10.2 eps/s |   2023s] J_h=0.201 WR_h=0.12   beh={'chase': 0.07, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.19} stale(h/s)=34/34
+  graph validation detail: AssertionError: unknown play behaviour 'wander'
+  LLM returned an invalid hider graph proposal
+  accepted structural search candidate for hider
+[it    74 | H |  0.021M eps |  10.3 eps/s |   2048s] J_h=0.406 WR_h=0.45 + beh={'chase': 0.2, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.18} stale(h/s)=35/34
+  new hider graph:
+    assign=fixed params={'gain': 6.0, 'damp': 0.47, 'tol': 0.32, 'offset': 0.16, 'seg_timeout': 36.09}
+      role0 prep: grab ramp to ramp_inside[yaw3,direct] release -> [when doors_sealed] to opponent[yaw1,door] lock | play: segments then grab box to stay[yaw3,door] lock
+      role1 prep: grab ramp to ramp_inside[yaw3,direct] release | play: segments then grab box to stay[yaw3,door] lock
+  graph validation detail: AssertionError: unknown segment deliver 'quadr3'
+  LLM returned an invalid seeker graph proposal
+  accepted structural search candidate for seeker
+[it    75 | S |  0.021M eps |  10.2 eps/s |   2083s] J_h=0.281 WR_h=0.30 + beh={'chase': 0.17, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.09} stale(h/s)=35/35
+  new seeker graph:
+    assign=nearest_object params={'gain': 5.25, 'damp': 0.6, 'tol': 0.33, 'offset': 0.2, 'seg_timeout': 20.0}
+      role0 prep: (none) | play: chase then [when ramp_inside] to quadrant_corner[target,direct] -> [when door] to door_block[yaw0,door] lock -> [when opponent_visible] to outside_wall[yaw0,direct] release
+      role1 prep: (none) | play: chase then [when ramp_inside] to quadrant_corner[target,direct] -> [when doors_sealed] grab box to ramp[yaw3,door] lock release -> [when door] to door_block[yaw0,door] lock -> [when opponent_visible] to outside_wall[yaw0,direct] release
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it    76 | H |  0.022M eps |  10.2 eps/s |   2109s] J_h=0.328 WR_h=0.35 + beh={'chase': 0.12, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.14} stale(h/s)=36/35
+  new hider graph:
+    assign=fixed params={'gain': 6.0, 'damp': 0.47, 'tol': 0.32, 'offset': 0.16, 'seg_timeout': 36.09}
+      role0 prep: grab ramp to ramp_inside[yaw3,direct] release -> [when doors_sealed] to opponent[yaw1,door] lock | play: segments then grab box to stay[yaw3,door] lock
+      role1 prep: grab ramp to ramp_inside[yaw3,direct] release | play: segments then to door_block[yaw0,door] release -> grab box to stay[yaw3,door] lock
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it    77 | S |  0.022M eps |  10.2 eps/s |   2134s] J_h=0.231 WR_h=0.12 + beh={'chase': 0.03, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.23} stale(h/s)=36/36
+  new seeker graph:
+    assign=fixed params={'gain': 5.25, 'damp': 0.6, 'tol': 0.33, 'offset': 0.2, 'seg_timeout': 20.0}
+      role0 prep: (none) | play: search then [when ramp_inside] to quadrant_corner[target,direct] -> [when door] to door_block[yaw0,door] lock -> [when opponent_visible] to outside_wall[yaw0,direct] release
+      role1 prep: (none) | play: chase then [when ramp_inside] to quadrant_corner[target,direct] -> [when doors_sealed] grab box to ramp[yaw3,door] lock release -> [when door] to door_block[yaw0,door] lock -> [when opponent_visible] to outside_wall[yaw0,direct] release
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it    78 | H |  0.022M eps |  10.2 eps/s |   2158s] J_h=0.340 WR_h=0.35 + beh={'chase': 0.07, 'door': 0.0, 'r_use': 0.03, 'r_def': 0.19} stale(h/s)=37/36
+  new hider graph:
+    assign=fixed params={'gain': 6.0, 'damp': 0.47, 'tol': 0.32, 'offset': 0.16, 'seg_timeout': 36.09}
+      role0 prep: grab ramp to ramp_inside[yaw3,direct] release | play: segments then to door_block[yaw0,door] release -> grab box to stay[yaw3,door] lock -> [when opponent_visible] to door_inside[yaw2,door]
+      role1 prep: grab ramp to ramp_inside[yaw3,direct] release | play: segments then to door_block[yaw0,door] release -> grab box to stay[yaw3,door] lock -> [when opponent_visible] to door_inside[yaw2,door]
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it    79 | S |  0.022M eps |  10.2 eps/s |   2187s] J_h=0.241 WR_h=0.15 + beh={'chase': 0.07, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.17} stale(h/s)=37/37
+  new seeker graph:
+    assign=fixed params={'gain': 5.25, 'damp': 0.6, 'tol': 0.33, 'offset': 0.2, 'seg_timeout': 20.0}
+      role0 prep: (none) | play: search then [when opponent_visible] to outside_wall[yaw0,direct] release -> [when ramp_inside] to quadrant_corner[target,direct] -> [when door] to door_block[yaw0,door] lock
+      role1 prep: (none) | play: chase then [when ramp_inside] to quadrant_corner[target,direct] -> [when doors_sealed] grab box to ramp[yaw3,door] lock release -> [when door] to door_block[yaw0,door] lock -> [when opponent_visible] to outside_wall[yaw0,direct] release
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it    80 | H |  0.023M eps |  10.3 eps/s |   2210s] J_h=0.227 WR_h=0.17   beh={'chase': 0.1, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.17} stale(h/s)=38/37
+  LLM returned a valid seeker graph proposal
+  no candidate improved the seeker graph
+[it    81 | S |  0.023M eps |  10.3 eps/s |   2237s] J_h=0.263 WR_h=0.15   beh={'chase': 0.03, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.25} stale(h/s)=38/38
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it    82 | H |  0.023M eps |  10.2 eps/s |   2271s] J_h=0.359 WR_h=0.30   beh={'chase': 0.07, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.19} stale(h/s)=39/38
+  LLM returned a valid seeker graph proposal
+  no candidate improved the seeker graph
+[it    83 | S |  0.024M eps |  10.2 eps/s |   2297s] J_h=0.279 WR_h=0.20   beh={'chase': 0.05, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.18} stale(h/s)=39/39
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it    84 | H |  0.024M eps |  10.2 eps/s |   2324s] J_h=0.335 WR_h=0.28 + beh={'chase': 0.05, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=40/39
+  new hider graph:
+    assign=fixed params={'gain': 6.0, 'damp': 0.47, 'tol': 0.32, 'offset': 0.16, 'seg_timeout': 36.54}
+      role0 prep: (none) | play: segments then to door_block[yaw0,door] release -> grab box to stay[yaw3,door] lock -> [when opponent_visible] to door_inside[yaw2,door]
+      role1 prep: (none) | play: segments then to door_block[yaw0,door] release -> grab box to stay[yaw3,door] lock -> [when opponent_visible] to door_inside[yaw2,door]
+  LLM returned a valid seeker graph proposal
+  no candidate improved the seeker graph
+[it    85 | S |  0.024M eps |  10.2 eps/s |   2351s] J_h=0.225 WR_h=0.10   beh={'chase': 0.05, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.1} stale(h/s)=40/40
+  both teams plateaued for 40 iterations — boosting exploration
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it    86 | H |  0.024M eps |  10.2 eps/s |   2380s] J_h=0.388 WR_h=0.35   beh={'chase': 0.03, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=41/40
+  LLM returned a valid seeker graph proposal
+  no candidate improved the seeker graph
+[it    87 | S |  0.025M eps |  10.2 eps/s |   2410s] J_h=0.302 WR_h=0.25   beh={'chase': 0.03, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=41/41
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it    88 | H |  0.025M eps |  10.2 eps/s |   2436s] J_h=0.347 WR_h=0.28   beh={'chase': 0.05, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=42/41
+  LLM returned a valid seeker graph proposal
+  no candidate improved the seeker graph
+[it    89 | S |  0.025M eps |  10.2 eps/s |   2464s] J_h=0.323 WR_h=0.25   beh={'chase': 0.05, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=42/42
+  LLM proposal failed: timed out
+  no candidate improved the hider graph
+[it    90 | H |  0.025M eps |   9.9 eps/s |   2565s] J_h=0.367 WR_h=0.30   beh={'chase': 0.1, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=43/42
+  graph validation detail: AssertionError: unknown play target 'teammate_inside'
+  LLM returned an invalid seeker graph proposal
+  accepted structural search candidate for seeker
+  ★ emergent behaviour detected: chasing       at iteration 91 (0.03M rehearsal episodes, rate 0.33)
+[it    91 | S |  0.026M eps |  10.0 eps/s |   2589s] J_h=0.299 WR_h=0.25 + beh={'chase': 0.33, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.09} stale(h/s)=43/43
+  new seeker graph:
+    assign=fixed params={'gain': 5.25, 'damp': 0.6, 'tol': 0.33, 'offset': 0.2, 'seg_timeout': 20.0}
+      role0 prep: (none) | play: chase then [when opponent_visible] to outside_wall[yaw0,direct] release -> [when ramp_inside] to quadrant_corner[target,direct] -> [when door] to door_block[yaw0,door] lock
+      role1 prep: (none) | play: chase then [when ramp_inside] to quadrant_corner[target,direct] -> [when doors_sealed] grab box to ramp[yaw3,door] lock release -> [when door] to door_block[yaw0,door] lock -> [when opponent_visible] to outside_wall[yaw0,direct] release
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it    92 | H |  0.026M eps |   9.9 eps/s |   2623s] J_h=0.284 WR_h=0.25   beh={'chase': 0.17, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=44/43
+  LLM returned a valid seeker graph proposal
+  no candidate improved the seeker graph
+[it    93 | S |  0.026M eps |   9.9 eps/s |   2651s] J_h=0.280 WR_h=0.20   beh={'chase': 0.23, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.07} stale(h/s)=44/44
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it    94 | H |  0.027M eps |   9.9 eps/s |   2680s] J_h=0.358 WR_h=0.40 + beh={'chase': 0.2, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.43} stale(h/s)=45/44
+  new hider graph:
+    assign=fixed params={'gain': 6.0, 'damp': 0.47, 'tol': 0.33, 'offset': 0.16, 'seg_timeout': 36.54}
+      role0 prep: [when teammate_inside] grab ramp to climb[align,door] release | play: segments then to door_block[yaw0,door] release -> grab box to stay[yaw3,door] lock -> [when opponent_visible] to door_inside[yaw2,door]
+      role1 prep: [when teammate_inside] grab ramp to climb[align,door] release | play: segments then to door_block[yaw0,door] release -> grab box to stay[yaw3,door] lock -> [when opponent_visible] to door_inside[yaw2,door]
+  LLM returned a valid seeker graph proposal
+  accepted LLM candidate for seeker
+[it    95 | S |  0.027M eps |   9.9 eps/s |   2708s] J_h=0.219 WR_h=0.20 + beh={'chase': 0.07, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.23} stale(h/s)=45/45
+  new seeker graph:
+    assign=fixed params={'gain': 5.5, 'damp': 0.7, 'tol': 0.25, 'offset': 0.2, 'seg_timeout': 30.0}
+      role0 prep: (none) | play: search then [when opponent_visible] to outside_wall[yaw0,direct] release -> [when ramp_inside] to quadrant_corner[target,direct] -> [when door] to door_block[target,door] lock
+      role1 prep: (none) | play: chase then [when doors_sealed] grab box to ramp[yaw3,door] lock release -> [when door] to door_block[target,door] lock -> [when opponent_visible] to outside_wall[yaw0,direct] release
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it    96 | H |  0.027M eps |  10.0 eps/s |   2730s] J_h=0.320 WR_h=0.33   beh={'chase': 0.07, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.34} stale(h/s)=46/45
+  LLM returned a valid seeker graph proposal
+  no candidate improved the seeker graph
+[it    97 | S |  0.027M eps |  10.0 eps/s |   2755s] J_h=0.328 WR_h=0.28   beh={'chase': 0.1, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.34} stale(h/s)=46/46
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+  ★ emergent behaviour detected: ramp_defense  at iteration 98 (0.03M rehearsal episodes, rate 0.59)
+[it    98 | H |  0.028M eps |  10.0 eps/s |   2783s] J_h=0.387 WR_h=0.38   beh={'chase': 0.03, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.59} stale(h/s)=47/46
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it    99 | S |  0.028M eps |  10.0 eps/s |   2809s] J_h=0.276 WR_h=0.20 + beh={'chase': 0.1, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.35} stale(h/s)=47/47
+  new seeker graph:
+    assign=fixed params={'gain': 5.2, 'damp': 0.7, 'tol': 0.25, 'offset': 0.2, 'seg_timeout': 30.0}
+      role0 prep: (none) | play: search then [when ramp_inside] to quadrant_corner[target,direct] -> [when opponent_visible] to outside_wall[yaw0,direct] release -> [when door] to door_block[target,door] lock
+      role1 prep: (none) | play: chase then [when doors_sealed] grab box to ramp[yaw3,door] lock release -> [when door] to door_block[target,door] lock -> [when opponent_visible] to outside_wall[yaw0,direct] release
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   100 | H |  0.028M eps |  10.0 eps/s |   2833s] J_h=0.351 WR_h=0.28 + beh={'chase': 0.0, 'door': 0.0, 'r_use': 0.03, 'r_def': 0.39} stale(h/s)=48/47
+  new hider graph:
+    assign=fixed params={'gain': 6.0, 'damp': 0.52, 'tol': 0.33, 'offset': 0.16, 'seg_timeout': 36.54}
+      role0 prep: [when teammate_inside] grab ramp to climb[align,door] release | play: segments then to stay[yaw0,door] release -> grab box to stay[yaw3,door] lock -> [when opponent_visible] to door_inside[yaw2,door]
+      role1 prep: [when teammate_inside] grab ramp to climb[align,door] release | play: segments then to stay[yaw0,door] release -> grab box to stay[yaw3,door] lock -> [when opponent_visible] to door_inside[yaw2,door]
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   101 | S |  0.029M eps |  10.0 eps/s |   2868s] J_h=0.259 WR_h=0.15 + beh={'chase': 0.15, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.21} stale(h/s)=48/48
+  new seeker graph:
+    assign=fixed params={'gain': 5.2, 'damp': 0.7, 'tol': 0.25, 'offset': 0.2, 'seg_timeout': 30.0}
+      role0 prep: (none) | play: chase then [when opponent_visible] to outside_wall[yaw0,direct] release -> [when door] to door_block[target,door] lock -> [when doors_sealed] to ramp[yaw3,door] lock release
+      role1 prep: (none) | play: chase then [when doors_sealed] to ramp[yaw3,door] lock release -> [when door] to door_block[target,door] lock -> [when opponent_visible] to outside_wall[yaw0,direct] release
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   102 | H |  0.029M eps |  10.0 eps/s |   2896s] J_h=0.398 WR_h=0.35 + beh={'chase': 0.12, 'door': 0.0, 'r_use': 0.03, 'r_def': 0.4} stale(h/s)=49/48
+  new hider graph:
+    assign=fixed params={'gain': 6.0, 'damp': 0.52, 'tol': 0.33, 'offset': 0.16, 'seg_timeout': 36.54}
+      role0 prep: [when teammate_inside] grab ramp to climb[align,door] release | play: segments then grab box to stay[yaw3,door] lock -> to stay[yaw0,door] release -> [when opponent_visible] to door_inside[yaw2,door]
+      role1 prep: [when teammate_inside] grab ramp to climb[align,door] release | play: segments then grab box to stay[yaw3,door] lock -> to stay[yaw0,door] release -> [when opponent_visible] to door_inside[yaw2,door]
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   103 | S |  0.029M eps |  10.0 eps/s |   2921s] J_h=0.269 WR_h=0.28 + beh={'chase': 0.25, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.33} stale(h/s)=49/49
+  new seeker graph:
+    assign=fixed params={'gain': 5.2, 'damp': 0.7, 'tol': 0.25, 'offset': 0.2, 'seg_timeout': 30.0}
+      role0 prep: (none) | play: chase then [when opponent_visible] to outside_wall[yaw0,direct] release -> [when doors_sealed] to ramp[yaw3,door] lock release
+      role1 prep: (none) | play: chase then [when doors_sealed] to ramp[yaw3,door] lock release -> [when door] to door_block[target,door] lock -> [when opponent_visible] to outside_wall[yaw0,direct] release
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   104 | H |  0.029M eps |  10.0 eps/s |   2946s] J_h=0.337 WR_h=0.33   beh={'chase': 0.15, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.19} stale(h/s)=50/49
+  LLM returned a valid seeker graph proposal
+  no candidate improved the seeker graph
+[it   105 | S |  0.030M eps |  10.0 eps/s |   2970s] J_h=0.339 WR_h=0.35   beh={'chase': 0.17, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.25} stale(h/s)=50/50
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   106 | H |  0.030M eps |  10.0 eps/s |   2997s] J_h=0.375 WR_h=0.35   beh={'chase': 0.2, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.35} stale(h/s)=51/50
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   107 | S |  0.030M eps |  10.0 eps/s |   3021s] J_h=0.263 WR_h=0.23 + beh={'chase': 0.07, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.31} stale(h/s)=51/51
+  new seeker graph:
+    assign=fixed params={'gain': 5.2, 'damp': 0.7, 'tol': 0.25, 'offset': 0.2, 'seg_timeout': 30.0}
+      role0 prep: (none) | play: chase then [when doors_sealed] to ramp[yaw3,door] lock release -> [when opponent_visible] to outside_wall[yaw0,direct] release
+      role1 prep: (none) | play: chase then [when doors_sealed] to ramp[yaw3,door] lock release -> [when opponent_visible] to outside_wall[yaw0,direct] release
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   108 | H |  0.031M eps |  10.0 eps/s |   3056s] J_h=0.321 WR_h=0.38   beh={'chase': 0.17, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.26} stale(h/s)=52/51
+  graph validation detail: AssertionError: roles must contain exactly two agent roles
+  LLM returned an invalid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   109 | S |  0.031M eps |  10.0 eps/s |   3084s] J_h=0.331 WR_h=0.25 + beh={'chase': 0.23, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.33} stale(h/s)=52/52
+  new seeker graph:
+    assign=nearest_object params={'gain': 5.2, 'damp': 0.7, 'tol': 0.25, 'offset': 0.2, 'seg_timeout': 30.0}
+      role0 prep: (none) | play: chase then [when doors_sealed] to ramp[yaw3,door] lock release -> [when opponent_visible] to outside_wall[yaw0,direct] release
+      role1 prep: (none) | play: chase then [when opponent_visible] to outside_wall[yaw0,direct] release
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   110 | H |  0.031M eps |  10.0 eps/s |   3109s] J_h=0.366 WR_h=0.28 + beh={'chase': 0.03, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.24} stale(h/s)=53/52
+  new hider graph:
+    assign=fixed params={'gain': 4.7, 'damp': 0.52, 'tol': 0.33, 'offset': 0.16, 'seg_timeout': 36.54}
+      role0 prep: [when teammate_inside] grab ramp to climb[align,door] release | play: segments then grab box to stay[yaw3,door] lock -> to stay[yaw0,door] release -> [when opponent_visible] to door_inside[yaw2,door]
+      role1 prep: [when teammate_inside] grab ramp to climb[align,door] release | play: segments then grab box to stay[yaw3,door] lock -> to stay[yaw0,door] release -> [when opponent_visible] to door_inside[yaw2,door]
+  LLM returned a valid seeker graph proposal
+  no candidate improved the seeker graph
+[it   111 | S |  0.031M eps |  10.0 eps/s |   3132s] J_h=0.265 WR_h=0.23   beh={'chase': 0.15, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.16} stale(h/s)=53/53
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   112 | H |  0.032M eps |  10.0 eps/s |   3159s] J_h=0.257 WR_h=0.23   beh={'chase': 0.15, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.27} stale(h/s)=54/53
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   113 | S |  0.032M eps |  10.0 eps/s |   3186s] J_h=0.259 WR_h=0.20 + beh={'chase': 0.23, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.18} stale(h/s)=54/54
+  new seeker graph:
+    assign=fixed params={'gain': 5.2, 'damp': 0.7, 'tol': 0.25, 'offset': 0.2, 'seg_timeout': 30.0}
+      role0 prep: (none) | play: chase then [when doors_sealed] to ramp[yaw3,door] lock release
+      role1 prep: (none) | play: chase then [when opponent_visible] to outside_wall[yaw0,direct] release
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   114 | H |  0.032M eps |  10.0 eps/s |   3211s] J_h=0.318 WR_h=0.28 + beh={'chase': 0.05, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.36} stale(h/s)=55/54
+  new hider graph:
+    assign=fixed params={'gain': 4.7, 'damp': 0.52, 'tol': 0.33, 'offset': 0.16, 'seg_timeout': 36.54}
+      role0 prep: [when teammate_inside] grab ramp to climb[align,door] release | play: segments then grab box to stay[yaw3,door] lock -> to stay[yaw0,door] release
+      role1 prep: [when teammate_inside] grab ramp to climb[align,door] release | play: segments then grab box to stay[yaw3,door] lock -> [when opponent_visible] to door_inside[yaw2,door] -> grab ramp to door_inside[yaw0,direct] release
+  graph validation detail: AssertionError: roles must contain exactly two agent roles
+  LLM returned an invalid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   115 | S |  0.032M eps |  10.0 eps/s |   3237s] J_h=0.257 WR_h=0.25 + beh={'chase': 0.12, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.27} stale(h/s)=55/55
+  new seeker graph:
+    assign=fixed params={'gain': 5.43, 'damp': 0.7, 'tol': 0.25, 'offset': 0.2, 'seg_timeout': 30.0}
+      role0 prep: (none) | play: chase then [when doors_sealed] to ramp[yaw3,door] lock release
+      role1 prep: (none) | play: chase then [when opponent_visible] to outside_wall[yaw0,direct] release
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   116 | H |  0.033M eps |  10.0 eps/s |   3275s] J_h=0.363 WR_h=0.33 + beh={'chase': 0.1, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.37} stale(h/s)=56/55
+  new hider graph:
+    assign=fixed params={'gain': 4.7, 'damp': 0.52, 'tol': 0.33, 'offset': 0.16, 'seg_timeout': 36.54}
+      role0 prep: [when teammate_inside] grab ramp to climb[align,door] release | play: segments then grab box to stay[yaw3,door] lock -> to stay[yaw0,door] release
+      role1 prep: [when teammate_inside] grab ramp to climb[align,door] release | play: segments then grab box to stay[yaw3,door] lock -> grab ramp to door_inside[yaw0,direct] release -> [when opponent_visible] to door_inside[yaw2,door]
+  graph validation detail: AssertionError: roles must contain exactly two agent roles
+  LLM returned an invalid seeker graph proposal
+  no candidate improved the seeker graph
+[it   117 | S |  0.033M eps |  10.0 eps/s |   3304s] J_h=0.261 WR_h=0.20   beh={'chase': 0.23, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.31} stale(h/s)=56/56
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   118 | H |  0.033M eps |  10.0 eps/s |   3331s] J_h=0.274 WR_h=0.25   beh={'chase': 0.2, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.37} stale(h/s)=57/56
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   119 | S |  0.034M eps |  10.0 eps/s |   3369s] J_h=0.259 WR_h=0.25 + beh={'chase': 0.07, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.31} stale(h/s)=57/57
+  new seeker graph:
+    assign=fixed params={'gain': 5.43, 'damp': 0.7, 'tol': 0.25, 'offset': 0.17, 'seg_timeout': 30.0}
+      role0 prep: (none) | play: chase
+      role1 prep: (none) | play: chase
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   120 | H |  0.034M eps |  10.0 eps/s |   3394s] J_h=0.309 WR_h=0.20 + beh={'chase': 0.2, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.14} stale(h/s)=58/57
+  new hider graph:
+    assign=fixed params={'gain': 4.7, 'damp': 0.52, 'tol': 0.33, 'offset': 0.16, 'seg_timeout': 38.83}
+      role0 prep: [when teammate_inside] grab ramp to climb[align,door] release | play: segments then grab box to stay[yaw3,door] lock -> to stay[yaw0,door] release
+      role1 prep: (none) | play: segments then grab box to stay[yaw3,door] lock -> to stay[yaw0,door] release
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   121 | S |  0.034M eps |  10.0 eps/s |   3421s] J_h=0.306 WR_h=0.25 + beh={'chase': 0.2, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.14} stale(h/s)=58/58
+  new seeker graph:
+    assign=fixed params={'gain': 5.43, 'damp': 0.7, 'tol': 0.25, 'offset': 0.17, 'seg_timeout': 30.0}
+      role0 prep: (none) | play: chase then grab box to box[yaw3,door] lock release
+      role1 prep: (none) | play: chase
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   122 | H |  0.034M eps |  10.0 eps/s |   3454s] J_h=0.297 WR_h=0.23 + beh={'chase': 0.23, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=59/58
+  new hider graph:
+    assign=fixed params={'gain': 4.7, 'damp': 0.52, 'tol': 0.33, 'offset': 0.16, 'seg_timeout': 38.83}
+      role0 prep: [when ramp_inside] grab ramp to climb[align,door] release | play: segments then to stay[yaw0,door] release -> grab box to stay[yaw3,door] lock
+      role1 prep: [when ramp_inside] grab ramp to climb[align,door] release | play: segments then to stay[yaw0,door] release -> grab box to stay[yaw3,door] lock
+  LLM returned a valid seeker graph proposal
+  no candidate improved the seeker graph
+[it   123 | S |  0.035M eps |  10.0 eps/s |   3479s] J_h=0.194 WR_h=0.15   beh={'chase': 0.25, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=59/59
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   124 | H |  0.035M eps |  10.0 eps/s |   3502s] J_h=0.396 WR_h=0.40   beh={'chase': 0.15, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=60/59
+  graph validation detail: AssertionError: unknown segment acquire 'opponent'
+  LLM returned an invalid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   125 | S |  0.035M eps |  10.0 eps/s |   3528s] J_h=0.259 WR_h=0.23 + beh={'chase': 0.15, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.13} stale(h/s)=60/60
+  new seeker graph:
+    assign=fixed params={'gain': 5.43, 'damp': 0.7, 'tol': 0.25, 'offset': 0.05, 'seg_timeout': 30.0}
+      role0 prep: (none) | play: chase then [when opponent_visible] to quadrant_corner[align,direct] lock release -> [when opponent_visible] grab box to box[yaw3,door] lock release
+      role1 prep: (none) | play: chase then [when opponent_visible] to quadrant_corner[align,direct] lock release -> [when opponent_visible] grab box to box[yaw3,door] lock release
+  graph validation detail: AssertionError: unknown segment acquire 'door'
+  LLM returned an invalid hider graph proposal
+  no candidate improved the hider graph
+[it   126 | H |  0.036M eps |  10.0 eps/s |   3555s] J_h=0.306 WR_h=0.28   beh={'chase': 0.1, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=61/60
+  LLM returned a valid seeker graph proposal
+  no candidate improved the seeker graph
+[it   127 | S |  0.036M eps |  10.0 eps/s |   3588s] J_h=0.256 WR_h=0.17   beh={'chase': 0.15, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.09} stale(h/s)=61/61
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   128 | H |  0.036M eps |  10.0 eps/s |   3611s] J_h=0.206 WR_h=0.17   beh={'chase': 0.12, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=62/61
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   129 | S |  0.036M eps |  10.0 eps/s |   3633s] J_h=0.240 WR_h=0.25 + beh={'chase': 0.2, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.11} stale(h/s)=62/62
+  new seeker graph:
+    assign=fixed params={'gain': 5.43, 'damp': 0.7, 'tol': 0.25, 'offset': 0.05, 'seg_timeout': 30.0}
+      role0 prep: (none) | play: chase
+      role1 prep: (none) | play: chase
+  graph validation detail: AssertionError: unknown segment acquire 'door_block'
+  LLM returned an invalid hider graph proposal
+  accepted structural search candidate for hider
+[it   130 | H |  0.037M eps |  10.0 eps/s |   3668s] J_h=0.327 WR_h=0.25 + beh={'chase': 0.0, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=63/62
+  new hider graph:
+    assign=fixed params={'gain': 4.7, 'damp': 0.52, 'tol': 0.33, 'offset': 0.16, 'seg_timeout': 38.83}
+      role0 prep: grab box to climb[yaw3,door] release -> [when ramp_inside] grab ramp to climb[align,door] release | play: segments then grab box to outside_wall[align,door] -> to stay[yaw0,door] release -> grab box to stay[yaw3,door] lock
+      role1 prep: grab box to climb[yaw3,door] release -> [when ramp_inside] grab ramp to climb[align,door] release | play: segments then grab box to outside_wall[align,door] -> to stay[yaw0,door] release -> grab box to stay[yaw3,door] lock
+  graph validation detail: AssertionError: unknown segment acquire 'door_block'
+  LLM returned an invalid seeker graph proposal
+  no candidate improved the seeker graph
+[it   131 | S |  0.037M eps |  10.0 eps/s |   3695s] J_h=0.187 WR_h=0.15   beh={'chase': 0.07, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=63/63
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   132 | H |  0.037M eps |  10.0 eps/s |   3729s] J_h=0.252 WR_h=0.20   beh={'chase': 0.03, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=64/63
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   133 | S |  0.038M eps |  10.0 eps/s |   3753s] J_h=0.245 WR_h=0.20 + beh={'chase': 0.15, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.12} stale(h/s)=64/64
+  new seeker graph:
+    assign=fixed params={'gain': 5.43, 'damp': 0.7, 'tol': 0.25, 'offset': 0.05, 'seg_timeout': 30.0}
+      role0 prep: (none) | play: chase then grab box to opponent[target,door]
+      role1 prep: (none) | play: chase
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   134 | H |  0.038M eps |  10.0 eps/s |   3779s] J_h=0.256 WR_h=0.17   beh={'chase': 0.03, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=65/64
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   135 | S |  0.038M eps |  10.0 eps/s |   3807s] J_h=0.304 WR_h=0.20 + beh={'chase': 0.12, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=65/65
+  new seeker graph:
+    assign=nearest_object params={'gain': 5.43, 'damp': 0.7, 'tol': 0.25, 'offset': 0.05, 'seg_timeout': 30.0}
+      role0 prep: (none) | play: chase then grab box to opponent[target,door]
+      role1 prep: (none) | play: chase
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   136 | H |  0.038M eps |  10.0 eps/s |   3832s] J_h=0.311 WR_h=0.30   beh={'chase': 0.12, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.06} stale(h/s)=66/65
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   137 | S |  0.039M eps |  10.0 eps/s |   3862s] J_h=0.282 WR_h=0.25 + beh={'chase': 0.07, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.12} stale(h/s)=66/66
+  new seeker graph:
+    assign=nearest_object params={'gain': 5.43, 'damp': 0.7, 'tol': 0.25, 'offset': 0.05, 'seg_timeout': 30.0}
+      role0 prep: (none) | play: chase then grab box to opponent[target,door]
+      role1 prep: (none) | play: chase then grab box to opponent[target,door] lock
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   138 | H |  0.039M eps |  10.0 eps/s |   3888s] J_h=0.339 WR_h=0.30 + beh={'chase': 0.07, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=67/66
+  new hider graph:
+    assign=fixed params={'gain': 4.7, 'damp': 0.52, 'tol': 0.33, 'offset': 0.16, 'seg_timeout': 38.83}
+      role0 prep: grab box to climb[yaw3,door] release -> [when opponent_visible] grab ramp to climb[target,door] lock -> [when ramp_inside] grab ramp to climb[align,door] release | play: segments then grab box to outside_wall[align,door] -> to stay[yaw0,door] release -> grab box to stay[yaw3,door] lock
+      role1 prep: [when ramp_inside] grab ramp to climb[align,door] release | play: segments then grab box to outside_wall[align,door] -> to stay[yaw0,door] release -> grab box to stay[yaw3,door] lock
+  graph validation detail: AssertionError: unknown segment route 'ramp'
+  LLM returned an invalid seeker graph proposal
+  no candidate improved the seeker graph
+[it   139 | S |  0.039M eps |  10.0 eps/s |   3911s] J_h=0.234 WR_h=0.17   beh={'chase': 0.15, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.09} stale(h/s)=67/67
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   140 | H |  0.039M eps |  10.0 eps/s |   3934s] J_h=0.291 WR_h=0.28 + beh={'chase': 0.1, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.04} stale(h/s)=68/67
+  new hider graph:
+    assign=fixed params={'gain': 4.7, 'damp': 0.52, 'tol': 0.33, 'offset': 0.16, 'seg_timeout': 38.83}
+      role0 prep: grab box to climb[yaw3,door] release -> [when opponent_visible] grab ramp to climb[target,door] lock -> [when ramp_inside] grab ramp to climb[align,door] release | play: segments then grab box to outside_wall[align,door] -> to stay[yaw0,door] release -> grab box to stay[yaw3,door] lock
+      role1 prep: [when ramp_inside] grab ramp to climb[yaw0,door] release | play: segments then grab box to outside_wall[align,door] -> to stay[yaw0,door] release -> grab box to stay[yaw3,door] lock
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   141 | S |  0.040M eps |  10.1 eps/s |   3955s] J_h=0.209 WR_h=0.12 + beh={'chase': 0.03, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.17} stale(h/s)=68/68
+  new seeker graph:
+    assign=fixed params={'gain': 5.43, 'damp': 0.7, 'tol': 0.25, 'offset': 0.05, 'seg_timeout': 30.0}
+      role0 prep: (none) | play: chase then grab box to opponent[target,door]
+      role1 prep: (none) | play: chase then grab box to opponent[target,door] lock
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   142 | H |  0.040M eps |  10.1 eps/s |   3982s] J_h=0.255 WR_h=0.20 + beh={'chase': 0.05, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=69/68
+  new hider graph:
+    assign=fixed params={'gain': 4.7, 'damp': 0.65, 'tol': 0.33, 'offset': 0.16, 'seg_timeout': 38.83}
+      role0 prep: (none) | play: segments then to stay[yaw0,door] release -> grab box to outside_wall[align,door] -> grab box to stay[yaw3,door] lock
+      role1 prep: (none) | play: segments then grab box to outside_wall[align,door] -> to stay[yaw0,door] release -> grab box to stay[yaw3,door] lock
+  graph validation detail: AssertionError: roles must contain exactly two agent roles
+  LLM returned an invalid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   143 | S |  0.040M eps |  10.1 eps/s |   4003s] J_h=0.224 WR_h=0.10 + beh={'chase': 0.17, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.04} stale(h/s)=69/69
+  new seeker graph:
+    assign=fixed params={'gain': 5.43, 'damp': 0.7, 'tol': 0.25, 'offset': 0.05, 'seg_timeout': 30.0}
+      role0 prep: (none) | play: chase then grab box to door_inside[align,door] -> grab box to opponent[target,door]
+      role1 prep: (none) | play: chase then grab box to opponent[target,door] lock
+  LLM proposal failed: timed out
+  accepted structural search candidate for hider
+[it   144 | H |  0.041M eps |   9.9 eps/s |   4105s] J_h=0.394 WR_h=0.35 + beh={'chase': 0.15, 'door': 0.0, 'r_use': 0.03, 'r_def': 0.0} stale(h/s)=70/69
+  new hider graph:
+    assign=fixed params={'gain': 4.7, 'damp': 0.65, 'tol': 0.33, 'offset': 0.16, 'seg_timeout': 38.83}
+      role0 prep: grab box to teammate[align,door] release | play: segments then grab box to outside_wall[align,door] -> to stay[yaw0,door] release -> grab box to stay[yaw3,door] lock
+      role1 prep: grab box to teammate[align,door] release | play: segments then grab box to outside_wall[align,door] -> to stay[yaw0,door] release -> grab box to stay[yaw3,door] lock
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   145 | S |  0.041M eps |   9.9 eps/s |   4134s] J_h=0.306 WR_h=0.30 + beh={'chase': 0.1, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=70/70
+  new seeker graph:
+    assign=fixed params={'gain': 5.43, 'damp': 0.7, 'tol': 0.37, 'offset': 0.05, 'seg_timeout': 29.06}
+      role0 prep: (none) | play: chase then grab box to door_inside[align,door] -> grab box to opponent[target,door]
+      role1 prep: (none) | play: chase then grab box to opponent[target,door] lock
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   146 | H |  0.041M eps |   9.9 eps/s |   4159s] J_h=0.339 WR_h=0.35 + beh={'chase': 0.12, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=71/70
+  new hider graph:
+    assign=fixed params={'gain': 4.7, 'damp': 0.68, 'tol': 0.33, 'offset': 0.18, 'seg_timeout': 38.83}
+      role0 prep: (none) | play: segments then grab box to outside_wall[align,door] -> grab box to stay[yaw3,door] lock
+      role1 prep: grab box to teammate[align,door] release | play: segments then grab box to outside_wall[align,door] -> to stay[yaw0,door] release -> grab box to stay[yaw3,door] lock
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   147 | S |  0.041M eps |   9.9 eps/s |   4187s] J_h=0.229 WR_h=0.23 + beh={'chase': 0.17, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=71/71
+  new seeker graph:
+    assign=fixed params={'gain': 5.43, 'damp': 0.7, 'tol': 0.37, 'offset': 0.12, 'seg_timeout': 29.06}
+      role0 prep: (none) | play: chase then grab box to opponent[target,door] lock -> grab ramp to ramp[yaw2,door] release
+      role1 prep: (none) | play: chase then grab box to opponent[target,door] lock -> grab ramp to ramp[yaw2,door] release
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   148 | H |  0.042M eps |   9.9 eps/s |   4212s] J_h=0.326 WR_h=0.33   beh={'chase': 0.07, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=72/71
+  graph validation detail: AssertionError: roles must contain exactly two agent roles
+  LLM returned an invalid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   149 | S |  0.042M eps |   9.9 eps/s |   4243s] J_h=0.222 WR_h=0.17 + beh={'chase': 0.12, 'door': 0.0, 'r_use': 0.03, 'r_def': 0.03} stale(h/s)=72/72
+  new seeker graph:
+    assign=fixed params={'gain': 5.43, 'damp': 0.7, 'tol': 0.35, 'offset': 0.12, 'seg_timeout': 29.06}
+      role0 prep: (none) | play: chase then to ramp[yaw2,door] release
+      role1 prep: (none) | play: chase then grab box to opponent[target,door] lock -> grab ramp to ramp[yaw2,door] release
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   150 | H |  0.042M eps |   9.9 eps/s |   4270s] J_h=0.340 WR_h=0.35   beh={'chase': 0.05, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=73/72
+  LLM returned a valid seeker graph proposal
+  no candidate improved the seeker graph
+[it   151 | S |  0.043M eps |   9.9 eps/s |   4300s] J_h=0.186 WR_h=0.15   beh={'chase': 0.07, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=73/73
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   152 | H |  0.043M eps |   9.9 eps/s |   4325s] J_h=0.374 WR_h=0.42 + beh={'chase': 0.1, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=74/73
+  new hider graph:
+    assign=fixed params={'gain': 4.7, 'damp': 0.68, 'tol': 0.33, 'offset': 0.19, 'seg_timeout': 38.83}
+      role0 prep: (none) | play: go(ramp_inside,door) then grab box to outside_wall[align,door] -> grab box to stay[yaw3,door] lock
+      role1 prep: grab box to teammate[align,door] release | play: segments then grab box to outside_wall[align,door] -> to stay[yaw0,door] release -> grab box to stay[yaw3,door] lock
+  graph validation detail: AssertionError: roles must contain exactly two agent roles
+  LLM returned an invalid seeker graph proposal
+  no candidate improved the seeker graph
+[it   153 | S |  0.043M eps |   9.9 eps/s |   4351s] J_h=0.295 WR_h=0.20   beh={'chase': 0.03, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.06} stale(h/s)=74/74
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   154 | H |  0.043M eps |   9.9 eps/s |   4378s] J_h=0.349 WR_h=0.35   beh={'chase': 0.2, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=75/74
+  LLM returned a valid seeker graph proposal
+  accepted LLM candidate for seeker
+[it   155 | S |  0.044M eps |   9.9 eps/s |   4411s] J_h=0.238 WR_h=0.12 + beh={'chase': 0.07, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=75/75
+  new seeker graph:
+    assign=fixed params={'gain': 5.0, 'damp': 0.6, 'tol': 0.3, 'offset': 0.15, 'seg_timeout': 30.0}
+      role0 prep: (none) | play: chase then [when ramp_inside] to ramp[yaw2,door] release
+      role1 prep: (none) | play: chase then [when doors_sealed] grab box to opponent[target,door] lock -> [when ramp_inside] grab ramp to ramp[yaw2,door] release
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   156 | H |  0.044M eps |   9.9 eps/s |   4434s] J_h=0.420 WR_h=0.40 + beh={'chase': 0.05, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=76/75
+  new hider graph:
+    assign=fixed params={'gain': 4.7, 'damp': 0.68, 'tol': 0.33, 'offset': 0.19, 'seg_timeout': 38.83}
+      role0 prep: grab box to teammate[align,door] release | play: segments then grab box to outside_wall[yaw2,door] -> to stay[yaw0,door] release -> grab box to stay[yaw3,door] lock
+      role1 prep: grab box to teammate[align,door] release | play: segments then grab box to outside_wall[yaw2,door] -> grab box to stay[yaw3,door] lock
+  graph validation detail: AssertionError: unknown play behaviour 'door_block'
+  LLM returned an invalid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   157 | S |  0.044M eps |   9.9 eps/s |   4454s] J_h=0.327 WR_h=0.28 + beh={'chase': 0.12, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=76/76
+  new seeker graph:
+    assign=fixed params={'gain': 5.0, 'damp': 0.6, 'tol': 0.3, 'offset': 0.15, 'seg_timeout': 30.0}
+      role0 prep: (none) | play: chase then [when ramp_inside] to ramp[yaw2,door] release
+      role1 prep: (none) | play: chase then [when ramp_inside] grab ramp to ramp[yaw2,door] release
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   158 | H |  0.045M eps |   9.9 eps/s |   4484s] J_h=0.422 WR_h=0.40 + beh={'chase': 0.03, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=77/76
+  new hider graph:
+    assign=fixed params={'gain': 4.7, 'damp': 0.68, 'tol': 0.33, 'offset': 0.24, 'seg_timeout': 38.83}
+      role0 prep: grab box to teammate[align,door] release | play: segments then to stay[yaw0,door] release -> grab box to outside_wall[yaw2,door] -> grab box to stay[yaw3,door] lock
+      role1 prep: grab box to teammate[align,door] release | play: segments then grab box to outside_wall[yaw2,door] -> grab box to stay[yaw3,door] lock
+  graph validation detail: AssertionError: unknown segment acquire 'door'
+  LLM returned an invalid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   159 | S |  0.045M eps |   9.9 eps/s |   4510s] J_h=0.167 WR_h=0.10 + beh={'chase': 0.1, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=77/77
+  new seeker graph:
+    assign=nearest_object params={'gain': 5.0, 'damp': 0.6, 'tol': 0.35, 'offset': 0.15, 'seg_timeout': 30.0}
+      role0 prep: (none) | play: chase then grab ramp to away_from_opponent[yaw0,direct] lock -> [when ramp_inside] to ramp[yaw2,door] release
+      role1 prep: (none) | play: chase then [when ramp_inside] grab ramp to ramp[yaw2,door] release
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   160 | H |  0.045M eps |   9.9 eps/s |   4545s] J_h=0.395 WR_h=0.40 + beh={'chase': 0.05, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.06} stale(h/s)=78/77
+  new hider graph:
+    assign=fixed params={'gain': 4.7, 'damp': 0.8, 'tol': 0.33, 'offset': 0.24, 'seg_timeout': 38.83}
+      role0 prep: grab box to teammate[align,door] release -> [when teammate_inside] grab box to quadrant_corner[yaw3,door] lock | play: segments then to stay[yaw0,door] release -> grab box to outside_wall[yaw2,door] -> grab box to stay[yaw3,door] lock
+      role1 prep: grab box to teammate[align,door] release | play: segments then grab box to outside_wall[yaw2,door] -> [when ramp_inside] grab box to quadrant_interior[yaw3,direct] lock -> grab box to stay[yaw3,door] lock
+  graph validation detail: AssertionError: roles must contain exactly two agent roles
+  LLM returned an invalid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   161 | S |  0.045M eps |   9.9 eps/s |   4570s] J_h=0.247 WR_h=0.15 + beh={'chase': 0.12, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=78/78
+  new seeker graph:
+    assign=nearest_object params={'gain': 5.0, 'damp': 0.44, 'tol': 0.35, 'offset': 0.15, 'seg_timeout': 30.0}
+      role0 prep: (none) | play: chase then grab ramp to away_from_opponent[yaw0,direct] lock -> [when ramp_inside] grab box to ramp[yaw2,door] release
+      role1 prep: (none) | play: chase then [when ramp_inside] grab ramp to ramp[yaw2,door] release
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   162 | H |  0.046M eps |   9.9 eps/s |   4595s] J_h=0.321 WR_h=0.33   beh={'chase': 0.1, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=79/78
+  graph validation detail: AssertionError: roles must contain exactly two agent roles
+  LLM returned an invalid seeker graph proposal
+  no candidate improved the seeker graph
+[it   163 | S |  0.046M eps |   9.9 eps/s |   4624s] J_h=0.182 WR_h=0.07   beh={'chase': 0.15, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=79/79
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   164 | H |  0.046M eps |   9.9 eps/s |   4652s] J_h=0.384 WR_h=0.38 + beh={'chase': 0.15, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=80/79
+  new hider graph:
+    assign=fixed params={'gain': 4.7, 'damp': 0.8, 'tol': 0.33, 'offset': 0.24, 'seg_timeout': 38.83}
+      role0 prep: grab box to teammate[align,door] release -> [when teammate_inside] grab box to quadrant_corner[yaw3,door] lock | play: flee then to stay[yaw0,door] release -> grab box to outside_wall[yaw2,door] -> grab box to stay[yaw3,door] lock
+      role1 prep: grab box to teammate[align,door] | play: segments then grab box to outside_wall[yaw2,door] -> [when ramp_inside] grab box to quadrant_interior[yaw3,direct] lock -> grab box to stay[yaw3,door] lock
+  both teams plateaued for 80 iterations — boosting exploration
+  graph validation detail: AssertionError: unknown segment acquire 'door'
+  LLM returned an invalid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   165 | S |  0.046M eps |   9.9 eps/s |   4688s] J_h=0.281 WR_h=0.25 + beh={'chase': 0.12, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=80/80
+  new seeker graph:
+    assign=nearest_object params={'gain': 5.0, 'damp': 0.44, 'tol': 0.35, 'offset': 0.15, 'seg_timeout': 30.0}
+      role0 prep: (none) | play: chase then grab ramp to away_from_opponent[yaw0,direct] lock -> [when ramp_inside] grab box to ramp[yaw2,door] release
+      role1 prep: (none) | play: chase
+  both teams plateaued for 80 iterations — boosting exploration
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   166 | H |  0.047M eps |   9.9 eps/s |   4716s] J_h=0.330 WR_h=0.28 + beh={'chase': 0.03, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=81/80
+  new hider graph:
+    assign=fixed params={'gain': 4.94, 'damp': 0.8, 'tol': 0.33, 'offset': 0.24, 'seg_timeout': 38.83}
+      role0 prep: grab box to teammate[align,door] release -> [when teammate_inside] grab box to quadrant_corner[yaw3,door] lock | play: flee then to stay[yaw0,door] release -> grab box to outside_wall[yaw2,door] -> grab box to stay[yaw3,door] lock
+      role1 prep: grab box to teammate[align,door] | play: segments then grab box to outside_wall[yaw2,door] -> [when ramp_inside] grab box to quadrant_interior[yaw3,direct] lock -> grab box to stay[yaw3,door] lock
+  graph validation detail: AssertionError: unknown segment acquire 'door_block'
+  LLM returned an invalid seeker graph proposal
+  no candidate improved the seeker graph
+[it   167 | S |  0.047M eps |   9.9 eps/s |   4745s] J_h=0.341 WR_h=0.28   beh={'chase': 0.12, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.06} stale(h/s)=81/81
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   168 | H |  0.047M eps |   9.9 eps/s |   4776s] J_h=0.271 WR_h=0.20   beh={'chase': 0.17, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=82/81
+  graph validation detail: AssertionError: unknown segment acquire 'opponent'
+  LLM returned an invalid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   169 | S |  0.048M eps |   9.9 eps/s |   4798s] J_h=0.248 WR_h=0.17 + beh={'chase': 0.17, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=82/82
+  new seeker graph:
+    assign=fixed params={'gain': 5.0, 'damp': 0.44, 'tol': 0.35, 'offset': 0.15, 'seg_timeout': 30.0}
+      role0 prep: (none) | play: chase then grab ramp to away_from_opponent[yaw0,direct] lock -> [when ramp_inside] grab box to ramp[yaw2,door] release -> grab box to climb[target,direct]
+      role1 prep: (none) | play: chase then grab ramp to away_from_opponent[yaw0,direct] lock -> [when ramp_inside] grab box to ramp[yaw2,door] release -> grab box to climb[target,direct]
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   170 | H |  0.048M eps |   9.9 eps/s |   4826s] J_h=0.459 WR_h=0.42 + beh={'chase': 0.05, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=83/82
+  new hider graph:
+    assign=fixed params={'gain': 4.94, 'damp': 0.8, 'tol': 0.33, 'offset': 0.24, 'seg_timeout': 38.83}
+      role0 prep: grab box to door_block[align,door] | play: segments then [when ramp_inside] grab box to quadrant_interior[yaw3,direct] lock -> grab box to outside_wall[yaw2,door] -> grab box to stay[yaw3,door] lock
+      role1 prep: grab box to door_block[align,door] | play: segments then [when ramp_inside] grab box to quadrant_interior[yaw3,direct] lock -> grab box to outside_wall[yaw2,door] -> grab box to stay[yaw3,door] lock
+  graph validation detail: AssertionError: roles must contain exactly two agent roles
+  LLM returned an invalid seeker graph proposal
+  no candidate improved the seeker graph
+[it   171 | S |  0.048M eps |   9.9 eps/s |   4855s] J_h=0.322 WR_h=0.25   beh={'chase': 0.1, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=83/83
+  graph validation detail: AssertionError: unknown segment acquire 'none'
+  LLM returned an invalid hider graph proposal
+  accepted structural search candidate for hider
+[it   172 | H |  0.048M eps |   9.9 eps/s |   4880s] J_h=0.535 WR_h=0.50 + beh={'chase': 0.07, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=84/83
+  new hider graph:
+    assign=fixed params={'gain': 4.94, 'damp': 0.8, 'tol': 0.33, 'offset': 0.24, 'seg_timeout': 38.83}
+      role0 prep: grab box to door_block[align,door] | play: segments then [when ramp_inside] grab box to quadrant_interior[yaw3,direct] lock -> grab box to outside_wall[yaw2,door] -> grab box to stay[yaw3,door] lock
+      role1 prep: grab box to door_block[align,door] | play: segments then grab box to outside_wall[yaw2,door] -> grab box to stay[yaw3,door] lock
+  graph validation detail: AssertionError: unknown segment acquire 'door'
+  LLM returned an invalid seeker graph proposal
+  no candidate improved the seeker graph
+[it   173 | S |  0.049M eps |   9.9 eps/s |   4907s] J_h=0.408 WR_h=0.42   beh={'chase': 0.03, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=84/84
+  graph validation detail: AssertionError: unknown segment gate 'ramp'
+  LLM returned an invalid hider graph proposal
+  no candidate improved the hider graph
+[it   174 | H |  0.049M eps |   9.9 eps/s |   4932s] J_h=0.512 WR_h=0.53   beh={'chase': 0.05, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=85/84
+  graph validation detail: AssertionError: unknown segment acquire 'door_block'
+  LLM returned an invalid seeker graph proposal
+  no candidate improved the seeker graph
+[it   175 | S |  0.049M eps |   9.9 eps/s |   4964s] J_h=0.373 WR_h=0.33   beh={'chase': 0.15, 'door': 0.0, 'r_use': 0.03, 'r_def': 0.0} stale(h/s)=85/85
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   176 | H |  0.050M eps |   9.9 eps/s |   4990s] J_h=0.584 WR_h=0.62 + beh={'chase': 0.1, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=0/85
+  new hider graph:
+    assign=nearest_object params={'gain': 4.94, 'damp': 0.75, 'tol': 0.33, 'offset': 0.24, 'seg_timeout': 38.83}
+      role0 prep: grab box to door_block[align,door] | play: segments then grab box to outside_wall[yaw2,door] -> grab box to stay[yaw3,door] lock
+      role1 prep: grab box to door_block[align,door] | play: segments then grab box to outside_wall[yaw2,door] -> grab box to stay[yaw3,door] lock
+  LLM returned a valid seeker graph proposal
+  no candidate improved the seeker graph
+[it   177 | S |  0.050M eps |   9.9 eps/s |   5030s] J_h=0.369 WR_h=0.30   beh={'chase': 0.12, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=0/86
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   178 | H |  0.050M eps |   9.9 eps/s |   5062s] J_h=0.454 WR_h=0.40   beh={'chase': 0.1, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=1/86
+  graph validation detail: AssertionError: roles must contain exactly two agent roles
+  LLM returned an invalid seeker graph proposal
+  no candidate improved the seeker graph
+[it   179 | S |  0.050M eps |   9.9 eps/s |   5088s] J_h=0.393 WR_h=0.38   beh={'chase': 0.15, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=1/87
+  graph validation detail: AssertionError: unknown segment gate 'ramp'
+  LLM returned an invalid hider graph proposal
+  accepted structural search candidate for hider
+[it   180 | H |  0.051M eps |   9.9 eps/s |   5117s] J_h=0.549 WR_h=0.53 + beh={'chase': 0.23, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=2/87
+  new hider graph:
+    assign=nearest_object params={'gain': 4.94, 'damp': 0.75, 'tol': 0.26, 'offset': 0.24, 'seg_timeout': 38.83}
+      role0 prep: grab box to door_block[align,door] | play: segments then grab box to outside_wall[yaw2,door] -> grab box to stay[yaw3,door] lock
+      role1 prep: grab box to door_block[align,door] | play: segments then grab box to outside_wall[yaw2,door] -> grab box to stay[yaw3,door] lock
+  graph validation detail: AssertionError: unknown segment acquire 'door'
+  LLM returned an invalid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   181 | S |  0.051M eps |   9.9 eps/s |   5141s] J_h=0.457 WR_h=0.47 + beh={'chase': 0.1, 'door': 0.0, 'r_use': 0.03, 'r_def': 0.03} stale(h/s)=2/88
+  new seeker graph:
+    assign=fixed params={'gain': 5.0, 'damp': 0.42, 'tol': 0.23, 'offset': 0.15, 'seg_timeout': 30.0}
+      role0 prep: (none) | play: chase then grab ramp to away_from_opponent[yaw0,direct] lock -> grab box to climb[target,direct]
+      role1 prep: (none) | play: chase then grab box to away_from_opponent[yaw0,direct] lock -> [when ramp_inside] grab box to ramp[yaw2,door] release -> grab box to climb[target,direct]
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   182 | H |  0.051M eps |   9.9 eps/s |   5165s] J_h=0.551 WR_h=0.62 + beh={'chase': 0.15, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=3/88
+  new hider graph:
+    assign=nearest_object params={'gain': 4.94, 'damp': 0.8, 'tol': 0.26, 'offset': 0.24, 'seg_timeout': 38.83}
+      role0 prep: grab box to door_block[align,door] | play: segments then grab box to outside_wall[yaw2,door] -> grab box to stay[yaw3,door] lock
+      role1 prep: grab box to door_block[align,door] | play: segments then grab box to outside_wall[yaw2,door] -> grab box to stay[yaw3,door] lock
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   183 | S |  0.052M eps |   9.9 eps/s |   5195s] J_h=0.440 WR_h=0.45 + beh={'chase': 0.17, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=3/89
+  new seeker graph:
+    assign=fixed params={'gain': 4.98, 'damp': 0.42, 'tol': 0.23, 'offset': 0.15, 'seg_timeout': 30.0}
+      role0 prep: (none) | play: chase then grab box to climb[target,direct] -> grab box to away_from_opponent[yaw0,direct] lock
+      role1 prep: (none) | play: chase then grab box to climb[target,direct] -> grab box to away_from_opponent[yaw0,direct] lock
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   184 | H |  0.052M eps |   9.9 eps/s |   5224s] J_h=0.545 WR_h=0.50 + beh={'chase': 0.12, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=4/89
+  new hider graph:
+    assign=nearest_object params={'gain': 4.94, 'damp': 0.8, 'tol': 0.26, 'offset': 0.24, 'seg_timeout': 38.83}
+      role0 prep: grab box to door_block[align,door] | play: segments then grab box to outside_wall[yaw2,door] -> grab box to stay[yaw3,door] lock
+      role1 prep: grab box to door_block[align,door] | play: segments then grab box to stay[yaw3,door] lock -> grab box to outside_wall[yaw2,door]
+  graph validation detail: AssertionError: unknown segment acquire 'teammate'
+  LLM returned an invalid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   185 | S |  0.052M eps |   9.9 eps/s |   5248s] J_h=0.386 WR_h=0.35 + beh={'chase': 0.12, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=4/90
+  new seeker graph:
+    assign=fixed params={'gain': 4.98, 'damp': 0.42, 'tol': 0.23, 'offset': 0.15, 'seg_timeout': 27.71}
+      role0 prep: (none) | play: chase then grab box to away_from_opponent[yaw0,direct] lock
+      role1 prep: (none) | play: chase then grab box to away_from_opponent[yaw0,direct] lock
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   186 | H |  0.052M eps |   9.9 eps/s |   5275s] J_h=0.615 WR_h=0.68   beh={'chase': 0.17, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=0/90
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   187 | S |  0.053M eps |   9.9 eps/s |   5298s] J_h=0.381 WR_h=0.35 + beh={'chase': 0.23, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=0/91
+  new seeker graph:
+    assign=fixed params={'gain': 4.98, 'damp': 0.42, 'tol': 0.23, 'offset': 0.15, 'seg_timeout': 27.71}
+      role0 prep: (none) | play: chase
+      role1 prep: (none) | play: chase
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   188 | H |  0.053M eps |   9.9 eps/s |   5325s] J_h=0.576 WR_h=0.57 + beh={'chase': 0.12, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=1/91
+  new hider graph:
+    assign=nearest_object params={'gain': 4.94, 'damp': 0.8, 'tol': 0.26, 'offset': 0.06, 'seg_timeout': 38.83}
+      role0 prep: grab box to door_block[align,door] | play: segments then grab box to stay[yaw3,door] lock
+      role1 prep: grab box to door_block[align,door] | play: segments then grab box to stay[yaw3,door] lock
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   189 | S |  0.053M eps |   9.9 eps/s |   5350s] J_h=0.430 WR_h=0.38 + beh={'chase': 0.15, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=1/92
+  new seeker graph:
+    assign=nearest_object params={'gain': 4.98, 'damp': 0.42, 'tol': 0.23, 'offset': 0.15, 'seg_timeout': 27.71}
+      role0 prep: (none) | play: chase then grab ramp to opponent[yaw0,direct] lock
+      role1 prep: (none) | play: chase
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   190 | H |  0.053M eps |  10.0 eps/s |   5374s] J_h=0.599 WR_h=0.68   beh={'chase': 0.17, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=2/92
+  graph validation detail: AssertionError: unknown segment acquire 'door'
+  LLM returned an invalid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   191 | S |  0.054M eps |  10.0 eps/s |   5396s] J_h=0.538 WR_h=0.53 + beh={'chase': 0.05, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=2/93
+  new seeker graph:
+    assign=nearest_object params={'gain': 4.98, 'damp': 0.42, 'tol': 0.23, 'offset': 0.19, 'seg_timeout': 27.71}
+      role0 prep: (none) | play: search then grab ramp to opponent[yaw0,direct] lock
+      role1 prep: (none) | play: chase then grab ramp to opponent[yaw0,direct] lock
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   192 | H |  0.054M eps |  10.0 eps/s |   5420s] J_h=0.551 WR_h=0.60 + beh={'chase': 0.05, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=3/93
+  new hider graph:
+    assign=nearest_object params={'gain': 4.94, 'damp': 0.8, 'tol': 0.25, 'offset': 0.06, 'seg_timeout': 38.83}
+      role0 prep: grab box to door_block[align,door] | play: segments then grab box to stay[yaw3,door] lock
+      role1 prep: grab box to door_block[align,door] | play: segments then grab box to stay[yaw3,door] lock
+  LLM returned a valid seeker graph proposal
+  no candidate improved the seeker graph
+[it   193 | S |  0.054M eps |  10.0 eps/s |   5444s] J_h=0.528 WR_h=0.50   beh={'chase': 0.17, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=3/94
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   194 | H |  0.055M eps |  10.0 eps/s |   5468s] J_h=0.543 WR_h=0.55   beh={'chase': 0.15, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=4/94
+  LLM returned a valid seeker graph proposal
+  no candidate improved the seeker graph
+[it   195 | S |  0.055M eps |  10.0 eps/s |   5498s] J_h=0.381 WR_h=0.30   beh={'chase': 0.03, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=4/95
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   196 | H |  0.055M eps |  10.0 eps/s |   5521s] J_h=0.577 WR_h=0.55 + beh={'chase': 0.07, 'door': 0.0, 'r_use': 0.03, 'r_def': 0.0} stale(h/s)=5/95
+  new hider graph:
+    assign=nearest_object params={'gain': 4.94, 'damp': 0.8, 'tol': 0.25, 'offset': 0.06, 'seg_timeout': 38.83}
+      role0 prep: grab box to door_block[align,door] | play: segments then grab box to stay[yaw3,door] lock
+      role1 prep: grab box to door_block[align,door] | play: segments then grab box to stay[yaw3,door] lock -> to door_inside[yaw2,direct] release
+  graph validation detail: AssertionError: roles must contain exactly two agent roles
+  LLM returned an invalid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   197 | S |  0.055M eps |  10.0 eps/s |   5547s] J_h=0.538 WR_h=0.57 + beh={'chase': 0.17, 'door': 0.0, 'r_use': 0.03, 'r_def': 0.0} stale(h/s)=5/96
+  new seeker graph:
+    assign=nearest_object params={'gain': 4.98, 'damp': 0.42, 'tol': 0.23, 'offset': 0.19, 'seg_timeout': 27.71}
+      role0 prep: (none) | play: chase then grab ramp to opponent[yaw0,direct] lock
+      role1 prep: (none) | play: chase then grab ramp to opponent[yaw0,direct] lock
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   198 | H |  0.056M eps |  10.0 eps/s |   5573s] J_h=0.572 WR_h=0.55   beh={'chase': 0.12, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=6/96
+  graph validation detail: AssertionError: unknown segment acquire 'door'
+  LLM returned an invalid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   199 | S |  0.056M eps |  10.0 eps/s |   5600s] J_h=0.446 WR_h=0.40 + beh={'chase': 0.17, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.06} stale(h/s)=6/97
+  new seeker graph:
+    assign=nearest_object params={'gain': 4.98, 'damp': 0.42, 'tol': 0.23, 'offset': 0.19, 'seg_timeout': 27.71}
+      role0 prep: (none) | play: chase then [when opponent_visible] grab ramp to opponent[yaw0,direct] lock
+      role1 prep: (none) | play: chase then grab ramp to opponent[yaw0,direct] lock
+  graph validation detail: AssertionError: roles must contain exactly two agent roles
+  LLM returned an invalid hider graph proposal
+  no candidate improved the hider graph
+[it   200 | H |  0.056M eps |  10.0 eps/s |   5625s] J_h=0.678 WR_h=0.75   beh={'chase': 0.12, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.06} stale(h/s)=0/97
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   201 | S |  0.057M eps |  10.0 eps/s |   5651s] J_h=0.391 WR_h=0.38 + beh={'chase': 0.17, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=0/98
+  new seeker graph:
+    assign=nearest_object params={'gain': 4.98, 'damp': 0.42, 'tol': 0.23, 'offset': 0.19, 'seg_timeout': 27.71}
+      role0 prep: (none) | play: chase then grab box to door_block[yaw0,direct] lock
+      role1 prep: (none) | play: chase then grab ramp to opponent[yaw0,direct] lock
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   202 | H |  0.057M eps |  10.0 eps/s |   5674s] J_h=0.563 WR_h=0.60   beh={'chase': 0.12, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=1/98
+  graph validation detail: AssertionError: roles must contain exactly two agent roles
+  LLM returned an invalid seeker graph proposal
+  no candidate improved the seeker graph
+[it   203 | S |  0.057M eps |  10.0 eps/s |   5697s] J_h=0.456 WR_h=0.47   beh={'chase': 0.1, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=1/99
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   204 | H |  0.057M eps |  10.0 eps/s |   5722s] J_h=0.413 WR_h=0.40   beh={'chase': 0.25, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.12} stale(h/s)=2/99
+  graph validation detail: AssertionError: roles must contain exactly two agent roles
+  LLM returned an invalid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   205 | S |  0.058M eps |  10.0 eps/s |   5741s] J_h=0.496 WR_h=0.42 + beh={'chase': 0.17, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=2/100
+  new seeker graph:
+    assign=nearest_object params={'gain': 4.98, 'damp': 0.42, 'tol': 0.23, 'offset': 0.19, 'seg_timeout': 27.71}
+      role0 prep: (none) | play: chase then grab box to door_block[yaw0,direct] lock
+      role1 prep: (none) | play: chase
+  graph validation detail: AssertionError: roles must contain exactly two agent roles
+  LLM returned an invalid hider graph proposal
+  accepted structural search candidate for hider
+[it   206 | H |  0.058M eps |  10.1 eps/s |   5764s] J_h=0.543 WR_h=0.57 + beh={'chase': 0.3, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=3/100
+  new hider graph:
+    assign=nearest_object params={'gain': 4.94, 'damp': 0.8, 'tol': 0.25, 'offset': 0.06, 'seg_timeout': 38.83}
+      role0 prep: grab box to door_block[target,door] | play: segments then grab box to stay[yaw3,door] lock -> to door_inside[yaw2,direct] release
+      role1 prep: grab box to door_block[target,door] | play: segments then grab box to stay[yaw3,door] lock -> to door_inside[yaw2,direct] release
+  LLM returned a valid seeker graph proposal
+  no candidate improved the seeker graph
+[it   207 | S |  0.058M eps |  10.1 eps/s |   5786s] J_h=0.563 WR_h=0.57   beh={'chase': 0.1, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=3/101
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   208 | H |  0.059M eps |  10.1 eps/s |   5811s] J_h=0.564 WR_h=0.57 + beh={'chase': 0.2, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=4/101
+  new hider graph:
+    assign=nearest_object params={'gain': 4.77, 'damp': 0.8, 'tol': 0.25, 'offset': 0.06, 'seg_timeout': 38.83}
+      role0 prep: grab box to door_block[target,door] | play: segments then grab box to stay[yaw3,door] lock -> to door_inside[yaw2,direct] release
+      role1 prep: grab box to door_block[target,door] | play: segments then grab box to stay[yaw3,door] lock
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   209 | S |  0.059M eps |  10.1 eps/s |   5833s] J_h=0.562 WR_h=0.55 + beh={'chase': 0.15, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=4/102
+  new seeker graph:
+    assign=nearest_object params={'gain': 4.98, 'damp': 0.42, 'tol': 0.23, 'offset': 0.19, 'seg_timeout': 27.71}
+      role0 prep: (none) | play: chase
+      role1 prep: (none) | play: chase
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   210 | H |  0.059M eps |  10.1 eps/s |   5856s] J_h=0.580 WR_h=0.60   beh={'chase': 0.12, 'door': 0.0, 'r_use': 0.03, 'r_def': 0.04} stale(h/s)=5/102
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   211 | S |  0.059M eps |  10.1 eps/s |   5883s] J_h=0.494 WR_h=0.50 + beh={'chase': 0.1, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=5/103
+  new seeker graph:
+    assign=fixed params={'gain': 4.98, 'damp': 0.42, 'tol': 0.23, 'offset': 0.19, 'seg_timeout': 28.17}
+      role0 prep: (none) | play: chase
+      role1 prep: (none) | play: chase
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   212 | H |  0.060M eps |  10.1 eps/s |   5909s] J_h=0.581 WR_h=0.60 + beh={'chase': 0.17, 'door': 0.23, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=6/103
+  new hider graph:
+    assign=nearest_object params={'gain': 4.77, 'damp': 0.8, 'tol': 0.25, 'offset': 0.06, 'seg_timeout': 38.83}
+      role0 prep: grab box to door_block[target,door] | play: segments then grab box to stay[yaw3,door] lock -> to door_inside[yaw2,direct] release
+      role1 prep: grab box to door_block[target,door] lock | play: segments then grab box to stay[yaw3,door] lock
+  graph validation detail: AssertionError: roles must contain exactly two agent roles
+  LLM returned an invalid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   213 | S |  0.060M eps |  10.1 eps/s |   5931s] J_h=0.471 WR_h=0.45 + beh={'chase': 0.2, 'door': 0.15, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=6/104
+  new seeker graph:
+    assign=fixed params={'gain': 4.98, 'damp': 0.42, 'tol': 0.23, 'offset': 0.19, 'seg_timeout': 28.17}
+      role0 prep: (none) | play: chase
+      role1 prep: (none) | play: chase
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+  ★ emergent behaviour detected: door_blocking at iteration 214 (0.06M rehearsal episodes, rate 0.65)
+[it   214 | H |  0.060M eps |  10.1 eps/s |   5954s] J_h=0.627 WR_h=0.62 + beh={'chase': 0.15, 'door': 0.65, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=7/104
+  new hider graph:
+    assign=nearest_object params={'gain': 4.77, 'damp': 0.8, 'tol': 0.25, 'offset': 0.06, 'seg_timeout': 38.83}
+      role0 prep: grab box to door_block[target,door] lock | play: segments then grab box to stay[yaw3,door] lock -> to door_inside[yaw2,direct] release
+      role1 prep: grab box to door_block[target,door] lock -> [when opponent_visible] to opponent[yaw2,door] release | play: segments
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   215 | S |  0.060M eps |  10.1 eps/s |   5979s] J_h=0.603 WR_h=0.62 + beh={'chase': 0.3, 'door': 0.47, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=7/105
+  new seeker graph:
+    assign=fixed params={'gain': 4.98, 'damp': 0.3, 'tol': 0.21, 'offset': 0.19, 'seg_timeout': 28.17}
+      role0 prep: (none) | play: chase then grab ramp to door_inside[align,direct] lock release
+      role1 prep: (none) | play: chase
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   216 | H |  0.061M eps |  10.1 eps/s |   6004s] J_h=0.654 WR_h=0.70 + beh={'chase': 0.28, 'door': 0.68, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=8/105
+  new hider graph:
+    assign=fixed params={'gain': 5.37, 'damp': 0.8, 'tol': 0.25, 'offset': 0.06, 'seg_timeout': 38.83}
+      role0 prep: grab box to door_block[target,door] lock | play: segments then grab box to stay[yaw3,door] lock -> to door_inside[yaw2,direct] release
+      role1 prep: grab box to door_block[target,door] lock | play: segments then grab box to stay[yaw3,door] lock -> to door_inside[yaw2,direct] release
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   217 | S |  0.061M eps |  10.1 eps/s |   6026s] J_h=0.577 WR_h=0.60 + beh={'chase': 0.25, 'door': 0.53, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=8/106
+  new seeker graph:
+    assign=fixed params={'gain': 4.98, 'damp': 0.3, 'tol': 0.21, 'offset': 0.19, 'seg_timeout': 28.17}
+      role0 prep: (none) | play: chase
+      role1 prep: (none) | play: go(door_block,door) then grab ramp to door_inside[yaw0,door] lock release
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   218 | H |  0.061M eps |  10.1 eps/s |   6054s] J_h=0.667 WR_h=0.70 + beh={'chase': 0.15, 'door': 0.7, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=9/106
+  new hider graph:
+    assign=fixed params={'gain': 5.2, 'damp': 0.8, 'tol': 0.25, 'offset': 0.06, 'seg_timeout': 38.83}
+      role0 prep: grab box to door_block[target,door] lock | play: segments then grab box to stay[yaw3,door] lock -> to door_inside[yaw2,direct] release
+      role1 prep: grab box to door_block[target,door] lock -> [when teammate_inside] grab ramp to away_from_opponent[yaw0,door] lock release | play: segments then grab box to stay[yaw3,door] lock -> to door_inside[yaw2,direct] release
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   219 | S |  0.062M eps |  10.1 eps/s |   6076s] J_h=0.605 WR_h=0.62 + beh={'chase': 0.17, 'door': 0.42, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=9/107
+  new seeker graph:
+    assign=fixed params={'gain': 4.98, 'damp': 0.3, 'tol': 0.21, 'offset': 0.19, 'seg_timeout': 28.17}
+      role0 prep: (none) | play: chase then to opponent[yaw0,direct] release -> [when ramp_inside] to box[yaw1,door] -> [when door] to ramp_inside[yaw3,direct] release
+      role1 prep: (none) | play: go(door_block,door) then grab ramp to door_inside[yaw0,door] lock release
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   220 | H |  0.062M eps |  10.1 eps/s |   6103s] J_h=0.662 WR_h=0.65   beh={'chase': 0.17, 'door': 0.8, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=10/107
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   221 | S |  0.062M eps |  10.1 eps/s |   6127s] J_h=0.611 WR_h=0.60 + beh={'chase': 0.07, 'door': 0.57, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=10/108
+  new seeker graph:
+    assign=nearest_object params={'gain': 4.98, 'damp': 0.3, 'tol': 0.21, 'offset': 0.19, 'seg_timeout': 28.17}
+      role0 prep: (none) | play: chase then to opponent[yaw0,direct] release -> [when ramp_inside] to box[yaw1,door] -> [when door] to ramp_inside[yaw3,direct] release
+      role1 prep: (none) | play: search then grab ramp to door_inside[yaw0,door] lock release -> [when teammate_inside] grab box to box[yaw0,direct] lock release
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   222 | H |  0.062M eps |  10.1 eps/s |   6154s] J_h=0.672 WR_h=0.65 + beh={'chase': 0.23, 'door': 0.57, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=11/108
+  new hider graph:
+    assign=fixed params={'gain': 5.2, 'damp': 0.8, 'tol': 0.25, 'offset': 0.06, 'seg_timeout': 34.2}
+      role0 prep: grab box to door_block[align,door] release -> grab box to door_block[target,door] lock | play: segments then grab box to stay[yaw3,door] lock -> to door_inside[yaw2,direct] release
+      role1 prep: grab box to door_block[align,door] release -> grab box to door_block[target,door] lock | play: segments then grab box to stay[yaw3,door] lock -> to door_inside[yaw2,direct] release
+  LLM returned a valid seeker graph proposal
+  accepted LLM candidate for seeker
+[it   223 | S |  0.063M eps |  10.1 eps/s |   6180s] J_h=0.514 WR_h=0.57 + beh={'chase': 0.1, 'door': 0.4, 'r_use': 0.0, 'r_def': 0.06} stale(h/s)=11/109
+  new seeker graph:
+    assign=nearest_object params={'gain': 5.0, 'damp': 0.4, 'tol': 0.3, 'offset': 0.25, 'seg_timeout': 35.0}
+      role0 prep: (none) | play: search then [when doors_sealed] to door_block[target,door] lock release -> [when opponent_visible] to ramp_inside[yaw3,direct] lock release
+      role1 prep: (none) | play: chase then [when doors_sealed] to door_block[align,door] release -> [when teammate_inside] grab box to box[yaw0,direct] lock release
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   224 | H |  0.063M eps |  10.2 eps/s |   6205s] J_h=0.678 WR_h=0.65 + beh={'chase': 0.2, 'door': 0.72, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=12/109
+  new hider graph:
+    assign=fixed params={'gain': 5.2, 'damp': 0.8, 'tol': 0.25, 'offset': 0.06, 'seg_timeout': 34.2}
+      role0 prep: grab box to door_block[align,door] release -> grab box to door_block[target,door] lock | play: segments then grab box to stay[yaw3,door] lock -> to door_inside[yaw2,direct] release
+      role1 prep: grab box to door_block[align,door] -> grab box to door_block[target,door] lock | play: segments then grab box to stay[yaw3,door] lock -> to door_inside[yaw2,direct] release
+  graph validation detail: AssertionError: unknown segment deliver 'ramp_defense'
+  LLM returned an invalid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   225 | S |  0.063M eps |  10.2 eps/s |   6231s] J_h=0.536 WR_h=0.55 + beh={'chase': 0.23, 'door': 0.47, 'r_use': 0.0, 'r_def': 0.06} stale(h/s)=12/110
+  new seeker graph:
+    assign=nearest_object params={'gain': 5.0, 'damp': 0.4, 'tol': 0.3, 'offset': 0.25, 'seg_timeout': 35.0}
+      role0 prep: (none) | play: chase then [when ramp_inside] to teammate[yaw2,door] lock -> [when teammate_inside] grab box to box[yaw0,direct] lock release -> [when doors_sealed] to door_block[align,door] release
+      role1 prep: (none) | play: chase then [when ramp_inside] to teammate[yaw2,door] lock -> [when teammate_inside] grab box to box[yaw0,direct] lock release -> [when doors_sealed] to door_block[align,door] release
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   226 | H |  0.064M eps |  10.2 eps/s |   6261s] J_h=0.748 WR_h=0.78 + beh={'chase': 0.33, 'door': 0.72, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=0/110
+  new hider graph:
+    assign=fixed params={'gain': 5.2, 'damp': 0.8, 'tol': 0.25, 'offset': 0.06, 'seg_timeout': 34.2}
+      role0 prep: grab box to door_block[align,door] release -> grab box to door_block[target,door] lock | play: go(ramp_inside,door) then grab box to stay[yaw3,door] lock -> to door_inside[yaw2,direct] release
+      role1 prep: grab box to door_block[align,door] -> grab box to door_block[target,door] lock | play: segments then grab box to stay[yaw3,door] lock -> to door_inside[yaw2,direct] release
+  graph validation detail: AssertionError: unknown segment deliver 'door'
+  LLM returned an invalid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   227 | S |  0.064M eps |  10.1 eps/s |   6291s] J_h=0.665 WR_h=0.65 + beh={'chase': 0.1, 'door': 0.62, 'r_use': 0.03, 'r_def': 0.0} stale(h/s)=0/111
+  new seeker graph:
+    assign=nearest_object params={'gain': 4.22, 'damp': 0.4, 'tol': 0.3, 'offset': 0.25, 'seg_timeout': 35.0}
+      role0 prep: (none) | play: chase then [when ramp_inside] to teammate[yaw2,door] lock -> [when doors_sealed] to door_block[align,door] release
+      role1 prep: (none) | play: chase then [when ramp_inside] to teammate[yaw2,door] lock -> [when doors_sealed] to door_block[align,door] release
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   228 | H |  0.064M eps |  10.1 eps/s |   6318s] J_h=0.754 WR_h=0.75 + beh={'chase': 0.1, 'door': 0.65, 'r_use': 0.03, 'r_def': 0.0} stale(h/s)=0/111
+  new hider graph:
+    assign=fixed params={'gain': 5.2, 'damp': 0.8, 'tol': 0.25, 'offset': 0.06, 'seg_timeout': 34.2}
+      role0 prep: grab box to door_block[align,door] release -> grab box to door_block[target,door] lock | play: go(ramp_inside,door) then grab box to stay[yaw3,door] lock -> grab box to ramp_inside[target,door] lock -> to door_inside[yaw2,direct] release
+      role1 prep: grab box to door_block[align,door] release -> grab box to door_block[target,door] lock | play: go(ramp_inside,door) then grab box to stay[yaw3,door] lock -> grab box to ramp_inside[target,door] lock -> to door_inside[yaw2,direct] release
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   229 | S |  0.064M eps |  10.1 eps/s |   6346s] J_h=0.631 WR_h=0.62 + beh={'chase': 0.12, 'door': 0.65, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=0/112
+  new seeker graph:
+    assign=fixed params={'gain': 4.63, 'damp': 0.4, 'tol': 0.3, 'offset': 0.25, 'seg_timeout': 35.0}
+      role0 prep: (none) | play: chase then [when ramp_inside] to teammate[yaw2,door] lock -> grab box to teammate[target,door] lock -> [when doors_sealed] to door_block[align,door] release
+      role1 prep: (none) | play: chase then [when doors_sealed] to door_block[align,door] release
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   230 | H |  0.065M eps |  10.1 eps/s |   6373s] J_h=0.565 WR_h=0.55 + beh={'chase': 0.28, 'door': 0.55, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=1/112
+  new hider graph:
+    assign=fixed params={'gain': 5.2, 'damp': 0.8, 'tol': 0.25, 'offset': 0.06, 'seg_timeout': 34.2}
+      role0 prep: grab box to door_block[align,door] release -> grab box to door_block[target,door] lock | play: search then grab box to stay[yaw3,door] lock -> grab box to ramp_inside[target,door] lock
+      role1 prep: grab box to door_block[align,door] release -> grab box to door_block[target,door] lock | play: go(ramp_inside,door) then grab box to ramp_inside[target,door] lock -> grab box to stay[yaw3,door] lock
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   231 | S |  0.065M eps |  10.2 eps/s |   6399s] J_h=0.471 WR_h=0.47 + beh={'chase': 0.17, 'door': 0.6, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=1/113
+  new seeker graph:
+    assign=fixed params={'gain': 4.63, 'damp': 0.4, 'tol': 0.3, 'offset': 0.25, 'seg_timeout': 26.67}
+      role0 prep: (none) | play: chase then [when ramp_inside] to teammate[yaw2,door] lock -> grab box to teammate[target,door] lock
+      role1 prep: (none) | play: chase then [when doors_sealed] grab box to wander[yaw3,door] lock release -> [when doors_sealed] to door_block[align,door] release
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   232 | H |  0.065M eps |  10.2 eps/s |   6425s] J_h=0.614 WR_h=0.65 + beh={'chase': 0.12, 'door': 0.6, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=2/113
+  new hider graph:
+    assign=fixed params={'gain': 5.2, 'damp': 0.8, 'tol': 0.25, 'offset': 0.06, 'seg_timeout': 34.2}
+      role0 prep: grab box to door_block[align,door] release -> grab box to door_block[target,door] lock | play: chase then grab box to stay[yaw3,door] lock -> grab box to ramp_inside[target,door] lock
+      role1 prep: grab box to door_block[align,door] release -> grab box to door_block[target,door] lock | play: go(ramp_inside,door) then grab box to ramp_inside[target,door] lock -> grab box to stay[yaw3,door] lock
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   233 | S |  0.066M eps |  10.2 eps/s |   6449s] J_h=0.558 WR_h=0.55 + beh={'chase': 0.23, 'door': 0.78, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=2/114
+  new seeker graph:
+    assign=fixed params={'gain': 4.63, 'damp': 0.4, 'tol': 0.3, 'offset': 0.25, 'seg_timeout': 26.67}
+      role0 prep: (none) | play: chase then [when ramp_inside] to teammate[yaw2,door] lock
+      role1 prep: (none) | play: chase then [when ramp_inside] to teammate[yaw2,door] lock
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   234 | H |  0.066M eps |  10.2 eps/s |   6473s] J_h=0.492 WR_h=0.50   beh={'chase': 0.23, 'door': 0.55, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=3/114
+  LLM returned a valid seeker graph proposal
+  no candidate improved the seeker graph
+[it   235 | S |  0.066M eps |  10.1 eps/s |   6511s] J_h=0.554 WR_h=0.55   beh={'chase': 0.15, 'door': 0.7, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=3/115
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   236 | H |  0.066M eps |  10.1 eps/s |   6538s] J_h=0.672 WR_h=0.65   beh={'chase': 0.15, 'door': 0.65, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=4/115
+  LLM returned a valid seeker graph proposal
+  no candidate improved the seeker graph
+[it   237 | S |  0.067M eps |  10.1 eps/s |   6574s] J_h=0.549 WR_h=0.57   beh={'chase': 0.2, 'door': 0.53, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=4/116
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   238 | H |  0.067M eps |  10.1 eps/s |   6606s] J_h=0.618 WR_h=0.62 + beh={'chase': 0.23, 'door': 0.68, 'r_use': 0.0, 'r_def': 0.06} stale(h/s)=5/116
+  new hider graph:
+    assign=fixed params={'gain': 5.2, 'damp': 0.8, 'tol': 0.25, 'offset': 0.06, 'seg_timeout': 34.2}
+      role0 prep: grab box to door_block[align,door] release -> grab box to door_block[target,door] lock | play: chase then grab box to stay[yaw3,door] lock -> grab box to ramp_inside[target,door] lock
+      role1 prep: grab box to door_block[align,door] release -> grab box to door_block[target,door] lock | play: go(ramp_inside,door) then grab box to ramp_inside[target,door] lock -> grab ramp to quadrant_interior[yaw1,direct] -> grab box to stay[yaw3,door] lock
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   239 | S |  0.067M eps |  10.1 eps/s |   6628s] J_h=0.581 WR_h=0.60 + beh={'chase': 0.15, 'door': 0.78, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=5/117
+  new seeker graph:
+    assign=fixed params={'gain': 3.5, 'damp': 0.4, 'tol': 0.3, 'offset': 0.31, 'seg_timeout': 26.67}
+      role0 prep: (none) | play: chase then [when ramp_inside] to teammate[yaw2,door]
+      role1 prep: (none) | play: chase
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   240 | H |  0.067M eps |  10.1 eps/s |   6657s] J_h=0.634 WR_h=0.62 + beh={'chase': 0.12, 'door': 0.7, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=6/117
+  new hider graph:
+    assign=fixed params={'gain': 5.2, 'damp': 0.8, 'tol': 0.25, 'offset': 0.06, 'seg_timeout': 34.2}
+      role0 prep: grab box to door_block[align,door] release -> grab box to door_block[target,door] lock | play: chase then grab box to stay[yaw3,door] lock -> grab box to ramp_inside[target,door] lock
+      role1 prep: grab box to door_block[align,door] release -> grab box to door_block[target,door] lock | play: stay then grab box to ramp_inside[target,door] lock -> grab ramp to quadrant_interior[yaw1,direct] -> grab box to stay[yaw3,door] lock
+  LLM returned a valid seeker graph proposal
+  no candidate improved the seeker graph
+[it   241 | S |  0.068M eps |  10.1 eps/s |   6686s] J_h=0.627 WR_h=0.60   beh={'chase': 0.17, 'door': 0.72, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=6/118
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   242 | H |  0.068M eps |  10.1 eps/s |   6715s] J_h=0.528 WR_h=0.53 + beh={'chase': 0.1, 'door': 0.53, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=7/118
+  new hider graph:
+    assign=fixed params={'gain': 5.2, 'damp': 0.8, 'tol': 0.25, 'offset': 0.06, 'seg_timeout': 34.2}
+      role0 prep: grab box to door_block[align,door] release -> grab box to door_block[target,door] lock | play: stay then grab box to ramp_inside[target,door] lock -> grab ramp to quadrant_interior[yaw2,direct] -> grab box to stay[yaw3,door] lock
+      role1 prep: grab box to door_block[align,door] release -> grab box to door_block[target,door] lock | play: stay then grab box to ramp_inside[target,door] lock -> grab ramp to quadrant_interior[yaw2,direct] -> grab box to stay[yaw3,door] lock
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   243 | S |  0.068M eps |  10.1 eps/s |   6738s] J_h=0.560 WR_h=0.55 + beh={'chase': 0.2, 'door': 0.62, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=7/119
+  new seeker graph:
+    assign=nearest_object params={'gain': 3.5, 'damp': 0.38, 'tol': 0.3, 'offset': 0.31, 'seg_timeout': 26.67}
+      role0 prep: (none) | play: chase then [when ramp_inside] to teammate[yaw2,door]
+      role1 prep: (none) | play: chase then [when ramp_inside] to teammate[yaw2,door]
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   244 | H |  0.069M eps |  10.1 eps/s |   6763s] J_h=0.517 WR_h=0.50   beh={'chase': 0.03, 'door': 0.5, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=8/119
+  graph validation detail: AssertionError: unknown play target 'door'
+  LLM returned an invalid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   245 | S |  0.069M eps |  10.2 eps/s |   6783s] J_h=0.590 WR_h=0.57 + beh={'chase': 0.17, 'door': 0.7, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=8/120
+  new seeker graph:
+    assign=fixed params={'gain': 3.5, 'damp': 0.38, 'tol': 0.3, 'offset': 0.31, 'seg_timeout': 26.67}
+      role0 prep: (none) | play: chase then [when ramp_inside] to teammate[yaw1,door]
+      role1 prep: (none) | play: chase then grab box to door_block[yaw0,direct] lock release -> [when ramp_inside] to teammate[yaw1,door]
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   246 | H |  0.069M eps |  10.2 eps/s |   6809s] J_h=0.549 WR_h=0.53   beh={'chase': 0.15, 'door': 0.72, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=9/120
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   247 | S |  0.069M eps |  10.2 eps/s |   6831s] J_h=0.548 WR_h=0.55 + beh={'chase': 0.28, 'door': 0.68, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=9/121
+  new seeker graph:
+    assign=fixed params={'gain': 3.5, 'damp': 0.38, 'tol': 0.3, 'offset': 0.31, 'seg_timeout': 26.67}
+      role0 prep: (none) | play: chase then [when ramp_inside] to teammate[yaw1,door] release
+      role1 prep: (none) | play: chase then grab box to door_block[yaw0,direct] lock release
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   248 | H |  0.070M eps |  10.2 eps/s |   6856s] J_h=0.544 WR_h=0.55 + beh={'chase': 0.2, 'door': 0.53, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=10/121
+  new hider graph:
+    assign=fixed params={'gain': 5.2, 'damp': 0.8, 'tol': 0.25, 'offset': 0.06, 'seg_timeout': 34.2}
+      role0 prep: grab box to door_block[align,door] release -> grab box to door_block[target,door] lock | play: stay then grab box to ramp_inside[target,door] lock -> grab ramp to quadrant_interior[yaw2,direct] -> grab box to stay[yaw3,door] lock
+      role1 prep: grab box to door_block[align,door] release -> grab box to door_block[target,door] lock | play: stay then grab box to ramp_inside[target,door] lock -> grab ramp to quadrant_interior[yaw2,direct] -> [when doors_sealed] grab box to wander[yaw2,direct] release -> grab box to stay[yaw3,door] lock
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   249 | S |  0.070M eps |  10.2 eps/s |   6877s] J_h=0.468 WR_h=0.47 + beh={'chase': 0.12, 'door': 0.62, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=10/122
+  new seeker graph:
+    assign=fixed params={'gain': 3.49, 'damp': 0.38, 'tol': 0.3, 'offset': 0.31, 'seg_timeout': 26.67}
+      role0 prep: (none) | play: chase then [when ramp_inside] to teammate[yaw1,door] release
+      role1 prep: (none) | play: chase then grab ramp to box[yaw3,direct] lock release -> [when ramp_inside] to teammate[yaw1,door] release
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   250 | H |  0.070M eps |  10.2 eps/s |   6902s] J_h=0.658 WR_h=0.65   beh={'chase': 0.2, 'door': 0.72, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=11/122
+  LLM returned a valid seeker graph proposal
+  no candidate improved the seeker graph
+[it   251 | S |  0.071M eps |  10.2 eps/s |   6928s] J_h=0.478 WR_h=0.47   beh={'chase': 0.17, 'door': 0.53, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=11/123
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   252 | H |  0.071M eps |  10.2 eps/s |   6956s] J_h=0.578 WR_h=0.57   beh={'chase': 0.17, 'door': 0.62, 'r_use': 0.03, 'r_def': 0.0} stale(h/s)=12/123
+  graph validation detail: AssertionError: unknown segment deliver 'door'
+  LLM returned an invalid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   253 | S |  0.071M eps |  10.2 eps/s |   6980s] J_h=0.421 WR_h=0.40 + beh={'chase': 0.15, 'door': 0.4, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=12/124
+  new seeker graph:
+    assign=nearest_object params={'gain': 3.49, 'damp': 0.38, 'tol': 0.3, 'offset': 0.31, 'seg_timeout': 26.67}
+      role0 prep: (none) | play: chase then [when ramp_inside] to teammate[yaw1,door] release -> grab ramp to teammate[yaw3,door] lock
+      role1 prep: (none) | play: chase then [when ramp_inside] to teammate[yaw1,door] release -> grab ramp to teammate[yaw3,door] lock
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   254 | H |  0.071M eps |  10.2 eps/s |   7006s] J_h=0.555 WR_h=0.53 + beh={'chase': 0.3, 'door': 0.62, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=13/124
+  new hider graph:
+    assign=nearest_object params={'gain': 5.2, 'damp': 0.8, 'tol': 0.25, 'offset': 0.06, 'seg_timeout': 34.2}
+      role0 prep: grab box to door_block[align,door] release -> grab box to door_block[target,door] lock | play: flee then grab box to ramp_inside[target,door] lock -> grab ramp to quadrant_interior[yaw2,direct] -> grab box to stay[yaw3,door] lock
+      role1 prep: grab box to door_block[align,door] release -> grab box to door_block[target,door] lock | play: flee then grab box to ramp_inside[target,door] lock -> grab ramp to quadrant_interior[yaw2,direct] -> grab box to stay[yaw3,door] lock
+  graph validation detail: AssertionError: unknown play behaviour 'door_block'
+  LLM returned an invalid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   255 | S |  0.072M eps |  10.2 eps/s |   7032s] J_h=0.561 WR_h=0.55 + beh={'chase': 0.17, 'door': 0.57, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=13/125
+  new seeker graph:
+    assign=nearest_object params={'gain': 3.49, 'damp': 0.38, 'tol': 0.3, 'offset': 0.31, 'seg_timeout': 26.67}
+      role0 prep: (none) | play: chase then grab ramp to teammate[yaw3,door] lock -> [when ramp_inside] to teammate[yaw1,door] release
+      role1 prep: (none) | play: search then grab ramp to teammate[yaw3,door] lock
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   256 | H |  0.072M eps |  10.2 eps/s |   7063s] J_h=0.604 WR_h=0.62   beh={'chase': 0.12, 'door': 0.55, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=14/125
+  graph validation detail: AssertionError: unknown segment gate 'door_sealed'
+  LLM returned an invalid seeker graph proposal
+  no candidate improved the seeker graph
+[it   257 | S |  0.072M eps |  10.2 eps/s |   7089s] J_h=0.587 WR_h=0.55   beh={'chase': 0.17, 'door': 0.53, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=14/126
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   258 | H |  0.073M eps |  10.2 eps/s |   7114s] J_h=0.588 WR_h=0.57   beh={'chase': 0.2, 'door': 0.62, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=15/126
+  graph validation detail: AssertionError: unknown play target 'door'
+  LLM returned an invalid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   259 | S |  0.073M eps |  10.2 eps/s |   7137s] J_h=0.518 WR_h=0.53 + beh={'chase': 0.17, 'door': 0.68, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=15/127
+  new seeker graph:
+    assign=nearest_object params={'gain': 3.49, 'damp': 0.38, 'tol': 0.3, 'offset': 0.31, 'seg_timeout': 26.67}
+      role0 prep: (none) | play: chase then grab ramp to teammate[yaw3,door] lock
+      role1 prep: (none) | play: chase
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   260 | H |  0.073M eps |  10.2 eps/s |   7169s] J_h=0.660 WR_h=0.70   beh={'chase': 0.05, 'door': 0.65, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=16/127
+  graph validation detail: AssertionError: unknown segment acquire 'door'
+  LLM returned an invalid seeker graph proposal
+  no candidate improved the seeker graph
+[it   261 | S |  0.073M eps |  10.2 eps/s |   7192s] J_h=0.549 WR_h=0.50   beh={'chase': 0.12, 'door': 0.57, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=16/128
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   262 | H |  0.074M eps |  10.2 eps/s |   7220s] J_h=0.719 WR_h=0.70 + beh={'chase': 0.17, 'door': 0.75, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=17/128
+  new hider graph:
+    assign=fixed params={'gain': 5.2, 'damp': 0.8, 'tol': 0.25, 'offset': 0.06, 'seg_timeout': 34.2}
+      role0 prep: grab box to door_block[align,door] release -> grab box to door_block[target,door] lock release | play: flee then grab box to ramp_inside[target,door] lock -> grab ramp to quadrant_interior[yaw2,direct] -> grab box to stay[yaw3,door] lock
+      role1 prep: grab box to door_block[align,door] release -> grab box to door_block[target,door] lock release | play: go(ramp_inside,door) then grab box to ramp_inside[target,door] lock -> grab ramp to quadrant_interior[yaw2,direct] -> grab box to stay[yaw3,door] lock
+  graph validation detail: AssertionError: unknown segment acquire 'door'
+  LLM returned an invalid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   263 | S |  0.074M eps |  10.2 eps/s |   7244s] J_h=0.474 WR_h=0.42 + beh={'chase': 0.12, 'door': 0.53, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=17/129
+  new seeker graph:
+    assign=fixed params={'gain': 3.49, 'damp': 0.38, 'tol': 0.3, 'offset': 0.31, 'seg_timeout': 26.67}
+      role0 prep: (none) | play: chase then to quadrant_interior[target,door] lock release -> grab ramp to teammate[yaw3,door] lock release
+      role1 prep: (none) | play: chase
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   264 | H |  0.074M eps |  10.2 eps/s |   7271s] J_h=0.656 WR_h=0.70   beh={'chase': 0.1, 'door': 0.68, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=18/129
+  graph validation detail: AssertionError: unknown segment acquire 'door'
+  LLM returned an invalid seeker graph proposal
+  no candidate improved the seeker graph
+[it   265 | S |  0.074M eps |  10.2 eps/s |   7297s] J_h=0.580 WR_h=0.57   beh={'chase': 0.15, 'door': 0.72, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=18/130
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   266 | H |  0.075M eps |  10.2 eps/s |   7323s] J_h=0.595 WR_h=0.57   beh={'chase': 0.12, 'door': 0.55, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=19/130
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   267 | S |  0.075M eps |  10.2 eps/s |   7349s] J_h=0.567 WR_h=0.55 + beh={'chase': 0.15, 'door': 0.6, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=19/131
+  new seeker graph:
+    assign=nearest_object params={'gain': 3.77, 'damp': 0.38, 'tol': 0.27, 'offset': 0.31, 'seg_timeout': 26.67}
+      role0 prep: (none) | play: chase then grab ramp to teammate[yaw3,door] lock release
+      role1 prep: (none) | play: chase
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   268 | H |  0.075M eps |  10.2 eps/s |   7379s] J_h=0.511 WR_h=0.50   beh={'chase': 0.2, 'door': 0.62, 'r_use': 0.03, 'r_def': 0.03} stale(h/s)=20/131
+  graph validation detail: AssertionError: roles must contain exactly two agent roles
+  LLM returned an invalid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   269 | S |  0.076M eps |  10.2 eps/s |   7407s] J_h=0.579 WR_h=0.55 + beh={'chase': 0.1, 'door': 0.53, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=20/132
+  new seeker graph:
+    assign=nearest_object params={'gain': 3.77, 'damp': 0.38, 'tol': 0.27, 'offset': 0.31, 'seg_timeout': 26.67}
+      role0 prep: (none) | play: chase then grab ramp to door_block[yaw0,door] release -> to quadrant_corner[target,door]
+      role1 prep: (none) | play: chase
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   270 | H |  0.076M eps |  10.2 eps/s |   7433s] J_h=0.540 WR_h=0.53   beh={'chase': 0.12, 'door': 0.55, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=21/132
+  LLM returned a valid seeker graph proposal
+  no candidate improved the seeker graph
+[it   271 | S |  0.076M eps |  10.2 eps/s |   7458s] J_h=0.613 WR_h=0.57   beh={'chase': 0.25, 'door': 0.65, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=21/133
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   272 | H |  0.076M eps |  10.2 eps/s |   7486s] J_h=0.643 WR_h=0.62   beh={'chase': 0.2, 'door': 0.65, 'r_use': 0.0, 'r_def': 0.06} stale(h/s)=22/133
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   273 | S |  0.077M eps |  10.2 eps/s |   7514s] J_h=0.527 WR_h=0.53 + beh={'chase': 0.33, 'door': 0.53, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=22/134
+  new seeker graph:
+    assign=fixed params={'gain': 3.17, 'damp': 0.38, 'tol': 0.23, 'offset': 0.31, 'seg_timeout': 26.67}
+      role0 prep: (none) | play: chase then to quadrant_corner[target,door] -> grab ramp to door_block[yaw0,door] release -> to climb[align,direct] release
+      role1 prep: (none) | play: chase
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   274 | H |  0.077M eps |  10.2 eps/s |   7543s] J_h=0.651 WR_h=0.62 + beh={'chase': 0.15, 'door': 0.75, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=23/134
+  new hider graph:
+    assign=fixed params={'gain': 5.2, 'damp': 0.8, 'tol': 0.25, 'offset': 0.06, 'seg_timeout': 34.2}
+      role0 prep: grab box to climb[align,door] release -> grab box to door_block[target,door] lock release | play: segments then grab box to ramp_inside[target,door] lock -> grab ramp to quadrant_interior[yaw2,direct] -> grab box to stay[yaw3,door] lock
+      role1 prep: grab box to climb[align,door] release -> grab box to door_block[target,door] lock release | play: segments then grab box to ramp_inside[target,door] lock -> grab ramp to quadrant_interior[yaw2,direct] -> grab box to stay[yaw3,door] lock
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   275 | S |  0.077M eps |  10.2 eps/s |   7571s] J_h=0.401 WR_h=0.38 + beh={'chase': 0.23, 'door': 0.42, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=23/135
+  new seeker graph:
+    assign=fixed params={'gain': 3.17, 'damp': 0.38, 'tol': 0.23, 'offset': 0.31, 'seg_timeout': 26.67}
+      role0 prep: (none) | play: chase then to climb[align,direct] release
+      role1 prep: (none) | play: chase
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   276 | H |  0.078M eps |  10.2 eps/s |   7601s] J_h=0.635 WR_h=0.68 + beh={'chase': 0.05, 'door': 0.62, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=24/135
+  new hider graph:
+    assign=fixed params={'gain': 5.2, 'damp': 0.8, 'tol': 0.25, 'offset': 0.06, 'seg_timeout': 34.2}
+      role0 prep: grab box to climb[align,door] release -> grab box to door_block[target,door] lock release | play: flee then grab box to ramp_inside[target,door] lock -> grab box to stay[yaw3,door] lock -> grab ramp to quadrant_interior[yaw2,direct]
+      role1 prep: grab box to climb[align,door] release -> grab box to door_block[target,door] lock release | play: segments then grab box to ramp_inside[target,door] lock -> grab ramp to quadrant_interior[yaw2,direct] -> grab box to stay[yaw3,door] lock
+  LLM returned a valid seeker graph proposal
+  no candidate improved the seeker graph
+[it   277 | S |  0.078M eps |  10.2 eps/s |   7628s] J_h=0.640 WR_h=0.65   beh={'chase': 0.17, 'door': 0.6, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=24/136
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   278 | H |  0.078M eps |  10.2 eps/s |   7653s] J_h=0.642 WR_h=0.65   beh={'chase': 0.12, 'door': 0.65, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=25/136
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   279 | S |  0.078M eps |  10.2 eps/s |   7678s] J_h=0.506 WR_h=0.47 + beh={'chase': 0.12, 'door': 0.47, 'r_use': 0.0, 'r_def': 0.04} stale(h/s)=25/137
+  new seeker graph:
+    assign=fixed params={'gain': 3.17, 'damp': 0.38, 'tol': 0.23, 'offset': 0.44, 'seg_timeout': 26.67}
+      role0 prep: (none) | play: chase
+      role1 prep: (none) | play: chase
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   280 | H |  0.079M eps |  10.2 eps/s |   7710s] J_h=0.571 WR_h=0.53   beh={'chase': 0.17, 'door': 0.53, 'r_use': 0.0, 'r_def': 0.04} stale(h/s)=26/137
+  graph validation detail: AssertionError: unknown segment acquire 'door'
+  LLM returned an invalid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   281 | S |  0.079M eps |  10.2 eps/s |   7733s] J_h=0.587 WR_h=0.57 + beh={'chase': 0.05, 'door': 0.57, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=26/138
+  new seeker graph:
+    assign=fixed params={'gain': 3.17, 'damp': 0.38, 'tol': 0.23, 'offset': 0.44, 'seg_timeout': 26.67}
+      role0 prep: (none) | play: search then to teammate[yaw3,direct] lock release
+      role1 prep: (none) | play: chase then [when doors_sealed] to away_from_opponent[yaw1,direct] lock release
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   282 | H |  0.079M eps |  10.2 eps/s |   7759s] J_h=0.642 WR_h=0.65 + beh={'chase': 0.07, 'door': 0.53, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=27/138
+  new hider graph:
+    assign=fixed params={'gain': 5.2, 'damp': 0.8, 'tol': 0.25, 'offset': 0.06, 'seg_timeout': 34.2}
+      role0 prep: grab box to climb[align,door] release -> grab box to door_block[target,door] lock release | play: flee then grab box to ramp_inside[target,door] lock -> grab box to stay[yaw3,door] lock -> grab ramp to quadrant_interior[yaw2,direct]
+      role1 prep: grab box to climb[align,door] release -> grab box to door_block[target,door] lock release | play: segments then grab ramp to quadrant_interior[yaw2,direct] -> grab box to stay[yaw3,door] lock
+  graph validation detail: AssertionError: roles must contain exactly two agent roles
+  LLM returned an invalid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   283 | S |  0.080M eps |  10.2 eps/s |   7788s] J_h=0.565 WR_h=0.62 + beh={'chase': 0.42, 'door': 0.57, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=27/139
+  new seeker graph:
+    assign=nearest_object params={'gain': 3.17, 'damp': 0.25, 'tol': 0.23, 'offset': 0.44, 'seg_timeout': 26.67}
+      role0 prep: (none) | play: search
+      role1 prep: (none) | play: chase then [when doors_sealed] to away_from_opponent[yaw1,direct] release
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   284 | H |  0.080M eps |  10.2 eps/s |   7813s] J_h=0.582 WR_h=0.60   beh={'chase': 0.35, 'door': 0.42, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=28/139
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   285 | S |  0.080M eps |  10.2 eps/s |   7836s] J_h=0.476 WR_h=0.40 + beh={'chase': 0.47, 'door': 0.42, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=28/140
+  new seeker graph:
+    assign=nearest_object params={'gain': 3.17, 'damp': 0.25, 'tol': 0.23, 'offset': 0.44, 'seg_timeout': 26.67}
+      role0 prep: (none) | play: search then grab ramp to door_block[target,direct] lock release
+      role1 prep: (none) | play: chase then [when doors_sealed] to away_from_opponent[yaw1,direct] release
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   286 | H |  0.080M eps |  10.2 eps/s |   7865s] J_h=0.698 WR_h=0.70 + beh={'chase': 0.38, 'door': 0.62, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=29/140
+  new hider graph:
+    assign=fixed params={'gain': 5.2, 'damp': 0.8, 'tol': 0.25, 'offset': 0.06, 'seg_timeout': 34.2}
+      role0 prep: grab box to climb[align,door] release -> grab box to door_block[target,door] lock release | play: flee then grab box to ramp_inside[target,door] lock -> grab ramp to quadrant_interior[yaw2,direct] -> grab box to stay[yaw3,door] lock
+      role1 prep: grab box to climb[align,door] release -> grab box to door_block[target,door] lock release | play: segments then grab box to stay[yaw3,door] lock
+  graph validation detail: AssertionError: roles must contain exactly two agent roles
+  LLM returned an invalid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   287 | S |  0.081M eps |  10.2 eps/s |   7891s] J_h=0.549 WR_h=0.60 + beh={'chase': 0.12, 'door': 0.5, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=29/141
+  new seeker graph:
+    assign=nearest_object params={'gain': 3.17, 'damp': 0.31, 'tol': 0.23, 'offset': 0.44, 'seg_timeout': 26.67}
+      role0 prep: (none) | play: search then grab ramp to door_block[target,direct] lock release
+      role1 prep: (none) | play: chase then [when ramp_inside] grab box to ramp_inside[yaw3,direct] release
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   288 | H |  0.081M eps |  10.2 eps/s |   7918s] J_h=0.655 WR_h=0.68   beh={'chase': 0.2, 'door': 0.6, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=30/141
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   289 | S |  0.081M eps |  10.2 eps/s |   7943s] J_h=0.593 WR_h=0.55 + beh={'chase': 0.17, 'door': 0.57, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=30/142
+  new seeker graph:
+    assign=nearest_object params={'gain': 1.99, 'damp': 0.31, 'tol': 0.23, 'offset': 0.55, 'seg_timeout': 26.67}
+      role0 prep: (none) | play: search then grab ramp to door_block[target,direct] lock release -> grab ramp to quadrant_corner[yaw0,direct] release
+      role1 prep: (none) | play: chase then [when ramp_inside] grab box to ramp_inside[yaw3,direct] release
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   290 | H |  0.081M eps |  10.2 eps/s |   7971s] J_h=0.567 WR_h=0.53   beh={'chase': 0.2, 'door': 0.53, 'r_use': 0.0, 'r_def': 0.06} stale(h/s)=31/142
+  graph validation detail: AssertionError: roles must contain exactly two agent roles
+  LLM returned an invalid seeker graph proposal
+  no candidate improved the seeker graph
+[it   291 | S |  0.082M eps |  10.2 eps/s |   7996s] J_h=0.569 WR_h=0.57   beh={'chase': 0.23, 'door': 0.65, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=31/143
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   292 | H |  0.082M eps |  10.2 eps/s |   8022s] J_h=0.716 WR_h=0.75 + beh={'chase': 0.25, 'door': 0.6, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=32/143
+  new hider graph:
+    assign=fixed params={'gain': 5.2, 'damp': 0.75, 'tol': 0.25, 'offset': 0.06, 'seg_timeout': 34.2}
+      role0 prep: grab box to climb[align,door] release -> grab box to door_block[target,door] lock release | play: flee then grab box to ramp_inside[target,door] lock -> grab ramp to quadrant_interior[yaw2,direct] -> grab box to stay[yaw3,door] lock
+      role1 prep: grab box to climb[align,door] release -> grab box to door_block[target,door] lock release | play: flee then grab box to ramp_inside[target,door] lock -> grab ramp to quadrant_interior[yaw2,direct] -> grab box to stay[yaw3,door] lock
+  graph validation detail: AssertionError: unknown segment gate 'quadrant_corner'
+  LLM returned an invalid seeker graph proposal
+  no candidate improved the seeker graph
+[it   293 | S |  0.082M eps |  10.2 eps/s |   8055s] J_h=0.565 WR_h=0.57   beh={'chase': 0.17, 'door': 0.53, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=32/144
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   294 | H |  0.083M eps |  10.2 eps/s |   8080s] J_h=0.656 WR_h=0.68 + beh={'chase': 0.07, 'door': 0.75, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=33/144
+  new hider graph:
+    assign=fixed params={'gain': 5.2, 'damp': 0.75, 'tol': 0.25, 'offset': 0.06, 'seg_timeout': 39.53}
+      role0 prep: grab box to climb[align,door] release -> grab box to door_block[target,door] lock release | play: flee then grab box to ramp_inside[target,door] lock -> grab ramp to quadrant_interior[yaw2,direct] -> grab box to stay[yaw3,door] lock
+      role1 prep: grab box to door_block[target,door] lock release -> grab box to climb[align,door] release | play: chase then grab box to ramp_inside[target,door] lock -> grab ramp to quadrant_interior[yaw2,direct] -> grab box to stay[yaw3,door] lock
+  graph validation detail: AssertionError: unknown segment acquire 'teammate'
+  LLM returned an invalid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   295 | S |  0.083M eps |  10.2 eps/s |   8106s] J_h=0.534 WR_h=0.45 + beh={'chase': 0.2, 'door': 0.57, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=33/145
+  new seeker graph:
+    assign=nearest_object params={'gain': 1.99, 'damp': 0.31, 'tol': 0.21, 'offset': 0.54, 'seg_timeout': 26.67}
+      role0 prep: (none) | play: search then grab ramp to door_block[target,direct] lock release -> grab ramp to quadrant_corner[yaw3,direct] release
+      role1 prep: (none) | play: chase
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   296 | H |  0.083M eps |  10.2 eps/s |   8136s] J_h=0.654 WR_h=0.62 + beh={'chase': 0.12, 'door': 0.65, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=34/145
+  new hider graph:
+    assign=fixed params={'gain': 5.2, 'damp': 0.75, 'tol': 0.25, 'offset': 0.06, 'seg_timeout': 39.53}
+      role0 prep: grab box to climb[align,door] release -> grab box to door_block[target,door] lock release | play: flee then grab box to ramp_inside[target,door] lock -> [when ramp_inside] to away_from_opponent[yaw2,direct] lock release -> grab ramp to quadrant_interior[yaw2,direct] -> grab box to stay[yaw3,door] lock
+      role1 prep: grab box to climb[align,door] release -> grab box to door_block[target,door] lock release | play: flee then grab box to ramp_inside[target,door] lock -> [when ramp_inside] to away_from_opponent[yaw2,direct] lock release -> grab ramp to quadrant_interior[yaw2,direct] -> grab box to stay[yaw3,door] lock
+  graph validation detail: AssertionError: unknown segment acquire 'teammate'
+  LLM returned an invalid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   297 | S |  0.083M eps |  10.2 eps/s |   8160s] J_h=0.463 WR_h=0.42 + beh={'chase': 0.12, 'door': 0.42, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=34/146
+  new seeker graph:
+    assign=nearest_object params={'gain': 1.99, 'damp': 0.31, 'tol': 0.21, 'offset': 0.54, 'seg_timeout': 26.67}
+      role0 prep: (none) | play: search then [when doors_sealed] grab box to outside_wall[yaw1,door] release -> grab ramp to door_block[target,direct] lock release
+      role1 prep: (none) | play: chase then to away_from_opponent[yaw2,door] -> grab box to quadrant_interior[target,door] release
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   298 | H |  0.084M eps |  10.2 eps/s |   8188s] J_h=0.683 WR_h=0.68   beh={'chase': 0.2, 'door': 0.72, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=35/146
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   299 | S |  0.084M eps |  10.2 eps/s |   8228s] J_h=0.514 WR_h=0.53 + beh={'chase': 0.3, 'door': 0.47, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=35/147
+  new seeker graph:
+    assign=nearest_object params={'gain': 1.99, 'damp': 0.31, 'tol': 0.21, 'offset': 0.54, 'seg_timeout': 30.57}
+      role0 prep: (none) | play: search then to ramp[yaw2,door] -> grab box to quadrant_interior[target,door] release
+      role1 prep: (none) | play: chase then to away_from_opponent[yaw2,door] -> grab box to quadrant_interior[target,door] release -> to quadrant_interior[yaw3,direct] lock
+  graph validation detail: AssertionError: unknown segment gate 'climb'
+  LLM returned an invalid hider graph proposal
+  no candidate improved the hider graph
+[it   300 | H |  0.084M eps |  10.2 eps/s |   8264s] J_h=0.542 WR_h=0.53   beh={'chase': 0.28, 'door': 0.47, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=36/147
+  LLM returned a valid seeker graph proposal
+  no candidate improved the seeker graph
+[it   301 | S |  0.085M eps |  10.2 eps/s |   8292s] J_h=0.541 WR_h=0.53   beh={'chase': 0.2, 'door': 0.57, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=36/148
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   302 | H |  0.085M eps |  10.2 eps/s |   8320s] J_h=0.658 WR_h=0.65 + beh={'chase': 0.28, 'door': 0.72, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=37/148
+  new hider graph:
+    assign=fixed params={'gain': 5.2, 'damp': 0.75, 'tol': 0.25, 'offset': 0.05, 'seg_timeout': 39.53}
+      role0 prep: grab box to door_block[target,door] lock release | play: flee then grab box to ramp_inside[target,door] lock -> [when ramp_inside] to away_from_opponent[yaw2,direct] lock release -> grab ramp to quadrant_interior[yaw2,direct] -> grab box to stay[yaw3,door] lock
+      role1 prep: grab box to climb[align,door] release -> grab box to door_block[target,door] lock release | play: flee then grab box to ramp_inside[target,door] lock -> [when ramp_inside] to away_from_opponent[yaw2,direct] lock release -> grab ramp to quadrant_interior[yaw2,direct] -> grab box to stay[yaw3,door] lock
+  graph validation detail: AssertionError: roles must contain exactly two agent roles
+  LLM returned an invalid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   303 | S |  0.085M eps |  10.2 eps/s |   8347s] J_h=0.566 WR_h=0.50 + beh={'chase': 0.28, 'door': 0.68, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=37/149
+  new seeker graph:
+    assign=nearest_object params={'gain': 1.99, 'damp': 0.31, 'tol': 0.21, 'offset': 0.54, 'seg_timeout': 30.57}
+      role0 prep: (none) | play: search then to ramp[yaw2,door] -> grab ramp to quadrant_interior[target,door] release
+      role1 prep: (none) | play: chase then to away_from_opponent[yaw2,door] -> grab box to quadrant_interior[target,door] release -> to quadrant_interior[yaw3,direct] lock
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   304 | H |  0.085M eps |  10.2 eps/s |   8374s] J_h=0.687 WR_h=0.72   beh={'chase': 0.07, 'door': 0.75, 'r_use': 0.03, 'r_def': 0.03} stale(h/s)=38/149
+  graph validation detail: AssertionError: roles must contain exactly two agent roles
+  LLM returned an invalid seeker graph proposal
+  no candidate improved the seeker graph
+[it   305 | S |  0.086M eps |  10.2 eps/s |   8399s] J_h=0.547 WR_h=0.57   beh={'chase': 0.33, 'door': 0.55, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=38/150
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   306 | H |  0.086M eps |  10.2 eps/s |   8425s] J_h=0.580 WR_h=0.55   beh={'chase': 0.28, 'door': 0.6, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=39/150
+  graph validation detail: AssertionError: roles must contain exactly two agent roles
+  LLM returned an invalid seeker graph proposal
+  no candidate improved the seeker graph
+[it   307 | S |  0.086M eps |  10.2 eps/s |   8448s] J_h=0.553 WR_h=0.53   beh={'chase': 0.25, 'door': 0.65, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=39/151
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   308 | H |  0.087M eps |  10.2 eps/s |   8476s] J_h=0.639 WR_h=0.65   beh={'chase': 0.25, 'door': 0.65, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=40/151
+  both teams plateaued for 40 iterations — boosting exploration
+  LLM returned a valid seeker graph proposal
+  accepted LLM candidate for seeker
+[it   309 | S |  0.087M eps |  10.2 eps/s |   8504s] J_h=0.448 WR_h=0.42 + beh={'chase': 0.1, 'door': 0.53, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=40/152
+  new seeker graph:
+    assign=fixed params={'gain': 4.0, 'damp': 0.5, 'tol': 0.3, 'offset': 0.15, 'seg_timeout': 30.0}
+      role0 prep: (none) | play: go(door_block,door) then [when doors_sealed] grab box to quadrant_interior[yaw0,door] release
+      role1 prep: (none) | play: chase then [when ramp_inside] grab ramp to quadrant_interior[yaw1,direct] lock -> [when opponent_visible] to away_from_opponent[yaw2,door] release
+  both teams plateaued for 40 iterations — boosting exploration
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   310 | H |  0.087M eps |  10.2 eps/s |   8534s] J_h=0.661 WR_h=0.65   beh={'chase': 0.23, 'door': 0.62, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=41/152
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   311 | S |  0.087M eps |  10.2 eps/s |   8565s] J_h=0.559 WR_h=0.53 + beh={'chase': 0.1, 'door': 0.62, 'r_use': 0.03, 'r_def': 0.0} stale(h/s)=41/153
+  new seeker graph:
+    assign=fixed params={'gain': 4.0, 'damp': 0.5, 'tol': 0.3, 'offset': 0.15, 'seg_timeout': 24.98}
+      role0 prep: (none) | play: chase then [when doors_sealed] grab box to quadrant_interior[yaw0,door] release
+      role1 prep: (none) | play: chase then [when doors_sealed] grab box to quadrant_interior[yaw0,door] release
+  graph validation detail: AssertionError: unknown segment deliver 'door'
+  LLM returned an invalid hider graph proposal
+  accepted structural search candidate for hider
+[it   312 | H |  0.088M eps |  10.2 eps/s |   8592s] J_h=0.671 WR_h=0.72 + beh={'chase': 0.15, 'door': 0.7, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=42/153
+  new hider graph:
+    assign=fixed params={'gain': 5.69, 'damp': 0.75, 'tol': 0.25, 'offset': 0.05, 'seg_timeout': 39.53}
+      role0 prep: grab box to door_block[target,door] lock release | play: flee then grab box to ramp_inside[target,door] lock -> [when ramp_inside] to away_from_opponent[yaw2,direct] lock release -> grab ramp to quadrant_interior[yaw2,direct] -> grab box to stay[yaw3,door] lock
+      role1 prep: grab box to door_block[target,door] lock release -> grab box to climb[align,door] release | play: flee then grab box to ramp_inside[target,door] lock -> [when ramp_inside] to away_from_opponent[yaw2,direct] lock release -> grab ramp to quadrant_interior[yaw2,direct] -> grab box to stay[yaw3,door] lock
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   313 | S |  0.088M eps |  10.2 eps/s |   8616s] J_h=0.557 WR_h=0.55 + beh={'chase': 0.1, 'door': 0.57, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=42/154
+  new seeker graph:
+    assign=fixed params={'gain': 4.0, 'damp': 0.5, 'tol': 0.3, 'offset': 0.15, 'seg_timeout': 24.98}
+      role0 prep: (none) | play: chase then to teammate[yaw2,door] release -> [when doors_sealed] grab box to quadrant_interior[yaw0,door] release
+      role1 prep: (none) | play: chase then to teammate[yaw2,door] release -> [when doors_sealed] grab box to quadrant_interior[yaw0,door] release
+  graph validation detail: AssertionError: unknown segment gate 'quadrant_interior'
+  LLM returned an invalid hider graph proposal
+  no candidate improved the hider graph
+[it   314 | H |  0.088M eps |  10.2 eps/s |   8644s] J_h=0.616 WR_h=0.62   beh={'chase': 0.28, 'door': 0.72, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=43/154
+  graph validation detail: AssertionError: unknown segment acquire 'door_block'
+  LLM returned an invalid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   315 | S |  0.088M eps |  10.2 eps/s |   8670s] J_h=0.544 WR_h=0.50 + beh={'chase': 0.1, 'door': 0.42, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=43/155
+  new seeker graph:
+    assign=fixed params={'gain': 4.0, 'damp': 0.5, 'tol': 0.3, 'offset': 0.15, 'seg_timeout': 26.66}
+      role0 prep: (none) | play: chase then to teammate[yaw2,door] release -> [when doors_sealed] grab box to quadrant_interior[yaw0,door]
+      role1 prep: (none) | play: chase then to teammate[yaw2,door] release -> [when doors_sealed] grab box to quadrant_interior[yaw0,door] release
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   316 | H |  0.089M eps |  10.2 eps/s |   8699s] J_h=0.616 WR_h=0.60   beh={'chase': 0.23, 'door': 0.6, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=44/155
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   317 | S |  0.089M eps |  10.2 eps/s |   8723s] J_h=0.532 WR_h=0.50 + beh={'chase': 0.2, 'door': 0.62, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=44/156
+  new seeker graph:
+    assign=fixed params={'gain': 4.0, 'damp': 0.5, 'tol': 0.35, 'offset': 0.19, 'seg_timeout': 26.66}
+      role0 prep: (none) | play: chase then grab box to door_block[yaw0,direct] lock -> to teammate[yaw2,door] release -> [when doors_sealed] grab box to quadrant_interior[yaw0,door]
+      role1 prep: (none) | play: chase then to teammate[yaw2,door] release -> [when doors_sealed] grab box to quadrant_interior[yaw0,door] release
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   318 | H |  0.089M eps |  10.2 eps/s |   8750s] J_h=0.622 WR_h=0.60 + beh={'chase': 0.15, 'door': 0.7, 'r_use': 0.0, 'r_def': 0.06} stale(h/s)=45/156
+  new hider graph:
+    assign=fixed params={'gain': 5.41, 'damp': 0.75, 'tol': 0.25, 'offset': 0.05, 'seg_timeout': 38.08}
+      role0 prep: grab box to door_block[target,door] lock release -> grab box to ramp_inside[yaw2,door] | play: flee then grab box to ramp_inside[target,door] lock -> [when ramp_inside] to away_from_opponent[yaw2,direct] lock release -> grab ramp to quadrant_interior[yaw2,direct] -> grab box to stay[yaw3,door] lock
+      role1 prep: grab box to door_block[target,door] lock release -> grab box to climb[align,door] release | play: flee then grab box to ramp_inside[target,door] lock -> [when ramp_inside] to away_from_opponent[yaw2,direct] lock release -> grab ramp to quadrant_interior[yaw2,direct] -> grab box to stay[yaw3,door] lock
+  LLM returned a valid seeker graph proposal
+  no candidate improved the seeker graph
+[it   319 | S |  0.090M eps |  10.2 eps/s |   8773s] J_h=0.516 WR_h=0.50   beh={'chase': 0.17, 'door': 0.72, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=45/157
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   320 | H |  0.090M eps |  10.2 eps/s |   8798s] J_h=0.727 WR_h=0.72   beh={'chase': 0.2, 'door': 0.72, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=46/157
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   321 | S |  0.090M eps |  10.2 eps/s |   8823s] J_h=0.526 WR_h=0.55 + beh={'chase': 0.05, 'door': 0.57, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=46/158
+  new seeker graph:
+    assign=fixed params={'gain': 4.0, 'damp': 0.5, 'tol': 0.35, 'offset': 0.19, 'seg_timeout': 26.66}
+      role0 prep: (none) | play: search then grab box to door_block[yaw0,direct] -> to teammate[yaw2,door] release -> grab box to teammate[yaw3,door] -> [when doors_sealed] grab box to quadrant_interior[yaw0,door]
+      role1 prep: (none) | play: chase then to opponent[yaw2,door] release
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   322 | H |  0.090M eps |  10.2 eps/s |   8853s] J_h=0.593 WR_h=0.60 + beh={'chase': 0.07, 'door': 0.72, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=47/158
+  new hider graph:
+    assign=fixed params={'gain': 5.41, 'damp': 0.75, 'tol': 0.25, 'offset': 0.05, 'seg_timeout': 38.08}
+      role0 prep: grab box to door_block[target,door] lock release -> grab box to ramp_inside[yaw2,door] | play: flee then [when ramp_inside] to away_from_opponent[yaw2,direct] lock release -> grab ramp to quadrant_interior[yaw2,direct] -> grab box to stay[yaw3,door] lock
+      role1 prep: grab box to door_block[target,door] lock release -> grab box to climb[align,door] release | play: flee then grab box to ramp_inside[target,door] lock -> [when ramp_inside] to away_from_opponent[yaw2,direct] lock release -> grab box to stay[yaw3,door] lock -> grab ramp to quadrant_interior[yaw2,direct]
+  LLM returned a valid seeker graph proposal
+  no candidate improved the seeker graph
+[it   323 | S |  0.091M eps |  10.2 eps/s |   8879s] J_h=0.470 WR_h=0.45   beh={'chase': 0.05, 'door': 0.62, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=47/159
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   324 | H |  0.091M eps |  10.2 eps/s |   8904s] J_h=0.647 WR_h=0.62   beh={'chase': 0.2, 'door': 0.78, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=48/159
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   325 | S |  0.091M eps |  10.2 eps/s |   8930s] J_h=0.534 WR_h=0.57 + beh={'chase': 0.1, 'door': 0.53, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=48/160
+  new seeker graph:
+    assign=nearest_object params={'gain': 4.0, 'damp': 0.5, 'tol': 0.35, 'offset': 0.22, 'seg_timeout': 26.66}
+      role0 prep: (none) | play: search then grab box to door_block[yaw0,direct] -> to teammate[yaw2,door] release -> [when doors_sealed] grab box to quadrant_interior[yaw0,door]
+      role1 prep: (none) | play: chase then to opponent[yaw2,door] release
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   326 | H |  0.092M eps |  10.2 eps/s |   8959s] J_h=0.667 WR_h=0.68   beh={'chase': 0.05, 'door': 0.75, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=49/160
+  LLM returned a valid seeker graph proposal
+  no candidate improved the seeker graph
+[it   327 | S |  0.092M eps |  10.2 eps/s |   8984s] J_h=0.452 WR_h=0.40   beh={'chase': 0.1, 'door': 0.57, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=49/161
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   328 | H |  0.092M eps |  10.2 eps/s |   9006s] J_h=0.603 WR_h=0.57 + beh={'chase': 0.03, 'door': 0.68, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=50/161
+  new hider graph:
+    assign=fixed params={'gain': 4.61, 'damp': 0.75, 'tol': 0.25, 'offset': 0.05, 'seg_timeout': 38.08}
+      role0 prep: grab box to door_block[target,door] lock release -> grab box to ramp_inside[yaw2,door] | play: chase then [when ramp_inside] to away_from_opponent[yaw2,direct] lock release -> grab ramp to quadrant_interior[yaw2,direct] -> grab box to stay[yaw3,door] lock
+      role1 prep: grab box to door_block[target,door] lock release -> grab box to climb[align,door] release | play: flee then grab box to ramp_inside[target,door] lock -> [when ramp_inside] to away_from_opponent[yaw2,direct] lock release -> grab box to stay[yaw3,door] lock -> grab ramp to quadrant_interior[align,direct]
+  LLM returned a valid seeker graph proposal
+  no candidate improved the seeker graph
+[it   329 | S |  0.092M eps |  10.2 eps/s |   9031s] J_h=0.563 WR_h=0.55   beh={'chase': 0.03, 'door': 0.78, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=50/162
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   330 | H |  0.093M eps |  10.2 eps/s |   9056s] J_h=0.447 WR_h=0.45   beh={'chase': 0.03, 'door': 0.6, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=51/162
+  graph validation detail: AssertionError: unknown segment acquire 'teammate'
+  LLM returned an invalid seeker graph proposal
+  no candidate improved the seeker graph
+[it   331 | S |  0.093M eps |  10.2 eps/s |   9079s] J_h=0.524 WR_h=0.50   beh={'chase': 0.07, 'door': 0.65, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=51/163
+  graph validation detail: AssertionError: unknown segment gate 'quadrant_interior'
+  LLM returned an invalid hider graph proposal
+  accepted structural search candidate for hider
+[it   332 | H |  0.093M eps |  10.2 eps/s |   9109s] J_h=0.641 WR_h=0.62 + beh={'chase': 0.1, 'door': 0.6, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=52/163
+  new hider graph:
+    assign=fixed params={'gain': 4.61, 'damp': 0.75, 'tol': 0.25, 'offset': 0.0, 'seg_timeout': 38.08}
+      role0 prep: grab box to door_block[target,door] lock release -> grab box to ramp_inside[yaw2,door] | play: chase then [when ramp_inside] to away_from_opponent[yaw2,direct] lock release -> grab ramp to quadrant_interior[yaw2,direct] -> grab box to ramp_inside[yaw2,door] lock -> grab box to stay[yaw3,door] lock
+      role1 prep: grab box to door_block[target,door] lock release -> grab box to climb[align,door] release | play: flee then grab box to ramp_inside[target,door] lock -> [when ramp_inside] to away_from_opponent[yaw2,direct] lock release -> grab box to stay[yaw3,direct] lock -> grab ramp to quadrant_interior[align,direct]
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   333 | S |  0.094M eps |  10.2 eps/s |   9132s] J_h=0.511 WR_h=0.50 + beh={'chase': 0.03, 'door': 0.68, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=52/164
+  new seeker graph:
+    assign=fixed params={'gain': 4.0, 'damp': 0.5, 'tol': 0.35, 'offset': 0.22, 'seg_timeout': 26.66}
+      role0 prep: (none) | play: search then grab box to door_block[yaw0,direct] -> to teammate[yaw2,door] release
+      role1 prep: (none) | play: chase then grab ramp to wander[yaw0,door] lock release
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   334 | H |  0.094M eps |  10.2 eps/s |   9159s] J_h=0.617 WR_h=0.57 + beh={'chase': 0.15, 'door': 0.53, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=53/164
+  new hider graph:
+    assign=fixed params={'gain': 4.61, 'damp': 0.75, 'tol': 0.25, 'offset': 0.0, 'seg_timeout': 38.08}
+      role0 prep: grab box to climb[align,door] release -> grab box to door_block[target,door] lock release | play: flee then [when ramp_inside] to away_from_opponent[yaw2,direct] lock release -> grab box to ramp_inside[target,door] lock -> grab box to stay[yaw3,direct] lock -> grab ramp to quadrant_interior[align,direct]
+      role1 prep: grab box to climb[align,door] release -> grab box to door_block[target,door] lock release | play: flee then [when ramp_inside] to away_from_opponent[yaw2,direct] lock release -> grab box to ramp_inside[target,door] lock -> grab box to stay[yaw3,direct] lock -> to quadrant_interior[align,direct]
+  graph validation detail: AssertionError: roles must contain exactly two agent roles
+  LLM returned an invalid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   335 | S |  0.094M eps |  10.2 eps/s |   9183s] J_h=0.449 WR_h=0.40 + beh={'chase': 0.1, 'door': 0.45, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=53/165
+  new seeker graph:
+    assign=fixed params={'gain': 4.0, 'damp': 0.5, 'tol': 0.35, 'offset': 0.22, 'seg_timeout': 26.66}
+      role0 prep: (none) | play: search then grab box to door_block[yaw0,direct]
+      role1 prep: (none) | play: chase then grab ramp to wander[yaw0,door] lock release -> grab box to away_from_opponent[yaw0,door] release
+  graph validation detail: AssertionError: unknown segment deliver 'quadr, '
+  LLM returned an invalid hider graph proposal
+  no candidate improved the hider graph
+[it   336 | H |  0.094M eps |  10.2 eps/s |   9209s] J_h=0.716 WR_h=0.72   beh={'chase': 0.12, 'door': 0.72, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=54/165
+  graph validation detail: AssertionError: roles must contain exactly two agent roles
+  LLM returned an invalid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   337 | S |  0.095M eps |  10.2 eps/s |   9235s] J_h=0.480 WR_h=0.47 + beh={'chase': 0.2, 'door': 0.5, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=54/166
+  new seeker graph:
+    assign=fixed params={'gain': 4.0, 'damp': 0.53, 'tol': 0.35, 'offset': 0.21, 'seg_timeout': 26.66}
+      role0 prep: (none) | play: go(climb,door) then grab ramp to teammate[yaw2,direct] release
+      role1 prep: (none) | play: chase then grab ramp to wander[yaw0,door] lock release -> grab box to away_from_opponent[yaw0,door] release
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   338 | H |  0.095M eps |  10.2 eps/s |   9263s] J_h=0.661 WR_h=0.68 + beh={'chase': 0.2, 'door': 0.53, 'r_use': 0.03, 'r_def': 0.0} stale(h/s)=55/166
+  new hider graph:
+    assign=fixed params={'gain': 4.61, 'damp': 0.75, 'tol': 0.25, 'offset': 0.0, 'seg_timeout': 38.08}
+      role0 prep: grab box to climb[yaw1,door] release -> grab box to door_block[target,door] lock release | play: flee then [when ramp_inside] to away_from_opponent[yaw2,direct] lock release -> grab box to ramp_inside[target,door] lock -> grab box to stay[yaw3,direct] lock -> grab ramp to quadrant_interior[align,direct]
+      role1 prep: grab box to climb[align,door] release -> grab box to door_block[target,door] lock release | play: flee then [when ramp_inside] to away_from_opponent[yaw2,direct] lock release -> grab box to ramp_inside[target,door] lock -> to quadrant_interior[align,direct] -> grab box to stay[yaw3,direct] lock
+  LLM returned a valid seeker graph proposal
+  no candidate improved the seeker graph
+[it   339 | S |  0.095M eps |  10.2 eps/s |   9290s] J_h=0.597 WR_h=0.60   beh={'chase': 0.15, 'door': 0.6, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=55/167
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   340 | H |  0.095M eps |  10.2 eps/s |   9316s] J_h=0.620 WR_h=0.60   beh={'chase': 0.12, 'door': 0.55, 'r_use': 0.0, 'r_def': 0.08} stale(h/s)=56/167
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   341 | S |  0.096M eps |  10.2 eps/s |   9343s] J_h=0.621 WR_h=0.65 + beh={'chase': 0.15, 'door': 0.57, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=56/168
+  new seeker graph:
+    assign=fixed params={'gain': 4.0, 'damp': 0.53, 'tol': 0.35, 'offset': 0.21, 'seg_timeout': 26.66}
+      role0 prep: (none) | play: flee then grab ramp to teammate[yaw2,direct] release
+      role1 prep: (none) | play: chase then grab ramp to wander[yaw0,door] lock release
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   342 | H |  0.096M eps |  10.3 eps/s |   9368s] J_h=0.661 WR_h=0.65 + beh={'chase': 0.15, 'door': 0.62, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=57/168
+  new hider graph:
+    assign=fixed params={'gain': 4.61, 'damp': 0.75, 'tol': 0.25, 'offset': 0.0, 'seg_timeout': 38.08}
+      role0 prep: grab box to climb[yaw1,door] release -> grab box to door_block[target,door] lock release | play: flee then [when ramp_inside] to away_from_opponent[yaw2,direct] lock release -> grab box to ramp_inside[target,door] lock -> grab box to stay[yaw3,direct] lock -> grab ramp to quadrant_interior[align,direct]
+      role1 prep: grab box to climb[align,door] release -> grab box to door_block[target,door] lock release | play: flee then [when ramp_inside] to away_from_opponent[yaw2,direct] lock release -> grab box to ramp_inside[target,door] lock -> to quadrant_interior[align,direct] -> grab box to stay[yaw3,direct] lock
+  LLM returned a valid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   343 | S |  0.096M eps |  10.3 eps/s |   9394s] J_h=0.542 WR_h=0.55 + beh={'chase': 0.1, 'door': 0.6, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=57/169
+  new seeker graph:
+    assign=fixed params={'gain': 4.0, 'damp': 0.53, 'tol': 0.35, 'offset': 0.21, 'seg_timeout': 26.66}
+      role0 prep: (none) | play: chase
+      role1 prep: (none) | play: chase then grab ramp to wander[yaw0,door] lock release
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   344 | H |  0.097M eps |  10.3 eps/s |   9418s] J_h=0.712 WR_h=0.72 + beh={'chase': 0.12, 'door': 0.68, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=58/169
+  new hider graph:
+    assign=fixed params={'gain': 4.61, 'damp': 0.75, 'tol': 0.25, 'offset': 0.0, 'seg_timeout': 38.08}
+      role0 prep: grab box to climb[yaw1,door] release -> grab box to door_block[target,door] lock release | play: flee then [when ramp_inside] to away_from_opponent[yaw2,direct] lock release -> grab box to ramp_inside[target,door] lock -> grab box to stay[yaw3,direct] lock -> grab ramp to quadrant_interior[align,direct]
+      role1 prep: grab box to climb[align,door] release -> grab box to door_block[target,door] lock release | play: flee then grab box to ramp_inside[target,door] lock -> to quadrant_interior[align,direct] -> grab box to stay[yaw3,direct] lock
+  graph validation detail: AssertionError: unknown segment acquire 'door'
+  LLM returned an invalid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   345 | S |  0.097M eps |  10.3 eps/s |   9443s] J_h=0.545 WR_h=0.50 + beh={'chase': 0.12, 'door': 0.55, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=58/170
+  new seeker graph:
+    assign=fixed params={'gain': 5.89, 'damp': 0.61, 'tol': 0.35, 'offset': 0.21, 'seg_timeout': 26.66}
+      role0 prep: (none) | play: chase then to wander[yaw0,door] lock release
+      role1 prep: (none) | play: chase then to wander[yaw0,door] lock release
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   346 | H |  0.097M eps |  10.3 eps/s |   9467s] J_h=0.653 WR_h=0.65   beh={'chase': 0.17, 'door': 0.6, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=59/170
+  graph validation detail: AssertionError: roles must contain exactly two agent roles
+  LLM returned an invalid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   347 | S |  0.097M eps |  10.3 eps/s |   9491s] J_h=0.612 WR_h=0.57 + beh={'chase': 0.05, 'door': 0.7, 'r_use': 0.0, 'r_def': 0.06} stale(h/s)=59/171
+  new seeker graph:
+    assign=fixed params={'gain': 5.89, 'damp': 0.61, 'tol': 0.35, 'offset': 0.21, 'seg_timeout': 26.66}
+      role0 prep: (none) | play: go(climb,direct) then grab box to box[yaw0,door] lock
+      role1 prep: (none) | play: chase
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   348 | H |  0.098M eps |  10.3 eps/s |   9515s] J_h=0.637 WR_h=0.62 + beh={'chase': 0.15, 'door': 0.6, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=60/171
+  new hider graph:
+    assign=fixed params={'gain': 4.61, 'damp': 0.75, 'tol': 0.25, 'offset': 0.0, 'seg_timeout': 40.0}
+      role0 prep: grab box to climb[align,door] release -> grab box to door_block[target,door] lock release | play: flee then grab box to ramp_inside[target,door] lock -> to quadrant_interior[align,direct] -> grab box to stay[yaw3,direct] lock
+      role1 prep: grab box to climb[align,door] release -> grab box to door_block[target,door] lock release | play: flee then grab box to ramp_inside[target,door] lock -> to quadrant_interior[align,direct] -> grab box to stay[yaw3,direct] lock
+  graph validation detail: AssertionError: unknown segment acquire 'door_block'
+  LLM returned an invalid seeker graph proposal
+  accepted structural search candidate for seeker
+[it   349 | S |  0.098M eps |  10.3 eps/s |   9547s] J_h=0.574 WR_h=0.60 + beh={'chase': 0.07, 'door': 0.78, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=60/172
+  new seeker graph:
+    assign=fixed params={'gain': 5.89, 'damp': 0.69, 'tol': 0.35, 'offset': 0.21, 'seg_timeout': 26.66}
+      role0 prep: (none) | play: go(climb,door) then grab box to box[yaw0,door] lock
+      role1 prep: (none) | play: chase
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   350 | H |  0.098M eps |  10.3 eps/s |   9574s] J_h=0.677 WR_h=0.65 + beh={'chase': 0.07, 'door': 0.55, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=61/172
+  new hider graph:
+    assign=fixed params={'gain': 5.27, 'damp': 0.75, 'tol': 0.25, 'offset': 0.0, 'seg_timeout': 40.0}
+      role0 prep: grab box to climb[align,door] release -> grab box to door_block[target,door] lock release | play: flee then grab box to ramp_inside[target,door] lock -> to quadrant_interior[align,direct] -> grab box to stay[yaw3,direct] lock
+      role1 prep: grab box to climb[align,door] release -> grab box to door_block[target,door] lock release | play: flee then grab box to ramp_inside[target,door] lock -> to quadrant_interior[align,direct] -> grab box to stay[yaw3,direct] lock
+  graph validation detail: AssertionError: unknown segment acquire 'door'
+  LLM returned an invalid seeker graph proposal
+  no candidate improved the seeker graph
+[it   351 | S |  0.099M eps |  10.3 eps/s |   9599s] J_h=0.655 WR_h=0.65   beh={'chase': 0.17, 'door': 0.65, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=61/173
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   352 | H |  0.099M eps |  10.3 eps/s |   9628s] J_h=0.609 WR_h=0.60 + beh={'chase': 0.05, 'door': 0.53, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=62/173
+  new hider graph:
+    assign=fixed params={'gain': 5.27, 'damp': 0.75, 'tol': 0.25, 'offset': 0.0, 'seg_timeout': 40.0}
+      role0 prep: grab box to climb[align,door] release -> grab box to door_block[target,door] lock release | play: flee then grab box to ramp_inside[target,door] lock -> grab ramp to away_from_opponent[yaw1,door] lock release -> to quadrant_interior[align,direct] -> grab box to stay[yaw3,direct] lock
+      role1 prep: grab box to box[align,door] release -> grab box to climb[align,door] release -> grab box to door_block[target,door] lock release | play: flee then grab box to ramp_inside[target,door] lock -> grab ramp to away_from_opponent[yaw1,door] lock release -> to quadrant_interior[align,direct] -> grab box to stay[yaw3,direct] lock
+  graph validation detail: AssertionError: unknown segment acquire 'none'
+  LLM returned an invalid seeker graph proposal
+  no candidate improved the seeker graph
+[it   353 | S |  0.099M eps |  10.3 eps/s |   9652s] J_h=0.521 WR_h=0.53   beh={'chase': 0.1, 'door': 0.5, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=62/174
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it   354 | H |  0.099M eps |  10.3 eps/s |   9681s] J_h=0.681 WR_h=0.68   beh={'chase': 0.1, 'door': 0.55, 'r_use': 0.0, 'r_def': 0.06} stale(h/s)=63/174
+  LLM returned a valid seeker graph proposal
+  accepted LLM candidate for seeker
+[it   355 | S |  0.100M eps |  10.3 eps/s |   9712s] J_h=0.538 WR_h=0.50 + beh={'chase': 0.12, 'door': 0.53, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=63/175
+  new seeker graph:
+    assign=fixed params={'gain': 6.0, 'damp': 0.5, 'tol': 0.25, 'offset': 0.3, 'seg_timeout': 30.0}
+      role0 prep: (none) | play: search then [when door] grab box to door_block[target,direct] lock
+      role1 prep: (none) | play: chase
+  LLM returned a valid hider graph proposal
+  accepted structural search candidate for hider
+[it   356 | H |  0.100M eps |  10.3 eps/s |   9737s] J_h=0.620 WR_h=0.62 + beh={'chase': 0.07, 'door': 0.62, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=64/175
+  new hider graph:
+    assign=fixed params={'gain': 5.27, 'damp': 0.75, 'tol': 0.25, 'offset': 0.0, 'seg_timeout': 40.0}
+      role0 prep: grab box to box[align,door] release -> grab box to climb[align,door] release -> grab box to door_block[target,door] lock release | play: chase then grab box to ramp_inside[target,door] lock -> grab ramp to away_from_opponent[yaw1,door] lock release -> to quadrant_interior[align,direct] -> grab box to stay[yaw3,direct] lock
+      role1 prep: grab box to box[align,door] release -> grab box to climb[align,door] release -> grab box to door_block[target,door] lock release | play: chase then grab box to ramp_inside[target,door] lock -> grab ramp to away_from_opponent[yaw1,door] lock release -> to quadrant_interior[align,direct] -> grab box to stay[yaw3,direct] lock
+  LLM returned a valid seeker graph proposal
+  accepted LLM candidate for seeker
+[it   357 | S |  0.100M eps |  10.3 eps/s |   9764s] J_h=0.391 WR_h=0.38 + beh={'chase': 0.03, 'door': 0.42, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=64/176
+  new seeker graph:
+    assign=nearest_object params={'gain': 4.0, 'damp': 0.5, 'tol': 0.4, 'offset': 0.2, 'seg_timeout': 40.0}
+      role0 prep: (none) | play: search then [when opponent_visible] grab box to door_block[align,door] release
+      role1 prep: (none) | play: chase then [when doors_sealed] grab ramp to ramp_inside[yaw1,direct] lock
+════════════════════════════════════════════════════════════════════════
+  DONE — 358 iterations, 0.100M rehearsal episodes, 9764 s
+  behaviour onsets: {"chasing": {"iteration": 91, "episodes": 25760, "rate": 0.325}, "ramp_defense": {"iteration": 98, "episodes": 27720, "rate": 0.5882352941176471}, "door_blocking": {"iteration": 214, "episodes": 60200, "rate": 0.65}}
+  final hider graph:
+assign=fixed params={'gain': 5.27, 'damp': 0.75, 'tol': 0.25, 'offset': 0.0, 'seg_timeout': 40.0}
+  role0 prep: grab box to box[align,door] release -> grab box to climb[align,door] release -> grab box to door_block[target,door] lock release | play: chase then grab box to ramp_inside[target,door] lock -> grab ramp to away_from_opponent[yaw1,door] lock release -> to quadrant_interior[align,direct] -> grab box to stay[yaw3,direct] lock
+  role1 prep: grab box to box[align,door] release -> grab box to climb[align,door] release -> grab box to door_block[target,door] lock release | play: chase then grab box to ramp_inside[target,door] lock -> grab ramp to away_from_opponent[yaw1,door] lock release -> to quadrant_interior[align,direct] -> grab box to stay[yaw3,direct] lock
+  final seeker graph:
+assign=nearest_object params={'gain': 4.0, 'damp': 0.5, 'tol': 0.4, 'offset': 0.2, 'seg_timeout': 40.0}
+  role0 prep: (none) | play: search then [when opponent_visible] grab box to door_block[align,door] release
+  role1 prep: (none) | play: chase then [when doors_sealed] grab ramp to ramp_inside[yaw1,direct] lock
+  artefacts: /workspace/training_output_gap_pilot_neutral

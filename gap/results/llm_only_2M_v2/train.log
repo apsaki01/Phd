@@ -1,0 +1,202 @@
+════════════════════════════════════════════════════════════════════════
+  Hide & Seek — Graph-as-Policy two-team self-learning
+════════════════════════════════════════════════════════════════════════
+  workers=14  budget=2,000,000 episodes  rehearsals/candidate=40  candidates=6
+  belief space: p_door ∈ [1.0, 0.75, 0.5, 0.25, 0.0], random spawns;  omniscient objects: True
+  graph-update agent: LLM only (qwen3:8b): 5 proposals/round, temperature 0.70, 2 repair retries, no structural search
+  acceptance margin: 0.050
+  output: /workspace/training_output_gap_llm_only_2M_v2
+  resumed from iteration 16
+  graph validation detail: AssertionError: gate ramp_inside can never fire on a segment that moves the ramp inside (the segment itself does that)
+  graph validation detail: AssertionError: roles must contain exactly two agent roles
+  LLM returned a valid hider graph proposal
+  graph validation detail: AssertionError: gate ramp_inside can never fire on a segment that moves the ramp inside (the segment itself does that)
+  LLM returned a valid hider graph proposal (after 1 repair)
+  LLM returned a valid hider graph proposal (after 1 repair)
+  graph validation detail: AssertionError: unknown segment deliver 'quadr5'
+  LLM returned an invalid hider graph proposal (after 2 repairs)
+  LLM returned a valid hider graph proposal (after 1 repair)
+  LLM proposal duplicates an existing graph; skipping
+  LLM proposal duplicates an existing graph; skipping
+  no candidate improved the hider graph
+[it    16 | H |  0.004M eps |   1.4 eps/s |     84s] J_h=0.248 WR_h=0.23   beh={'chase': 0.1, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=8/7
+  LLM returned a valid seeker graph proposal
+  LLM returned a valid seeker graph proposal
+  LLM returned a valid seeker graph proposal
+  LLM returned a valid seeker graph proposal
+  graph validation detail: AssertionError: roles must contain exactly two agent roles
+  LLM returned a valid seeker graph proposal (after 1 repair)
+  no candidate improved the seeker graph
+[it    17 | S |  0.004M eps |   2.5 eps/s |    143s] J_h=0.116 WR_h=0.05   beh={'chase': 0.0, 'door': 0.0, 'r_use': 0.03, 'r_def': 0.0} stale(h/s)=8/8
+  graph validation detail: AssertionError: gate ramp_inside can never fire on a segment that moves the ramp inside (the segment itself does that)
+  graph validation detail: AssertionError: unknown play behaviour 'wander'
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal (after 1 repair)
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal (after 1 repair)
+  LLM returned a valid hider graph proposal (after 1 repair)
+  LLM proposal duplicates an existing graph; skipping
+  no candidate improved the hider graph
+[it    18 | H |  0.004M eps |   2.6 eps/s |    212s] J_h=0.223 WR_h=0.15   beh={'chase': 0.1, 'door': 0.05, 'r_use': 0.03, 'r_def': 0.03} stale(h/s)=9/8
+  graph validation detail: AssertionError: gate doors_sealed can never fire on a segment that delivers to door_block (the segment itself seals the door)
+  graph validation detail: AssertionError: roles must contain exactly two agent roles
+  graph validation detail: AssertionError: gate ramp_inside can never fire on a segment that moves the ramp inside (the segment itself does that)
+  LLM returned a valid seeker graph proposal (after 1 repair)
+  LLM returned a valid seeker graph proposal (after 1 repair)
+  LLM returned a valid seeker graph proposal (after 1 repair)
+  LLM returned a valid seeker graph proposal (after 1 repair)
+  graph validation detail: AssertionError: gate doors_sealed can never fire on a segment that delivers to door_block (the segment itself seals the door)
+  LLM returned an invalid seeker graph proposal (after 2 repairs)
+  no candidate improved the seeker graph
+[it    19 | S |  0.005M eps |   2.5 eps/s |    305s] J_h=0.112 WR_h=0.10   beh={'chase': 0.05, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=9/9
+  graph validation detail: AssertionError: gate ramp_inside can never fire on a segment that moves the ramp inside (the segment itself does that)
+  graph validation detail: AssertionError: gate ramp_inside can never fire on a segment that moves the ramp inside (the segment itself does that)
+  graph validation detail: AssertionError: gate ramp_inside can never fire on a segment that moves the ramp inside (the segment itself does that)
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal (after 1 repair)
+  LLM returned a valid hider graph proposal (after 1 repair)
+  LLM returned a valid hider graph proposal (after 1 repair)
+  LLM returned a valid hider graph proposal (after 2 repairs)
+  LLM proposal duplicates an existing graph; skipping
+  no candidate improved the hider graph
+[it    20 | H |  0.005M eps |   2.5 eps/s |    388s] J_h=0.260 WR_h=0.23   beh={'chase': 0.1, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=10/9
+  graph validation detail: AssertionError: gate doors_sealed can never fire on a segment that delivers to door_block (the segment itself seals the door)
+  graph validation detail: AssertionError: roles must contain exactly two agent roles
+  LLM returned a valid seeker graph proposal
+  LLM returned a valid seeker graph proposal (after 1 repair)
+  graph validation detail: AssertionError: gate doors_sealed can never fire on a segment that delivers to door_block (the segment itself seals the door)
+  graph validation detail: AssertionError: roles must contain exactly two agent roles
+  LLM returned a valid seeker graph proposal (after 2 repairs)
+  LLM returned a valid seeker graph proposal (after 2 repairs)
+  graph validation detail: AssertionError: gate doors_sealed can never fire on a segment that delivers to door_block (the segment itself seals the door)
+  LLM returned an invalid seeker graph proposal (after 2 repairs)
+  no candidate improved the seeker graph
+[it    21 | S |  0.005M eps |   2.5 eps/s |    471s] J_h=0.057 WR_h=0.00   beh={'chase': 0.07, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=10/10
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  graph validation detail: AssertionError: gate doors_sealed can never fire on a segment that delivers to door_block (the segment itself seals the door)
+  LLM returned a valid hider graph proposal (after 1 repair)
+  LLM returned a valid hider graph proposal (after 2 repairs)
+  LLM proposal duplicates an existing graph; skipping
+  no candidate improved the hider graph
+[it    22 | H |  0.005M eps |   2.5 eps/s |    548s] J_h=0.273 WR_h=0.23   beh={'chase': 0.07, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=11/10
+  LLM returned a valid seeker graph proposal
+  LLM returned a valid seeker graph proposal
+  graph validation detail: AssertionError: gate doors_sealed can never fire on a segment that delivers to door_block (the segment itself seals the door)
+  graph validation detail: AssertionError: gate doors_sealed can never fire on a segment that delivers to door_block (the segment itself seals the door)
+  LLM returned a valid seeker graph proposal (after 2 repairs)
+  LLM returned a valid seeker graph proposal (after 2 repairs)
+  graph validation detail: AssertionError: gate doors_sealed can never fire on a segment that delivers to door_block (the segment itself seals the door)
+  LLM returned an invalid seeker graph proposal (after 2 repairs)
+  LLM proposal duplicates an existing graph; skipping
+  no candidate improved the seeker graph
+[it    23 | S |  0.005M eps |   2.4 eps/s |    636s] J_h=0.129 WR_h=0.07   beh={'chase': 0.28, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=11/11
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal (after 1 repair)
+  LLM returned a valid hider graph proposal (after 2 repairs)
+  LLM proposal duplicates an existing graph; skipping
+  LLM proposal duplicates an existing graph; skipping
+  no candidate improved the hider graph
+[it    24 | H |  0.005M eps |   2.3 eps/s |    720s] J_h=0.218 WR_h=0.10   beh={'chase': 0.1, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=12/11
+  graph validation detail: AssertionError: gate ramp_inside can never fire on a segment that moves the ramp inside (the segment itself does that)
+  graph validation detail: AssertionError: gate doors_sealed can never fire on a segment that delivers to door_block (the segment itself seals the door)
+  graph validation detail: AssertionError: unknown segment gate 'ramp'
+  graph validation detail: AssertionError: roles must contain exactly two agent roles
+  LLM returned a valid seeker graph proposal
+  LLM returned a valid seeker graph proposal (after 1 repair)
+  graph validation detail: AssertionError: gate doors_sealed can never fire on a segment that delivers to door_block (the segment itself seals the door)
+  graph validation detail: AssertionError: gate ramp_inside can never fire on a segment that moves the ramp inside (the segment itself does that)
+  LLM returned a valid seeker graph proposal (after 1 repair)
+  graph validation detail: AssertionError: unknown segment gate 'box'
+  LLM returned an invalid seeker graph proposal (after 2 repairs)
+  LLM returned an invalid seeker graph proposal (after 2 repairs)
+  no candidate improved the seeker graph
+[it    25 | S |  0.006M eps |   2.3 eps/s |    805s] J_h=0.070 WR_h=0.00   beh={'chase': 0.15, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=12/12
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal (after 1 repair)
+  no candidate improved the hider graph
+[it    26 | H |  0.006M eps |   2.4 eps/s |    857s] J_h=0.202 WR_h=0.20   beh={'chase': 0.05, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=13/12
+  graph validation detail: AssertionError: gate doors_sealed can never fire on a segment that delivers to door_block (the segment itself seals the door)
+  LLM returned a valid seeker graph proposal
+  LLM returned a valid seeker graph proposal
+  LLM returned a valid seeker graph proposal
+  LLM returned a valid seeker graph proposal
+  LLM returned a valid seeker graph proposal (after 2 repairs)
+  no candidate improved the seeker graph
+[it    27 | S |  0.006M eps |   2.5 eps/s |    928s] J_h=0.092 WR_h=0.03   beh={'chase': 0.12, 'door': 0.03, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=13/13
+  LLM returned a valid hider graph proposal
+  graph validation detail: AssertionError: gate doors_sealed can never fire on a segment that delivers to door_block (the segment itself seals the door)
+  graph validation detail: AssertionError: unknown segment gate 'opponent_not_visible'
+  LLM returned a valid hider graph proposal (after 1 repair)
+  LLM returned a valid hider graph proposal (after 1 repair)
+  LLM returned a valid hider graph proposal (after 1 repair)
+  LLM returned a valid hider graph proposal (after 2 repairs)
+  LLM proposal duplicates an existing graph; skipping
+  LLM proposal duplicates an existing graph; skipping
+  no candidate improved the hider graph
+[it    28 | H |  0.006M eps |   2.4 eps/s |   1020s] J_h=0.238 WR_h=0.20   beh={'chase': 0.1, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=14/13
+  LLM returned a valid seeker graph proposal
+  graph validation detail: AssertionError: unknown play target 'door'
+  LLM returned a valid seeker graph proposal
+  LLM returned a valid seeker graph proposal
+  LLM returned a valid seeker graph proposal
+  LLM returned a valid seeker graph proposal (after 1 repair)
+  no candidate improved the seeker graph
+[it    29 | S |  0.006M eps |   2.5 eps/s |   1067s] J_h=0.091 WR_h=0.03   beh={'chase': 0.12, 'door': 0.03, 'r_use': 0.03, 'r_def': 0.03} stale(h/s)=14/14
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  graph validation detail: AssertionError: gate ramp_inside can never fire on a segment that moves the ramp inside (the segment itself does that)
+  graph validation detail: AssertionError: gate doors_sealed can never fire on a segment that delivers to door_block (the segment itself seals the door)
+  LLM returned a valid hider graph proposal (after 1 repair)
+  LLM returned a valid hider graph proposal (after 1 repair)
+  no candidate improved the hider graph
+[it    30 | H |  0.007M eps |   2.6 eps/s |   1123s] J_h=0.343 WR_h=0.33   beh={'chase': 0.12, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=15/14
+  LLM returned a valid seeker graph proposal
+  graph validation detail: AssertionError: roles must contain exactly two agent roles
+  LLM returned a valid seeker graph proposal
+  graph validation detail: AssertionError: gate doors_sealed can never fire on a segment that delivers to door_block (the segment itself seals the door)
+  LLM returned a valid seeker graph proposal (after 1 repair)
+  LLM returned a valid seeker graph proposal (after 1 repair)
+  LLM returned a valid seeker graph proposal (after 2 repairs)
+  no candidate improved the seeker graph
+[it    31 | S |  0.007M eps |   2.7 eps/s |   1193s] J_h=0.148 WR_h=0.05   beh={'chase': 0.1, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=15/15
+  graph validation detail: AssertionError: gate ramp_inside can never fire on a segment that moves the ramp inside (the segment itself does that)
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal (after 1 repair)
+  LLM returned a valid hider graph proposal (after 1 repair)
+  LLM returned a valid hider graph proposal (after 2 repairs)
+  LLM proposal duplicates an existing graph; skipping
+  LLM proposal duplicates an existing graph; skipping
+  no candidate improved the hider graph
+[it    32 | H |  0.007M eps |   2.6 eps/s |   1276s] J_h=0.240 WR_h=0.17   beh={'chase': 0.12, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=16/15
+  LLM returned a valid seeker graph proposal
+  LLM returned a valid seeker graph proposal
+  graph validation detail: AssertionError: roles must contain exactly two agent roles
+  LLM returned a valid seeker graph proposal (after 1 repair)
+  graph validation detail: AssertionError: gate doors_sealed can never fire on a segment that delivers to door_block (the segment itself seals the door)
+  LLM proposal failed: Remote end closed connection without response
+  LLM proposal failed: Remote end closed connection without response
+Traceback (most recent call last):
+  File "train_gap.py", line 1533, in <module>
+    if k not in S['onsets'] and rate >= ONSET_THRESHOLD[k]:
+  File "train_gap.py", line 1455, in train
+    fbs[team] = feedback_markdown(team, S[team], summarize(fb_res[team]), fb_res[team], it)
+  File "train_gap.py", line 1268, in evaluate
+    g, errors = None, ['reply is not valid JSON: %s' % e]
+  File "train_gap.py", line 1021, in run
+    return self.submit(jobs).result()
+  File "/venv/py38/lib/python3.8/multiprocessing/connection.py", line 250, in recv
+    buf = self._recv_bytes()
+  File "/venv/py38/lib/python3.8/multiprocessing/connection.py", line 414, in _recv_bytes
+    buf = self._recv(4)
+  File "/venv/py38/lib/python3.8/multiprocessing/connection.py", line 379, in _recv
+    chunk = read(handle, remaining)
+ConnectionResetError: [Errno 104] Connection reset by peer

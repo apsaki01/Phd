@@ -1,0 +1,51 @@
+{
+ "team": "seeker",
+ "assign": "nearest_object",
+ "params": {
+  "gain": 4.0,
+  "damp": 0.5,
+  "tol": 0.4,
+  "offset": 0.2,
+  "seg_timeout": 40.0
+ },
+ "roles": [
+  {
+   "prep": [],
+   "play": {
+    "behaviour": "search",
+    "target": "teammate",
+    "route": "door",
+    "segments": [
+     {
+      "acquire": "box",
+      "deliver": "door_block",
+      "lock": false,
+      "release": true,
+      "face": "align",
+      "route": "door",
+      "gate": "opponent_visible"
+     }
+    ]
+   }
+  },
+  {
+   "prep": [],
+   "play": {
+    "behaviour": "chase",
+    "target": "away_from_opponent",
+    "route": "direct",
+    "segments": [
+     {
+      "acquire": "ramp",
+      "deliver": "ramp_inside",
+      "lock": true,
+      "release": false,
+      "face": "yaw1",
+      "route": "direct",
+      "gate": "doors_sealed"
+     }
+    ]
+   }
+  }
+ ]
+}

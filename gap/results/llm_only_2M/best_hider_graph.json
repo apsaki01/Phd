@@ -1,0 +1,71 @@
+{
+ "team": "hider",
+ "assign": "fixed",
+ "params": {
+  "gain": 6.0,
+  "damp": 0.2,
+  "tol": 0.3,
+  "offset": 0.4,
+  "seg_timeout": 40.0
+ },
+ "roles": [
+  {
+   "prep": [
+    {
+     "acquire": "box",
+     "deliver": "stay",
+     "lock": false,
+     "release": false,
+     "face": "yaw0",
+     "route": "door",
+     "gate": null
+    }
+   ],
+   "play": {
+    "behaviour": "stay",
+    "target": "outside_wall",
+    "route": "door",
+    "segments": [
+     {
+      "acquire": "ramp",
+      "deliver": "stay",
+      "lock": true,
+      "release": false,
+      "face": "yaw3",
+      "route": "door",
+      "gate": "door"
+     }
+    ]
+   }
+  },
+  {
+   "prep": [
+    {
+     "acquire": "ramp",
+     "deliver": "stay",
+     "lock": false,
+     "release": false,
+     "face": "yaw1",
+     "route": "door",
+     "gate": null
+    }
+   ],
+   "play": {
+    "behaviour": "stay",
+    "target": "climb",
+    "route": "door",
+    "segments": [
+     {
+      "acquire": "box",
+      "deliver": "stay",
+      "lock": true,
+      "release": false,
+      "face": "yaw2",
+      "route": "door",
+      "gate": "door"
+     }
+    ]
+   }
+  }
+ ]
+}

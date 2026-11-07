@@ -39,3 +39,28 @@ MUJOCO_LOG.TXT
 *.pyc
 
 # MuJoCo license keys and generated videos must stay local.
+**/mjkey.txt
+*.key
+.env
+*.env
+*.zip
+*.tar.gz
+**/training_output*/
+ada/checkpoints/checkpoint_*.npz
+ada/checkpoints/resume_latest.npz
+*-[0-9]*.out
+
+# GaP result logs are small and part of the record
+!gap/results/**/*.log
+
+# ===== LaTeX build files =====
+paper/**/*.aux
+paper/**/*.bbl
+paper/**/*.blg
+paper/**/*.nav
+paper/**/*.snm
+paper/**/*.toc
+paper/**/*.synctex.gz
+paper/**/*.fdb_latexmk
+paper/**/*.fls
+paper/*.pdf

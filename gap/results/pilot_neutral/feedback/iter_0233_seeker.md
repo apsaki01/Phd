@@ -1,0 +1,26 @@
+# Rehearsal feedback — iteration 233 — learning team: seeker
+
+## Current graph
+```
+assign=fixed params={'gain': 4.63, 'damp': 0.4, 'tol': 0.3, 'offset': 0.25, 'seg_timeout': 26.67}
+  role0 prep: (none) | play: chase then [when ramp_inside] to teammate[yaw2,door] lock -> grab box to teammate[target,door] lock
+  role1 prep: (none) | play: chase then [when doors_sealed] grab box to wander[yaw3,door] lock release -> [when doors_sealed] to door_block[align,door] release
+```
+
+## Aggregate (n=40 instances)
+- hider objective J (fraction of play steps all hiders hidden): 0.574
+- hider win-rate: 0.57
+- behaviour detection rates: {"chasing": 0.2, "door_blocking": 0.78, "ramp_use": 0.0, "ramp_defense": 0.0}
+- mean first-seen play step: 38.5
+- doors sealed+locked at prep end: 0.81, ramp inside quadrant at prep end: 0.20
+- seekers entered quadrant: 0.20, mean max seeker z: 0.16
+
+## Failure analysis (lost instances)
+- p_door=0.75 doors=1 sealed=[True] ramp_inside=False boxes_moved=[1.77, 0.03] | hiders never seen | segments: no segments executed
+- p_door=0.00 doors=2 sealed=[True, True] ramp_inside=True boxes_moved=[1.53, 2.19] | hiders never seen | segments: no segments executed
+- p_door=0.75 doors=2 sealed=[True, True] ramp_inside=True boxes_moved=[1.5, 1.23] | seeker 3 saw hider 1 at play step 74 (hider inside quadrant, seeker outside, seeker z=0.15) | segments: no segments executed
+- p_door=0.25 doors=1 sealed=[False] ramp_inside=False boxes_moved=[1.81, 1.48] | seeker 3 saw hider 1 at play step 41 (hider inside quadrant, seeker outside, seeker z=0.15) | segments: no segments executed
+- p_door=0.25 doors=2 sealed=[True, False] ramp_inside=False boxes_moved=[0.6, 2.21] | seeker 2 saw hider 0 at play step 59 (hider inside quadrant, seeker outside, seeker z=0.15) | segments: no segments executed
+- p_door=0.50 doors=2 sealed=[True, True] ramp_inside=False boxes_moved=[0.78, 1.31] | hiders never seen | segments: no segments executed
+- p_door=0.50 doors=2 sealed=[True, True] ramp_inside=False boxes_moved=[2.67, 1.95] | seeker 3 saw hider 0 at play step 34 (hider inside quadrant, seeker outside, seeker z=0.15) | segments: no segments executed
+- p_door=0.50 doors=1 sealed=[True] ramp_inside=False boxes_moved=[0.36, 0.89] | hiders never seen | segments: no segments executed

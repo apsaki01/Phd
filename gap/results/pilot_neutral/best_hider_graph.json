@@ -1,0 +1,161 @@
+{
+ "team": "hider",
+ "assign": "fixed",
+ "params": {
+  "gain": 5.270875980823358,
+  "damp": 0.7530265144572075,
+  "tol": 0.2459351043210982,
+  "offset": 0.0,
+  "seg_timeout": 40.0
+ },
+ "roles": [
+  {
+   "prep": [
+    {
+     "acquire": "box",
+     "deliver": "box",
+     "lock": false,
+     "release": true,
+     "face": "align",
+     "route": "door",
+     "gate": null
+    },
+    {
+     "acquire": "box",
+     "deliver": "climb",
+     "lock": false,
+     "release": true,
+     "face": "align",
+     "route": "door",
+     "gate": null
+    },
+    {
+     "acquire": "box",
+     "deliver": "door_block",
+     "lock": true,
+     "release": true,
+     "face": "target",
+     "route": "door",
+     "gate": null
+    }
+   ],
+   "play": {
+    "behaviour": "chase",
+    "target": "door_block",
+    "route": "door",
+    "segments": [
+     {
+      "acquire": "box",
+      "deliver": "ramp_inside",
+      "lock": true,
+      "release": false,
+      "face": "target",
+      "route": "door",
+      "gate": null
+     },
+     {
+      "acquire": "ramp",
+      "deliver": "away_from_opponent",
+      "lock": true,
+      "release": true,
+      "face": "yaw1",
+      "route": "door",
+      "gate": null
+     },
+     {
+      "acquire": null,
+      "deliver": "quadrant_interior",
+      "lock": false,
+      "release": false,
+      "face": "align",
+      "route": "direct",
+      "gate": null
+     },
+     {
+      "acquire": "box",
+      "deliver": "stay",
+      "lock": true,
+      "release": false,
+      "face": "yaw3",
+      "route": "direct",
+      "gate": null
+     }
+    ]
+   }
+  },
+  {
+   "prep": [
+    {
+     "acquire": "box",
+     "deliver": "box",
+     "lock": false,
+     "release": true,
+     "face": "align",
+     "route": "door",
+     "gate": null
+    },
+    {
+     "acquire": "box",
+     "deliver": "climb",
+     "lock": false,
+     "release": true,
+     "face": "align",
+     "route": "door",
+     "gate": null
+    },
+    {
+     "acquire": "box",
+     "deliver": "door_block",
+     "lock": true,
+     "release": true,
+     "face": "target",
+     "route": "door",
+     "gate": null
+    }
+   ],
+   "play": {
+    "behaviour": "chase",
+    "target": "door_block",
+    "route": "door",
+    "segments": [
+     {
+      "acquire": "box",
+      "deliver": "ramp_inside",
+      "lock": true,
+      "release": false,
+      "face": "target",
+      "route": "door",
+      "gate": null
+     },
+     {
+      "acquire": "ramp",
+      "deliver": "away_from_opponent",
+      "lock": true,
+      "release": true,
+      "face": "yaw1",
+      "route": "door",
+      "gate": null
+     },
+     {
+      "acquire": null,
+      "deliver": "quadrant_interior",
+      "lock": false,
+      "release": false,
+      "face": "align",
+      "route": "direct",
+      "gate": null
+     },
+     {
+      "acquire": "box",
+      "deliver": "stay",
+      "lock": true,
+      "release": false,
+      "face": "yaw3",
+      "route": "direct",
+      "gate": null
+     }
+    ]
+   }
+  }
+ ]
+}

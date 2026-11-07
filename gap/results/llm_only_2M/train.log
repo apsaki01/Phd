@@ -1,0 +1,156 @@
+════════════════════════════════════════════════════════════════════════
+  Hide & Seek — Graph-as-Policy two-team self-learning
+════════════════════════════════════════════════════════════════════════
+  workers=14  budget=2,000,000 episodes  rehearsals/candidate=40  candidates=6
+  belief space: p_door ∈ [1.0, 0.75, 0.5, 0.25, 0.0], random spawns;  omniscient objects: True
+  graph-update agent: LLM only (qwen3:8b): 5 proposals/round, temperature 0.70, no structural search
+  output: /workspace/training_output_gap_llm_only_2M
+  graph validation detail: AssertionError: segment must acquire or deliver
+  LLM returned an invalid hider graph proposal
+  graph validation detail: AssertionError: unknown segment acquire 'door'
+  LLM returned an invalid hider graph proposal
+  LLM returned a valid hider graph proposal
+  graph validation detail: AssertionError: segment must be a JSON object
+  LLM returned an invalid hider graph proposal
+  LLM returned a valid hider graph proposal
+  accepted LLM #5 candidate for hider
+[it     0 | H |  0.000M eps |   2.1 eps/s |     58s] J_h=0.410 WR_h=0.40 + beh={'chase': 0.0, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=0/0
+  new hider graph:
+    assign=nearest_object params={'gain': 5.0, 'damp': 0.8, 'tol': 0.4, 'offset': 0.2, 'seg_timeout': 20.0}
+      role0 prep: [when ramp_inside] grab ramp to wander[yaw0,direct] lock | play: search then [when doors_sealed] grab box to stay[align,door] release
+      role1 prep: [when doors_sealed] grab box to wander[yaw1,direct] lock | play: go(outside_wall,direct) then [when ramp_inside] grab ramp to stay[yaw2,door] release
+  graph validation detail: AssertionError: unknown segment route 'ramp'
+  LLM returned an invalid seeker graph proposal
+  graph validation detail: AssertionError: unknown segment acquire 'door_block'
+  LLM returned an invalid seeker graph proposal
+  graph validation detail: AssertionError: unknown segment deliver 'search'
+  LLM returned an invalid seeker graph proposal
+  graph validation detail: AssertionError: unknown segment acquire 'door'
+  LLM returned an invalid seeker graph proposal
+  graph validation detail: AssertionError: unknown segment acquire 'door_block'
+  LLM returned an invalid seeker graph proposal
+  no candidate improved the seeker graph
+[it     1 | S |  0.000M eps |   1.5 eps/s |    107s] J_h=0.458 WR_h=0.50   beh={'chase': 0.0, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=0/0
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  accepted LLM #1 candidate for hider
+[it     2 | H |  0.000M eps |   2.2 eps/s |    182s] J_h=0.392 WR_h=0.40 + beh={'chase': 0.0, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=1/0
+  new hider graph:
+    assign=fixed params={'gain': 5.5, 'damp': 0.6, 'tol': 0.35, 'offset': 0.25, 'seg_timeout': 30.0}
+      role0 prep: [when doors_sealed] grab box to stay[align,door] lock | play: stay then [when ramp_inside] grab ramp to stay[yaw3,door] lock
+      role1 prep: [when ramp_inside] grab ramp to stay[yaw1,door] lock | play: stay then [when doors_sealed] grab box to stay[align,door] lock
+  graph validation detail: AssertionError: unknown segment deliver 'search'
+  LLM returned an invalid seeker graph proposal
+  graph validation detail: AssertionError: unknown segment deliver 'search'
+  LLM returned an invalid seeker graph proposal
+  graph validation detail: AssertionError: unknown segment deliver 'search'
+  LLM returned an invalid seeker graph proposal
+  graph validation detail: AssertionError: unknown segment acquire 'door'
+  LLM returned an invalid seeker graph proposal
+  LLM returned a valid seeker graph proposal
+  no candidate improved the seeker graph
+[it     3 | S |  0.000M eps |   1.8 eps/s |    260s] J_h=0.461 WR_h=0.47   beh={'chase': 0.0, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=1/1
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  accepted LLM #3 candidate for hider
+[it     4 | H |  0.001M eps |   1.8 eps/s |    405s] J_h=0.584 WR_h=0.70 + beh={'chase': 0.0, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=0/1
+  new hider graph:
+    assign=nearest_object params={'gain': 4.0, 'damp': 0.5, 'tol': 0.3, 'offset': 0.15, 'seg_timeout': 40.0}
+      role0 prep: [when door] grab box to wander[target,direct] release | play: search then [when door] grab ramp to stay[yaw0,direct] release
+      role1 prep: [when door] grab ramp to wander[target,direct] release | play: search then [when door] grab box to stay[yaw0,direct] release
+  LLM returned a valid seeker graph proposal
+  LLM returned a valid seeker graph proposal
+  graph validation detail: AssertionError: unknown segment acquire 'door'
+  LLM returned an invalid seeker graph proposal
+  graph validation detail: AssertionError: unknown segment acquire 'ramp_inside'
+  LLM returned an invalid seeker graph proposal
+  graph validation detail: AssertionError: unknown segment acquire 'door'
+  LLM returned an invalid seeker graph proposal
+  accepted LLM #2 candidate for seeker
+[it     5 | S |  0.001M eps |   1.7 eps/s |    502s] J_h=0.259 WR_h=0.20 + beh={'chase': 0.07, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=0/0
+  new seeker graph:
+    assign=nearest_object params={'gain': 5.0, 'damp': 0.6, 'tol': 0.4, 'offset': 0.3, 'seg_timeout': 15.0}
+      role0 prep: (none) | play: search then [when ramp_inside] grab ramp to door_inside[align,direct] release
+      role1 prep: (none) | play: search then [when doors_sealed] grab box to door_block[target,direct] lock
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  accepted LLM #4 candidate for hider
+[it     6 | H |  0.001M eps |   1.9 eps/s |    569s] J_h=0.510 WR_h=0.42 + beh={'chase': 0.0, 'door': 0.0, 'r_use': 0.03, 'r_def': 0.0} stale(h/s)=1/0
+  new hider graph:
+    assign=fixed params={'gain': 5.0, 'damp': 0.5, 'tol': 0.4, 'offset': 0.25, 'seg_timeout': 30.0}
+      role0 prep: [when doors_sealed] grab box to wander[align,door] release | play: stay then [when ramp_inside] grab ramp to stay[yaw1,door] lock
+      role1 prep: [when doors_sealed] grab ramp to wander[align,door] release | play: stay then [when ramp_inside] grab box to stay[yaw2,door] lock
+  graph validation detail: AssertionError: roles must contain exactly two agent roles
+  LLM returned an invalid seeker graph proposal
+  graph validation detail: AssertionError: roles must contain exactly two agent roles
+  LLM returned an invalid seeker graph proposal
+  LLM returned a valid seeker graph proposal
+  graph validation detail: AssertionError: roles must contain exactly two agent roles
+  LLM returned an invalid seeker graph proposal
+  graph validation detail: AssertionError: unknown segment acquire 'none'
+  LLM returned an invalid seeker graph proposal
+  no candidate improved the seeker graph
+[it     7 | S |  0.001M eps |   1.7 eps/s |    687s] J_h=0.558 WR_h=0.65   beh={'chase': 0.0, 'door': 0.0, 'r_use': 0.03, 'r_def': 0.0} stale(h/s)=1/1
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  accepted LLM #1 candidate for hider
+[it     8 | H |  0.001M eps |   1.8 eps/s |    797s] J_h=0.702 WR_h=0.85 + beh={'chase': 0.0, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=0/1
+  new hider graph:
+    assign=fixed params={'gain': 6.0, 'damp': 0.2, 'tol': 0.3, 'offset': 0.4, 'seg_timeout': 40.0}
+      role0 prep: grab box to stay[yaw0,door] | play: stay then [when door] grab ramp to stay[yaw3,door] lock
+      role1 prep: grab ramp to stay[yaw1,door] | play: stay then [when door] grab box to stay[yaw2,door] lock
+  graph validation detail: AssertionError: roles must contain exactly two agent roles
+  LLM returned an invalid seeker graph proposal
+  graph validation detail: AssertionError: roles must contain exactly two agent roles
+  LLM returned an invalid seeker graph proposal
+  graph validation detail: AssertionError: roles must contain exactly two agent roles
+  LLM returned an invalid seeker graph proposal
+  LLM returned a valid seeker graph proposal
+  graph validation detail: AssertionError: roles must contain exactly two agent roles
+  LLM returned an invalid seeker graph proposal
+  no candidate improved the seeker graph
+[it     9 | S |  0.001M eps |   1.6 eps/s |    903s] J_h=0.653 WR_h=0.75   beh={'chase': 0.0, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=0/2
+  graph validation detail: AssertionError: unknown segment route 'ramp'
+  LLM returned an invalid hider graph proposal
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it    10 | H |  0.002M eps |   1.7 eps/s |    992s] J_h=0.731 WR_h=0.85   beh={'chase': 0.0, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=0/2
+  graph validation detail: AssertionError: roles must contain exactly two agent roles
+  LLM returned an invalid seeker graph proposal
+  LLM returned a valid seeker graph proposal
+  LLM returned a valid seeker graph proposal
+  graph validation detail: AssertionError: roles must contain exactly two agent roles
+  LLM returned an invalid seeker graph proposal
+  graph validation detail: AssertionError: roles must contain exactly two agent roles
+  LLM returned an invalid seeker graph proposal
+Traceback (most recent call last):
+  File "train_gap.py", line 1507, in <module>
+    train()
+  File "train_gap.py", line 1427, in train
+    per = evaluate(pool, [S['hider']], cands, instances, opp_pool, learner)
+  File "train_gap.py", line 1241, in evaluate
+    results = pool.run(jobs)
+  File "train_gap.py", line 1012, in run
+    for job_id, res in pipe.recv():
+  File "/venv/py38/lib/python3.8/multiprocessing/connection.py", line 250, in recv
+    buf = self._recv_bytes()
+  File "/venv/py38/lib/python3.8/multiprocessing/connection.py", line 414, in _recv_bytes
+    buf = self._recv(4)
+  File "/venv/py38/lib/python3.8/multiprocessing/connection.py", line 383, in _recv
+    raise EOFError
+EOFError

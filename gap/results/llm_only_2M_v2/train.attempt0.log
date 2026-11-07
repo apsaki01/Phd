@@ -1,0 +1,171 @@
+════════════════════════════════════════════════════════════════════════
+  Hide & Seek — Graph-as-Policy two-team self-learning
+════════════════════════════════════════════════════════════════════════
+  workers=14  budget=2,000,000 episodes  rehearsals/candidate=40  candidates=6
+  belief space: p_door ∈ [1.0, 0.75, 0.5, 0.25, 0.0], random spawns;  omniscient objects: True
+  graph-update agent: LLM only (qwen3:8b): 5 proposals/round, temperature 0.70, 2 repair retries, no structural search
+  acceptance margin: 0.050
+  output: /workspace/training_output_gap_llm_only_2M_v2
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it     0 | H |  0.000M eps |   5.7 eps/s |     42s] J_h=0.343 WR_h=0.35   beh={'chase': 0.0, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=0/0
+  LLM returned a valid seeker graph proposal
+  LLM returned a valid seeker graph proposal
+  LLM returned a valid seeker graph proposal
+  LLM returned a valid seeker graph proposal
+  LLM returned a valid seeker graph proposal
+  accepted LLM #2 candidate for seeker
+[it     1 | S |  0.000M eps |   6.2 eps/s |     78s] J_h=0.045 WR_h=0.03 + beh={'chase': 0.0, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=0/0
+  new seeker graph:
+    assign=nearest_object params={'gain': 5.0, 'damp': 0.6, 'tol': 0.25, 'offset': 0.2, 'seg_timeout': 35.0}
+      role0 prep: (none) | play: search then [when doors_sealed] to door_block[target,direct]
+      role1 prep: (none) | play: chase then [when doors_sealed] to door_block[target,direct]
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  accepted LLM #5 candidate for hider
+[it     2 | H |  0.001M eps |   6.2 eps/s |    116s] J_h=0.205 WR_h=0.15 + beh={'chase': 0.07, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=1/0
+  new hider graph:
+    assign=fixed params={'gain': 5.0, 'damp': 0.6, 'tol': 0.4, 'offset': 0.25, 'seg_timeout': 20.0}
+      role0 prep: [when opponent_visible] to quadrant_corner[yaw0,direct] | play: go(quadrant_corner,direct) then [when doors_sealed] grab box to outside_wall[yaw1,direct] lock release
+      role1 prep: [when teammate_inside] grab ramp to ramp_inside[yaw2,direct] lock release | play: search then [when opponent_visible] to climb[align,direct]
+  graph validation detail: AssertionError: roles must contain exactly two agent roles
+  LLM returned a valid seeker graph proposal
+  LLM returned a valid seeker graph proposal
+  LLM returned a valid seeker graph proposal
+  LLM returned a valid seeker graph proposal (after 1 repair)
+  LLM returned a valid seeker graph proposal
+  no candidate improved the seeker graph
+[it     3 | S |  0.001M eps |   5.3 eps/s |    182s] J_h=0.095 WR_h=0.03   beh={'chase': 0.1, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=1/1
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  graph validation detail: AssertionError: unknown segment gate 'door_block'
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal (after 1 repair)
+  no candidate improved the hider graph
+[it     4 | H |  0.001M eps |   4.8 eps/s |    249s] J_h=0.272 WR_h=0.28   beh={'chase': 0.05, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=2/1
+  LLM returned a valid seeker graph proposal
+  LLM returned a valid seeker graph proposal
+  LLM returned a valid seeker graph proposal
+  graph validation detail: AssertionError: unknown segment gate 'ramp'
+  graph validation detail: AssertionError: roles must contain exactly two agent roles
+  LLM returned a valid seeker graph proposal (after 1 repair)
+  LLM returned a valid seeker graph proposal (after 1 repair)
+  no candidate improved the seeker graph
+[it     5 | S |  0.001M eps |   4.5 eps/s |    319s] J_h=0.072 WR_h=0.03   beh={'chase': 0.12, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.03} stale(h/s)=2/2
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  no candidate improved the hider graph
+[it     6 | H |  0.002M eps |   4.4 eps/s |    384s] J_h=0.247 WR_h=0.23   beh={'chase': 0.15, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=3/2
+  LLM returned a valid seeker graph proposal
+  LLM returned a valid seeker graph proposal
+  LLM returned a valid seeker graph proposal
+  LLM returned a valid seeker graph proposal
+  LLM returned a valid seeker graph proposal
+  no candidate improved the seeker graph
+[it     7 | S |  0.002M eps |   4.4 eps/s |    441s] J_h=0.114 WR_h=0.05   beh={'chase': 0.05, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=3/3
+  graph validation detail: AssertionError: roles must contain exactly two agent roles
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal (after 1 repair)
+  no candidate improved the hider graph
+[it     8 | H |  0.002M eps |   4.4 eps/s |    493s] J_h=0.237 WR_h=0.17   beh={'chase': 0.03, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=4/3
+  LLM returned a valid seeker graph proposal
+  LLM returned a valid seeker graph proposal
+  LLM returned a valid seeker graph proposal
+  graph validation detail: AssertionError: roles must contain exactly two agent roles
+  LLM returned a valid seeker graph proposal
+  graph validation detail: AssertionError: roles must contain exactly two agent roles
+  graph validation detail: AssertionError: roles must contain exactly two agent roles
+  LLM returned an invalid seeker graph proposal (after 2 repairs)
+  no candidate improved the seeker graph
+[it     9 | S |  0.002M eps |   4.3 eps/s |    552s] J_h=0.098 WR_h=0.03   beh={'chase': 0.1, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=4/4
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  graph validation detail: AssertionError: unknown segment gate 'seeker_outside'
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal (after 1 repair)
+  no candidate improved the hider graph
+[it    10 | H |  0.003M eps |   4.1 eps/s |    640s] J_h=0.224 WR_h=0.20   beh={'chase': 0.05, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.06} stale(h/s)=5/4
+  LLM returned a valid seeker graph proposal
+  LLM returned a valid seeker graph proposal
+  LLM returned a valid seeker graph proposal
+  graph validation detail: AssertionError: unknown segment gate 'ramp'
+  LLM returned a valid seeker graph proposal (after 1 repair)
+  LLM proposal failed: timed out
+  no candidate improved the seeker graph
+[it    11 | S |  0.003M eps |   2.5 eps/s |   1099s] J_h=0.070 WR_h=0.00   beh={'chase': 0.0, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.07} stale(h/s)=5/5
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  accepted LLM #5 candidate for hider
+[it    12 | H |  0.003M eps |   2.6 eps/s |   1161s] J_h=0.181 WR_h=0.17 + beh={'chase': 0.05, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=6/5
+  new hider graph:
+    assign=fixed params={'gain': 4.0, 'damp': 0.5, 'tol': 0.3, 'offset': 0.15, 'seg_timeout': 30.0}
+      role0 prep: [when doors_sealed] grab box to door_block[yaw0,direct] lock release | play: stay then [when opponent_visible] to stay[align,direct]
+      role1 prep: [when teammate_inside] grab ramp to ramp_inside[yaw2,direct] lock release | play: stay then [when opponent_visible] to climb[align,direct]
+  LLM returned a valid seeker graph proposal
+  graph validation detail: AssertionError: roles must contain exactly two agent roles
+  LLM returned a valid seeker graph proposal
+  LLM returned a valid seeker graph proposal
+  graph validation detail: AssertionError: roles must contain exactly two agent roles
+  LLM returned a valid seeker graph proposal
+  LLM returned a valid seeker graph proposal (after 2 repairs)
+  no candidate improved the seeker graph
+[it    13 | S |  0.003M eps |   2.7 eps/s |   1221s] J_h=0.062 WR_h=0.00   beh={'chase': 0.0, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=6/6
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  accepted LLM #4 candidate for hider
+[it    14 | H |  0.004M eps |   2.7 eps/s |   1293s] J_h=0.261 WR_h=0.23 + beh={'chase': 0.12, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=7/6
+  new hider graph:
+    assign=fixed params={'gain': 5.0, 'damp': 0.6, 'tol': 0.4, 'offset': 0.2, 'seg_timeout': 40.0}
+      role0 prep: [when door] grab box to outside_wall[align,door] lock release | play: search then [when opponent_visible] to stay[align,direct]
+      role1 prep: [when door] grab ramp to ramp_inside[align,door] lock release | play: flee then [when opponent_visible] to climb[align,direct]
+  LLM returned a valid seeker graph proposal
+  LLM returned a valid seeker graph proposal
+  LLM returned a valid seeker graph proposal
+  LLM returned a valid seeker graph proposal
+  graph validation detail: AssertionError: roles must contain exactly two agent roles
+  LLM returned a valid seeker graph proposal (after 1 repair)
+  no candidate improved the seeker graph
+[it    15 | S |  0.004M eps |   2.8 eps/s |   1339s] J_h=0.148 WR_h=0.05   beh={'chase': 0.1, 'door': 0.0, 'r_use': 0.0, 'r_def': 0.0} stale(h/s)=7/7
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal
+  graph validation detail: AssertionError: unknown segment gate 'seeker_inside'
+  LLM returned a valid hider graph proposal
+  LLM returned a valid hider graph proposal (after 1 repair)
+Traceback (most recent call last):
+  File "train_gap.py", line 1532, in <module>
+    mp.set_start_method('fork')
+  File "train_gap.py", line 1450, in train
+    
+  File "train_gap.py", line 1265, in evaluate
+    hg, sg = (cg, opp) if learner == 'hider' else (opp, cg)
+  File "train_gap.py", line 1013, in run
+    batches[j % n].append((j,) + tuple(job))
+  File "/venv/py38/lib/python3.8/multiprocessing/connection.py", line 206, in send
+    self._send_bytes(_ForkingPickler.dumps(obj))
+  File "/venv/py38/lib/python3.8/multiprocessing/connection.py", line 411, in _send_bytes
+    self._send(header + buf)
+  File "/venv/py38/lib/python3.8/multiprocessing/connection.py", line 368, in _send
+    n = write(self._handle, buf)
+BrokenPipeError: [Errno 32] Broken pipe
