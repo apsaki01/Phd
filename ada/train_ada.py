@@ -1560,10 +1560,10 @@ def train():
 
     # Background thread: delete tmp*.xml files leaked by mujoco_py every 10 min
     def _xml_cleanup_loop():
-        import glob
+        import glob, tempfile
         while not shutdown:
             time.sleep(600)
-            for f in glob.glob('/tmp/tmp*.xml'):
+            for f in glob.glob(os.path.join(tempfile.gettempdir(), 'tmp*.xml')):
                 try:
                     os.remove(f)
                 except OSError:

@@ -44,18 +44,19 @@ sbatch --export=ALL gap/run_gap_turing.slurm
 # output: ~/training_output_gap_turing/ (learning_curve.png, history.csv, train.log, best_*_graph.json)
 ```
 
-Local smoke test without an LLM (about 1 min): `source envs/hpc_env.sh && cd gap && SMOKE_TEST=1 $PY train_gap.py`.
+Everything that computes runs through Slurm, never directly on the login node (admins' rule). Quick tests use a short `srun` session; see `AGENT_HANDOFF.md` §9.8.
 
-### Render GaP graphs
+### Render GaP graphs (inside `srun -p COMPUTE -c 4 --mem=8G -t 00:30:00 --pty bash`)
 
 ```bash
-source envs/hpc_env.sh && cd gap
+source envs/hpc_env.sh && export TMPDIR=/tmp/${USER}_render && mkdir -p $TMPDIR && cd gap
 $PY render_gap.py results/llm_only_2M_fast/best_hider_graph.json results/llm_only_2M_fast/best_seeker_graph.json
+rm -rf $TMPDIR
 ```
 
-### ADA training (GPU machine)
+### ADA training
 
-`ada/setup_vastai.sh` (Vast.ai, Ubuntu, root) then `bash ada/run_train.sh`. Set `OUTPUT_DIR` for the output folder.
+On the HPC this needs a Slurm GPU job script (not written yet; one V100 is enough). On a private machine (Vast.ai): `ada/setup_vastai.sh`, then `bash ada/run_train.sh`. Set `OUTPUT_DIR` for the output folder.
 To continue the finished run, copy `ada/checkpoints/final_policy.npz` to `<OUTPUT_DIR>/checkpoints/resume_latest.npz`.
 
 ### Paper

@@ -197,7 +197,7 @@ The final graphs are in `best_hider_graph.json` / `best_seeker_graph.json`. They
 
 ## 7. Next steps (in order)
 1. On turing2, clone this repo and run `bash envs/hpc_setup.sh` to verify.
-2. Run a smoke test with `SMOKE_TEST=1`, then `sbatch ada/render_ada_turing.slurm` to confirm the new paths.
+2. Run the quick tests in §9.8 (inside `srun`), then `sbatch ada/render_ada_turing.slurm` to confirm the new paths.
 3. Act on the admins' reply, then run the GaP benchmark `gap/run_gap_turing.slurm`.
    - Report eps/s; the target is ≥ 10.
    - Then do a full LLM-only run and check whether `ramp_use` emerges, which it did not by 2M on Vast.
@@ -246,37 +246,61 @@ git status; git add -A; git commit -m "msg"; git push   # push results/code from
 ```
 Never `git add` keys, `training_output*/` or videos (`.gitignore` already blocks them; still check `git status` first).
 
-### 9.4 Slurm (the normal way to run on the HPC)
-Do not run heavy jobs on the login node.
+### 9.4 HPC rules (from the UCY admins and the login banner), always follow these
+- **Everything that computes runs through Slurm** (`sbatch`, or `srun` for short interactive tests). The login node (`turing2`) is only for editing, `git`, submitting and reading logs. No `nohup`, no `&`, no training, no rendering, and no Ollama on the login node.
+- Use **`turing2`**, not `turing1`.
+- Partitions:
+  - `COMPUTE`: CPU, 48 cores per node, max 7 days.
+  - `GPU`: always available. Ask for 1–4 cards with `--gres=gpu:tesla_v100-sxm2-32gb:N` (or `gpu:tesla_t4:1`).
+  - `INFERENCE`: **admins only**. We use it indirectly through the Bifrost API key.
+- **Request only what you will actually use.** The admins allow even a full node (72 CPUs + 4 V100) *if it is fully used, not 10 %*. They watch running jobs. After every job check the efficiency with **`seff <JOBID>`** and shrink the request if CPU or memory use was low.
+  - GaP needs CPUs (MuJoCo) plus the hosted LLM API, so request **no GPU**.
+  - Ask for a GPU only for neural-network training (ADA), or if we run Ollama ourselves inside the job (`export OLLAMA_MODELS=/opt/share/ollama; module load ollama`, allowed by the admins).
+- LLM: the admins offer an OpenAI-compatible inference endpoint (Bifrost, `https://turing2.ucy.ac.cy/v1`, header `x-bf-vk`). The key is personal and must never be written to files.
+- Software: `module use /opt/ohpc/pub/software/modules/all` then `module load ...` (done by `envs/hpc_env.sh`). The admins' `module load MuJoCo` is a newer MuJoCo and **not** compatible with our `mujoco_py` 1.50, so we use `~/.mujoco/mjpro150` and the `gap38` conda env.
+
+### 9.5 Slurm commands
 ```bash
-sbatch ada/render_ada_turing.slurm               # submit; prints "Submitted batch job <ID>"
+# submit (from ~/Phd); prints "Submitted batch job <ID>"
+sbatch ada/render_ada_turing.slurm
 ADA_CHECKPOINT=~/Phd/ada/checkpoints/rampuse.npz RENDER_EPISODES=5 sbatch ada/render_ada_turing.slurm
-read -s GAP_LLM_API_KEY && export GAP_LLM_API_KEY   # user types the key; nothing is shown
+read -s GAP_LLM_API_KEY && export GAP_LLM_API_KEY      # user types the key; nothing is shown
 sbatch --export=ALL gap/run_gap_turing.slurm
-squeue -u apsaki01                               # my jobs: R = running, PD = pending (reason in last column)
-scancel <ID>                                     # stop a job
-sacct -j <ID> --format=JobID,State,Elapsed,MaxRSS,ExitCode   # after it finished
-sinfo -p COMPUTE,GPU                             # free/busy nodes
-tail -f gap-bench-<ID>.out                       # follow the job's log live (Ctrl+C stops watching, not the job)
-srun -p COMPUTE -c 4 --mem=8G -t 00:30:00 --pty bash   # interactive shell on a compute node (for debugging)
-```
-Slurm logs (`ada-render-<ID>.out`, `gap-bench-<ID>.out`) are written to the folder you ran `sbatch` from, which is `~/Phd`.
+sbatch --export=ALL --time=2-00:00:00 gap/run_gap_turing.slurm   # override the walltime (max 7-00:00:00 on COMPUTE)
 
-### 9.5 Background runs without Slurm (the Vast.ai style)
-Use this only on a machine you own. On the HPC, use Slurm.
+# watch / control
+squeue -u apsaki01                 # my jobs: R = running, PD = pending (reason in last column)
+tail -f gap-bench-<ID>.out         # follow the job's console log (Ctrl+C stops watching, not the job)
+scancel <ID>                       # stop a job (GaP saves state; resubmitting continues, see below)
+sinfo -p COMPUTE,GPU               # free/busy nodes
+
+# after the job
+seff <ID>                          # CPU and memory efficiency: the admins want this high
+sacct -j <ID> --format=JobID,State,Elapsed,MaxRSS,ExitCode
+
+# short interactive session on a compute node (tests, debugging); exit with `exit`
+srun -p COMPUTE -c 4 --mem=8G -t 00:30:00 --pty bash
+```
+- Slurm console logs (`ada-render-<ID>.out`, `gap-bench-<ID>.out`) are written to the folder `sbatch` was run from (`~/Phd`). Training logs go to the output folder (§9.7).
+- **Long GaP runs:** `train_gap.py` resumes automatically from `$GAP_OUTPUT_DIR/gap_state.json`. If a job hits its time limit or is cancelled, resubmit with the **same** `GAP_OUTPUT_DIR` and it continues. To queue the continuation in advance, use `sbatch --export=ALL --dependency=afterany:<ID> gap/run_gap_turing.slurm`.
+- `ada/run_train.sh` and `gap/run_gap.sh` (restart loops) are for a private machine such as Vast.ai. **On the HPC, use the `.slurm` files.**
+
+### 9.6 Temporary MuJoCo XML files (important: they fill the disk)
+`mujoco_py` writes one `tmpXXXX.xml` file **for every episode reset** (`tempfile.NamedTemporaryFile(delete=False)` in `mujoco_py/cymj.pyx`) and never deletes it. A 2M-episode run creates millions of files.
+- The `.slurm` scripts handle this automatically:
+  - Each job uses its own `TMPDIR=/tmp/${USER}_<job>_<JOBID>`.
+  - A background loop deletes old `tmp*.xml` files there every 10 min.
+  - The whole folder is removed when the job ends (`trap ... EXIT`).
+- `train_ada.py` also has its own 10-minute cleanup thread. It respects `$TMPDIR`.
+- **Any new Slurm script that runs MuJoCo must copy this TMPDIR block.**
+- Manual check and cleanup (login node, or inside `srun` for the compute node's `/tmp`):
 ```bash
-# start in the background, survive logout, keep a log
-cd ~/Phd/gap && mkdir -p ~/training_output_gap
-nohup bash run_gap.sh > ~/training_output_gap/wrapper.log 2>&1 & disown
-cd ~/Phd/ada && nohup bash run_train.sh > training_output/wrapper.log 2>&1 & disown
-#   nohup   = keep running after the terminal closes
-#   > f 2>&1 = stdout and stderr into the log file
-#   &       = run in background;  disown = detach from this shell
-ps aux | grep -E 'train_gap|train_ada' | grep -v grep    # is it running?
-pkill -f train_gap.py                                    # stop it (the run_gap.sh loop also exits on rc 130/0)
+find /tmp -maxdepth 2 -user $USER -name 'tmp*.xml' | wc -l     # how many leaked files
+find /tmp -maxdepth 2 -user $USER -name 'tmp*.xml' -delete     # delete them
 ```
 
-### 9.6 Watching training progress
+### 9.7 Watching training progress
+Reading logs is fine on the login node.
 ```bash
 tail -f ~/training_output_gap_turing/train.log           # live log (Ctrl+C to stop watching)
 tail -n 30 ~/training_output_gap_turing/train.log        # last 30 lines
@@ -295,24 +319,30 @@ A GaP log line looks like:
 
 To get `learning_curve.png` onto the Mac, use `scp` (§9.1).
 
-### 9.7 Quick tests
+### 9.8 Quick tests (inside a short `srun` session, not on the login node)
 ```bash
+srun -p COMPUTE -c 4 --mem=8G -t 00:30:00 --pty bash     # wait for the compute-node prompt
 source ~/Phd/envs/hpc_env.sh
-cd ~/Phd/gap && SMOKE_TEST=1 GAP_OUTPUT_DIR=/tmp/gap_smoke_$USER $PY train_gap.py   # ~1 min, no LLM needed
-cd ~/Phd/gap && GAP_ORACLE_TEST=1 $PY train_gap.py                                  # hand-written graphs: skills + detectors
-cd ~/Phd/ada && RENDER_EPISODES=1 RENDER_OUTPUT=/tmp/t.mp4 $PY render_ada.py        # 1-episode render
-# Bifrost reachability (login node). The key comes from the exported variable, never typed into files
+export TMPDIR=/tmp/${USER}_test && mkdir -p $TMPDIR
+cd ~/Phd/gap && SMOKE_TEST=1 GAP_WORKERS=3 GAP_OUTPUT_DIR=$TMPDIR/gap_smoke $PY train_gap.py   # ~1 min, no LLM
+cd ~/Phd/gap && GAP_ORACLE_TEST=1 $PY train_gap.py                     # hand-written graphs: skills + detectors
+cd ~/Phd/ada && RENDER_EPISODES=1 RENDER_OUTPUT=$TMPDIR/t.mp4 $PY render_ada.py
+rm -rf $TMPDIR; exit                                                   # clean up, leave the compute node
+```
+Bifrost reachability is a light check, so it is fine on the login node. The key comes from the exported variable and is never typed into files:
+```bash
 curl -s -m 60 https://turing2.ucy.ac.cy/v1/models -H "x-bf-vk: $GAP_LLM_API_KEY" | head -c 300
 ```
 
-### 9.8 Disk and housekeeping
+### 9.9 Disk and housekeeping
 ```bash
 du -sh ~/* | sort -h | tail        # what uses space
 quota -s 2>/dev/null || df -h ~    # home quota
-find /tmp -maxdepth 1 -user $USER -name 'tmp*.xml' -delete   # MuJoCo leaks temp XMLs on every reset
+find /tmp -maxdepth 2 -user $USER -name 'tmp*.xml' -delete   # leaked MuJoCo XMLs (see 9.6)
+ls ~/Phd/*.out                     # old Slurm console logs; delete when no longer needed
 ```
 
-### 9.9 Agent tool quirk (VS Code terminal)
+### 9.10 Agent tool quirk (VS Code terminal)
 In the Vast workspace, terminal commands often only returned "opened the alternate buffer" instead of their output. The workaround was:
 1. Redirect the output to a file, `{ cmd1; cmd2; } > /tmp/out.txt 2>&1`.
 2. Read that file.

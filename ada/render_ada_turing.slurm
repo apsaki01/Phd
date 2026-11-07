@@ -36,4 +36,9 @@ if [[ ! -s "$CHECKPOINT" ]]; then
     exit 2
 fi
 
-exec srun --cpu-bind=cores "$HOME/conda_envs/gap38/bin/python" -u render_ada.py "$CHECKPOINT"
+# mujoco_py leaks one tmp*.xml per episode reset into $TMPDIR
+export TMPDIR="/tmp/${USER}_render_${SLURM_JOB_ID:-$$}"
+mkdir -p "$TMPDIR"
+trap 'rm -rf "$TMPDIR"' EXIT
+
+srun --cpu-bind=cores "$HOME/conda_envs/gap38/bin/python" -u render_ada.py "$CHECKPOINT"

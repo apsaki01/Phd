@@ -40,4 +40,11 @@ export GAP_ROUND_WINDOW="${GAP_ROUND_WINDOW:-45}"
 export GAP_OUTPUT_DIR="${GAP_OUTPUT_DIR:-$HOME/training_output_gap_turing}"
 
 mkdir -p "$GAP_OUTPUT_DIR"
-exec srun --cpu-bind=cores "$HOME/conda_envs/gap38/bin/python" -u train_gap.py
+
+# mujoco_py leaks one tmp*.xml per episode reset into $TMPDIR
+export TMPDIR="/tmp/${USER}_gap_${SLURM_JOB_ID:-$$}"
+mkdir -p "$TMPDIR"
+trap 'rm -rf "$TMPDIR"' EXIT
+( while sleep 600; do find "$TMPDIR" -maxdepth 1 -name 'tmp*.xml' -mmin +5 -delete 2>/dev/null; done ) &
+
+srun --cpu-bind=cores "$HOME/conda_envs/gap38/bin/python" -u train_gap.py
