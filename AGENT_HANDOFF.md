@@ -210,3 +210,111 @@ The final graphs are in `best_hider_graph.json` / `best_seeker_graph.json`. They
 - The `feedback/` folder of `llm_only_2M_fast`.
 
 All of these lived only on the Vast machine and are gone.
+
+## 9. Command cheat sheet (what we actually use)
+
+Always tell the user **which terminal** a command goes in:
+- **[Mac]** `studentone@cs11572acstudio ~ %`
+- **[HPC]** `apsaki01@turing2:~$`
+
+Unless noted otherwise, commands run on the HPC from `~/Phd`.
+
+### 9.1 Connecting and moving files
+```bash
+# [Mac] log in to the HPC (alias defined in ~/.ssh/config)
+ssh ucy-hpc
+# [Mac] upload a file / download a result (run on the Mac, NOT inside the ssh session)
+scp ~/Downloads/mjkey.txt ucy-hpc:~/.mujoco/mjkey.txt
+scp ucy-hpc:~/ada_hide_and_seek_10episodes.mp4 ~/Desktop/
+scp -r ucy-hpc:~/training_output_gap_turing ~/Desktop/
+# [Mac] verify a big transfer was not truncated (compare with the same command on the HPC)
+shasum -a 256 file.tar.gz          # Mac
+sha256sum file.tar.gz              # HPC
+```
+
+### 9.2 Environment (every new HPC shell)
+```bash
+source ~/Phd/envs/hpc_env.sh       # modules + MuJoCo paths; sets $PY to the gap38 python
+$PY -c "import mujoco_py; print('ok')"
+```
+Use `$PY` (= `~/conda_envs/gap38/bin/python`), not `python3`. The system python lacks the packages.
+
+### 9.3 Code updates
+```bash
+cd ~/Phd && git pull && git lfs pull      # get the latest code + checkpoints
+git status; git add -A; git commit -m "msg"; git push   # push results/code from the HPC
+```
+Never `git add` keys, `training_output*/` or videos (`.gitignore` already blocks them; still check `git status` first).
+
+### 9.4 Slurm (the normal way to run on the HPC)
+Do not run heavy jobs on the login node.
+```bash
+sbatch ada/render_ada_turing.slurm               # submit; prints "Submitted batch job <ID>"
+ADA_CHECKPOINT=~/Phd/ada/checkpoints/rampuse.npz RENDER_EPISODES=5 sbatch ada/render_ada_turing.slurm
+read -s GAP_LLM_API_KEY && export GAP_LLM_API_KEY   # user types the key; nothing is shown
+sbatch --export=ALL gap/run_gap_turing.slurm
+squeue -u apsaki01                               # my jobs: R = running, PD = pending (reason in last column)
+scancel <ID>                                     # stop a job
+sacct -j <ID> --format=JobID,State,Elapsed,MaxRSS,ExitCode   # after it finished
+sinfo -p COMPUTE,GPU                             # free/busy nodes
+tail -f gap-bench-<ID>.out                       # follow the job's log live (Ctrl+C stops watching, not the job)
+srun -p COMPUTE -c 4 --mem=8G -t 00:30:00 --pty bash   # interactive shell on a compute node (for debugging)
+```
+Slurm logs (`ada-render-<ID>.out`, `gap-bench-<ID>.out`) are written to the folder you ran `sbatch` from, which is `~/Phd`.
+
+### 9.5 Background runs without Slurm (the Vast.ai style)
+Use this only on a machine you own. On the HPC, use Slurm.
+```bash
+# start in the background, survive logout, keep a log
+cd ~/Phd/gap && mkdir -p ~/training_output_gap
+nohup bash run_gap.sh > ~/training_output_gap/wrapper.log 2>&1 & disown
+cd ~/Phd/ada && nohup bash run_train.sh > training_output/wrapper.log 2>&1 & disown
+#   nohup   = keep running after the terminal closes
+#   > f 2>&1 = stdout and stderr into the log file
+#   &       = run in background;  disown = detach from this shell
+ps aux | grep -E 'train_gap|train_ada' | grep -v grep    # is it running?
+pkill -f train_gap.py                                    # stop it (the run_gap.sh loop also exits on rc 130/0)
+```
+
+### 9.6 Watching training progress
+```bash
+tail -f ~/training_output_gap_turing/train.log           # live log (Ctrl+C to stop watching)
+tail -n 30 ~/training_output_gap_turing/train.log        # last 30 lines
+grep 'eps/s' ~/training_output_gap_turing/train.log | tail -1   # current speed + J + behaviour rates
+tail -3 ~/training_output_gap_turing/history.csv         # per-iteration metrics
+grep -i -E 'error|traceback|timed out' ~/training_output_gap_turing/train.log | tail
+bash ~/Phd/ada/monitor.sh                                # ADA progress (uses OUTPUT_DIR)
+```
+A GaP log line looks like:
+`[it 4611 | 2.000M eps | 9.2 eps/s | 216643s] J_h=0.271 WR_h=0.28 beh={'chase':..,'door':..,'r_use':..,'r_def':..} stale(h/s)=768/602`.
+- `it`, `eps`: iteration and episode counters.
+- `eps/s`: throughput; the target is ≥ 10.
+- `J_h`, `WR_h`: hider objective and hider win rate.
+- `beh`: behaviour rates.
+- `stale`: rounds since each team last improved.
+
+To get `learning_curve.png` onto the Mac, use `scp` (§9.1).
+
+### 9.7 Quick tests
+```bash
+source ~/Phd/envs/hpc_env.sh
+cd ~/Phd/gap && SMOKE_TEST=1 GAP_OUTPUT_DIR=/tmp/gap_smoke_$USER $PY train_gap.py   # ~1 min, no LLM needed
+cd ~/Phd/gap && GAP_ORACLE_TEST=1 $PY train_gap.py                                  # hand-written graphs: skills + detectors
+cd ~/Phd/ada && RENDER_EPISODES=1 RENDER_OUTPUT=/tmp/t.mp4 $PY render_ada.py        # 1-episode render
+# Bifrost reachability (login node). The key comes from the exported variable, never typed into files
+curl -s -m 60 https://turing2.ucy.ac.cy/v1/models -H "x-bf-vk: $GAP_LLM_API_KEY" | head -c 300
+```
+
+### 9.8 Disk and housekeeping
+```bash
+du -sh ~/* | sort -h | tail        # what uses space
+quota -s 2>/dev/null || df -h ~    # home quota
+find /tmp -maxdepth 1 -user $USER -name 'tmp*.xml' -delete   # MuJoCo leaks temp XMLs on every reset
+```
+
+### 9.9 Agent tool quirk (VS Code terminal)
+In the Vast workspace, terminal commands often only returned "opened the alternate buffer" instead of their output. The workaround was:
+1. Redirect the output to a file, `{ cmd1; cmd2; } > /tmp/out.txt 2>&1`.
+2. Read that file.
+
+Long commands keep running after the tool returns. Re-read the file until the output is complete.
